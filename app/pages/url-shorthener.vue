@@ -1,39 +1,40 @@
 <script lang="ts" setup>
-  import type { FormSubmitEvent } from '@nuxt/ui';
-  import { useClipboard } from '@vueuse/core';
+import type { FormSubmitEvent } from '@nuxt/ui';
+import { useClipboard } from '@vueuse/core';
 
-  const value = ref('');
-  const result = ref('');
-  const hasGenerated = ref(false);
-  const { copy, copied } = useClipboard();
+import { useUrlShortener } from '~/composables/useUrlShortener';
+
+
+
+const value = ref('');
+const result = ref('');
+const hasGenerated = ref(false);
+const { copy, copied } = useClipboard();
+const { generate } = useUrlShortener();
+
+type schema = {
+  url: string;
+};
+
+const state = reactive({
+  url: value,
+});
+
+const handleOnSubmit = async (event: FormSubmitEvent<schema>) => {
+  const url = await generate(event.data.url);
+  result.value = url!;
+  hasGenerated.value = true;
+};
+
+const handleOnSubmitTest = async (event: FormSubmitEvent<schema>) => {
+  result.value = event.data.url;
+  hasGenerated.value = true;
+};
+
+const handleBack = () => {
+  hasGenerated.value = false;
+};
   
-  type UrlShothernerResponse = {
-    url: string;
-  };
-
-  type schema = {
-    url: string;
-  };
-
-  const state = reactive({
-    url: value,
-  });
-
-  const handleOnSubmit = async (event: FormSubmitEvent<schema>) => {
-    const { data } = await useFetch<UrlShothernerResponse>(`/api/url-shorthener/generate?url=${event.data.url}`);
-    result.value = data.value!.url;
-  };
-  
-  const handleOnSubmitTest = async (event: FormSubmitEvent<schema>) => {
-    result.value = event.data.url;
-    hasGenerated.value = true;
-  };
-  
-  const handleBack = () => {
-    hasGenerated.value = false;
-  };
-  
-
 </script>
 
 <template>
