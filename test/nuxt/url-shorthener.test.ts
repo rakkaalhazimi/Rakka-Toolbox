@@ -69,8 +69,6 @@ describe('URL Shortener', () => {
     const inputElement = inputResult.element as HTMLInputElement;
     
     expect(inputResult.exists()).toBeTruthy();
-    // await new Promise((resolve, reject) => setTimeout(() => resolve(null), 2000));
-    console.log(inputResult);
     expect(inputElement.value).toBe(expectedUrl);
   });
 
