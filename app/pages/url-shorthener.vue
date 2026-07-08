@@ -6,33 +6,36 @@ import { useUrlShortener } from '~/composables/useUrlShortener';
 
 
 
-const value = ref('');
-const result = ref('');
+const urlInput = ref('');
+const urlResult = ref('');
 const hasGenerated = ref(false);
 const { copy, copied } = useClipboard();
-const { generate } = useUrlShortener();
+const { trigger, pending, error } = useUrlShortener();
+const toast = useToast();
 
 type schema = {
   url: string;
 };
 
 const state = reactive({
-  url: value,
+  url: urlInput,
 });
 
 const handleOnSubmit = async (event: FormSubmitEvent<schema>) => {
-  const url = await generate(event.data.url);
-  result.value = url!;
   hasGenerated.value = true;
+  const res = await trigger(event.data.url);
+  urlResult.value = res.url;
 };
 
 const handleOnSubmitTest = async (event: FormSubmitEvent<schema>) => {
-  result.value = event.data.url;
+  urlResult.value = event.data.url;
   hasGenerated.value = true;
 };
 
 const handleBack = () => {
   hasGenerated.value = false;
+  urlResult.value = '';
+  urlInput.value = '';
 };
   
 </script>
@@ -52,14 +55,14 @@ const handleBack = () => {
           v-if="!hasGenerated"
           class="flex flex-row justify-center gap-x-2 mx-auto max-w-md"
           :state="state"
-          @submit="handleOnSubmit"
+          @submit.prevent="handleOnSubmit"
         >
           <UFormField name="url">
             <UInput 
               type="url" 
               size="lg"
               placeholder="Type your url here" 
-              v-model="value" 
+              v-model="urlInput" 
               trailing-icon="i-lucide-link"
               class="md:w-md"
             />
@@ -72,10 +75,12 @@ const handleBack = () => {
           <div class="flex flex-row items-end gap-x-2">
             <UFormField label="Your result">
               <UInput 
+                id="url-shorthener-result"
                 size="lg" 
-                :model-value="result" 
-                readonly
+                :model-value="urlResult" 
+                :loading="pending"
                 :ui="{ trailing: 'pr-0.5' }"
+                readonly
                 class="md:w-md"
               />
             </UFormField>
@@ -85,7 +90,7 @@ const handleBack = () => {
               size="lg"
               :icon="copied ? 'i-lucide-copy-check' : 'i-lucide-copy'"
               aria-label="Copy to clipboard"
-              @click="copy(result)"
+              @click="copy(urlResult)"
             />
           </div>
           

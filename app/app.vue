@@ -49,6 +49,7 @@ useSeoMeta({
       </template>
     </UHeader>
 
+    <NuxtLoadingIndicator />
     <UMain>
       <NuxtPage />
     </UMain>

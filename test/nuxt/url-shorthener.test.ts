@@ -19,10 +19,14 @@ mockNuxtImport('useFetch', () => {
 });
 
 
+const mockFetch = vi.fn();
+vi.stubGlobal('$fetch', mockFetch);
+
+
 const mockGenerateUrl = vi.fn().mockResolvedValue('');
 vi.mock('@/composables/useUrlShortener', () => ({
   useUrlShortener: () => ({
-    generate: mockGenerateUrl
+    trigger: mockGenerateUrl,
   })
 }));
 
@@ -54,16 +58,16 @@ describe('URL Shortener', () => {
     const baseUrl = 'https://google.com';
     const expectedUrl = 'https://localhost:3000/abcd';
 
-    mockGenerateUrl.mockResolvedValueOnce(expectedUrl);
+    mockGenerateUrl.mockResolvedValueOnce({url: expectedUrl});
 
     const component = await mountSuspended(UrlShortener);
     await component.find('input[type="url"]').setValue(baseUrl);
     await component.find('form').trigger('submit');
     await component.find('button[type="submit"]').trigger('click');
 
-    const inputResult = component.find('input[readonly]');
+    const inputResult = component.find('input#url-shorthener-result');
     const inputElement = inputResult.element as HTMLInputElement;
-
+    
     expect(inputResult.exists()).toBeTruthy();
     expect(inputElement.value).toBe(expectedUrl);
   });

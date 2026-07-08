@@ -7,6 +7,7 @@ import { useRedis } from "~~/server/utils/redis"
 const retries = 3;
 
 export default defineEventHandler(async (event) => {
+  setHeader(event, 'Cache-Control', 'no-store');
   const query = getQuery(event);
   
   if (query.url) {
