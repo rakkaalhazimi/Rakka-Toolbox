@@ -34,7 +34,7 @@ const progressBaseWidthPx = ref(0);
 const progressVarWidthPx = computed(() => rightHandle.pos - leftHandle.pos - handleWidthPx);
 const progressBaseLeftPx = computed(() => 
   trackSliderRef.value 
-  ? trackSliderRef.value.getBoundingClientRect().left + handleWidthPx / 2
+  ? trackSliderRef.value.getBoundingClientRect().left
   : 0
 );
 
@@ -141,8 +141,8 @@ onMounted(async () => {
 
   const sliderWidth = trackSliderRef.value!.getBoundingClientRect().width;
 
-  maxPos.value = sliderWidth - (handleWidthPx / 2);
-  minPos.value = -(handleWidthPx / 2);
+  maxPos.value = sliderWidth;
+  minPos.value = -handleWidthPx;
 
   leftHandle.pos = minPos.value;
   rightHandle.pos = maxPos.value;
