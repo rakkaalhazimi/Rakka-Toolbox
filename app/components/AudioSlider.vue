@@ -15,7 +15,6 @@ type TrackHandle = {
   onMouseMove: (event: MouseEvent) => void;
 }
 
-const audioRef = useTemplateRef<HTMLAudioElement>('audio');
 const audioContext = ref<AudioContext>();
 const audioDurationSecond = ref(10);
 const timeStartSecond = ref(0);
@@ -61,7 +60,7 @@ const leftHandle = reactive<TrackHandle>({
     
     timeStartSecond.value = 
       (progressLeftPx - progressBaseLeftPx.value) / progressBaseWidthPx.value
-      * audioDurationSecond.value;
+      * audioManager.audioDurationSecond;
     timeStartSecond.value = round2Decimal(timeStartSecond.value);
     
     // console.log('Time start: ', timeStartSecond.value);
@@ -89,7 +88,7 @@ const rightHandle = reactive<TrackHandle>({
     
     timeEndSecond.value = 
       (progressRightPx - progressBaseLeftPx.value) / progressBaseWidthPx.value
-      * audioDurationSecond.value;
+      * audioManager.audioDurationSecond;
     timeEndSecond.value = round2Decimal(timeEndSecond.value);
     
     // console.log('Time end: ', timeEndSecond.value);
@@ -101,22 +100,6 @@ function round2Decimal(value: number) {
   return Math.round(value * 100) / 100;
 }
 
-async function loadAudio() {
-  if (!props.audioFile) return;
-  
-  const file = props.audioFile;
-  const url = URL.createObjectURL(file);
-  audioRef.value!.src = url;
-  
-  const arrayBuffer = await file.arrayBuffer();
-  const audioBuffer = await audioContext.value!.decodeAudioData(arrayBuffer);
-  
-  audioDurationSecond.value = round2Decimal(audioBuffer.duration);
-  const audioWaveform = audioBuffer.getChannelData(0);
-  
-  // showWavePlot(audioWaveform);
-  // showWaveBarPlot(audioWaveform);
-}
 
 function secondsToHHMMSS(totalSeconds: number) {
   const hours = Math.floor(totalSeconds / 3600);
@@ -136,8 +119,11 @@ onMounted(async () => {
   window.addEventListener('mousemove', leftHandle.onMouseMove);
   window.addEventListener('mousemove', rightHandle.onMouseMove);
   
-  audioContext.value = new AudioContext();
-  loadAudio();
+  // audioContext.value = new AudioContext();
+  // loadAudio();
+  
+  audioManager.init();
+  audioManager.loadAudio(props.audioFile!);
 
   const sliderWidth = trackSliderRef.value!.getBoundingClientRect().width;
 
