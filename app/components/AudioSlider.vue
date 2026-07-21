@@ -25,6 +25,8 @@ const maxPos = ref(0);
 const handleWidthPx = 12;
 const handleHeightPx = 96;
 const sliderHeightPx = 48;
+const seekWidthPx = 3;
+const seekHeightPx = sliderHeightPx;
 
 const trackSliderRef = useTemplateRef<HTMLDivElement>('track-slider');
 const progressSliderRef = useTemplateRef<HTMLDivElement>('progress-slider');
@@ -93,6 +95,69 @@ const rightHandle = reactive<TrackHandle>({
     
     // console.log('Time end: ', timeEndSecond.value);
   },
+});
+
+const seekBar = reactive<TrackHandle>({
+  pos: 0,
+  isDragging: false,
+  onMouseUp: (event: MouseEvent) => {seekBar.isDragging = false},
+  onMouseDown: (event: MouseEvent) => {seekBar.isDragging = true},
+  onMouseMove: (event: MouseEvent) => {
+    if (!seekBar.isDragging) return;
+    
+    const sliderLeftPx = trackSliderRef.value!.getBoundingClientRect().left;
+    const handlePos = event.clientX - sliderLeftPx - (seekWidthPx / 2);
+
+    seekBar.pos = useClamp(
+      handlePos,
+      minPos.value,
+      rightHandle.pos - seekWidthPx, // Two handle won't collide
+    );
+    
+    const progressLeftPx = progressSliderRef.value!.getBoundingClientRect().left;
+    
+    timeStartSecond.value = 
+      (progressLeftPx - progressBaseLeftPx.value) / progressBaseWidthPx.value
+      * audioManager.audioDurationSecond;
+    timeStartSecond.value = round2Decimal(timeStartSecond.value);
+  }
+});
+
+
+const audioManager = reactive({
+  isPlaying: false,
+  audioRef: useTemplateRef<HTMLAudioElement>('audio'),
+  audioContext: ref<AudioContext>(),
+  audioDurationSecond: ref(0),
+  init: () => {
+    audioManager.audioContext = new AudioContext();
+    audioManager.audioRef!.onended = audioManager.onAudioEnd;
+  },
+  
+  loadAudio: async (file: File) => {
+    const url = URL.createObjectURL(file);
+    audioManager.audioRef!.src = url;
+    
+    const arrayBuffer = await file.arrayBuffer();
+    const audioBuffer = await audioManager.audioContext!.decodeAudioData(arrayBuffer);
+    
+    audioManager.audioDurationSecond = round2Decimal(audioBuffer.duration);
+    const audioWaveform = audioBuffer.getChannelData(0);
+  },
+  
+  playAudio: () => {
+    audioManager.audioRef?.play();
+    audioManager.isPlaying = true;
+  },
+  
+  pauseAudio: () => {
+    audioManager.audioRef?.pause();
+    audioManager.isPlaying = false;
+  },
+  
+  onAudioEnd: () => {
+    audioManager.isPlaying = false;
+  }  
 });
 
 
@@ -174,6 +239,16 @@ onUnmounted(() => {
           height: `${ sliderHeightPx }px`,
         }"
       ></div>
+      <div 
+        id="seek-bar"
+        class="absolute bg-gray-700"
+        :style="{
+          left: `${seekBar.pos}`,
+          width: `${seekWidthPx}px`,
+          height: `${seekHeightPx}px`,
+        }"
+      >
+      </div>
       <button
         ref="left-track-handle"
         class="absolute top-[-50%] h-12 rounded-lg border bg-white"
@@ -202,5 +277,24 @@ onUnmounted(() => {
     <p id="duration">Duration: {{ secondsToHHMMSS(audioDurationSecond) }}</p>
     <p id="time-start">Time Start: {{ secondsToHHMMSS(timeStartSecond) }}</p>
     <p id="time-end">Time End: {{ secondsToHHMMSS(timeEndSecond) }}</p>
+    
+    <UButton
+      v-if="!audioManager.isPlaying"
+      icon="i-mdi-play"
+      size="sm"
+      color="primary"
+      square
+      class="rounded-full"
+      @click="audioManager.playAudio"
+    />
+    <UButton
+      v-else
+      icon="i-material-symbols-pause"
+      size="sm"
+      color="primary"
+      square
+      class="rounded-full"
+      @click="audioManager.pauseAudio"
+    />
   </div>
 </template>
