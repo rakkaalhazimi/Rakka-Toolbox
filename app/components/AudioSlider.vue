@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { useClamp } from '~/composables/useClamp';
+import { useDownloadBlob } from '~/composables/useDownloadBlob';
+import { useTrimAudio } from '~/composables/useTrimAudio';
 
 
 
@@ -177,6 +179,13 @@ function secondsToHHMMSS(totalSeconds: number) {
   return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
 }
 
+async function handleTrimAudio() {
+  const { outputUrl, outputName } = 
+    await useTrimAudio(props.audioFile!, timeStartSecond.value, timeEndSecond.value);
+    
+  useDownloadBlob(outputUrl, outputName);
+}
+
 
 onMounted(async () => {
   window.addEventListener('mouseup', leftHandle.onMouseUp);
@@ -298,5 +307,7 @@ onUnmounted(() => {
       class="rounded-full"
       @click="audioManager.pauseAudio"
     />
+    
+    <UButton @click="handleTrimAudio">Trim</UButton>
   </div>
 </template>
