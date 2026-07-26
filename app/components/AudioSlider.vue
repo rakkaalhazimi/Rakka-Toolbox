@@ -188,7 +188,9 @@ onMounted(async () => {
   // loadAudio();
   
   audioManager.init();
-  audioManager.loadAudio(props.audioFile!);
+  await audioManager.loadAudio(props.audioFile!);
+  timeEndSecond.value = audioManager.audioDurationSecond;
+  // console.log('Time end second: ', timeEndSecond.value);
 
   const sliderWidth = trackSliderRef.value!.getBoundingClientRect().width;
 
