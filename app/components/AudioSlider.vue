@@ -285,7 +285,7 @@ onUnmounted(() => {
     </div>
 
 
-    <p id="duration">Duration: {{ secondsToHHMMSS(audioDurationSecond) }}</p>
+    <p id="duration">Duration: {{ secondsToHHMMSS(audioManager.audioDurationSecond) }}</p>
     <p id="time-start">Time Start: {{ secondsToHHMMSS(timeStartSecond) }}</p>
     <p id="time-end">Time End: {{ secondsToHHMMSS(timeEndSecond) }}</p>
     
