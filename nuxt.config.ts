@@ -5,7 +5,13 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/test-utils/module',
   ],
-
+  
+  vite: {
+    optimizeDeps: {
+      exclude: ['@ffmpeg/ffmpeg', '@ffmpeg/util'],
+    },
+  },
+  
   devtools: {
     enabled: true
   },
@@ -13,7 +19,13 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   routeRules: {
-    '/': { prerender: true }
+    '/': { prerender: true },
+    '/**': {
+      headers: {
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+      },
+    },
   },
 
   compatibilityDate: '2026-06-30',
