@@ -2,7 +2,7 @@
 import type { FormSubmitEvent } from '@nuxt/ui';
 
 const audioFile = ref<File>();
-const hasUpload = ref(true);
+const hasUpload = ref(false);
 
 type schema = {
   url: string;
