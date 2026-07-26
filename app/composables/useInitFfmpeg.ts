@@ -3,7 +3,7 @@ import { toBlobURL } from '@ffmpeg/util';
 
 
 
-export async function useInitFfmpeg() {
+export default async function useInitFfmpeg() {
   const ffmpeg = new FFmpeg();
   const baseURL = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@0.12.10/dist/esm';
   await ffmpeg.load({

@@ -2,7 +2,7 @@ type UrlShothernerResponse = {
   url: string;
 };
 
-export function useUrlShortener() {
+export default function useUrlShortener() {
   const pending = ref(false);
   const error = ref<Error | null>(null);
   

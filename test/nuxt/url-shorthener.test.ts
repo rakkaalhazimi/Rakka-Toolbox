@@ -25,7 +25,7 @@ vi.stubGlobal('$fetch', mockFetch);
 
 const mockGenerateUrl = vi.fn().mockResolvedValue('');
 vi.mock('@/composables/useUrlShortener', () => ({
-  useUrlShortener: () => ({
+  default: () => ({
     trigger: mockGenerateUrl,
   })
 }));

@@ -2,8 +2,6 @@
 import type { FormSubmitEvent } from '@nuxt/ui';
 import { useClipboard } from '@vueuse/core';
 
-import { useUrlShortener } from '~/composables/useUrlShortener';
-
 
 
 const urlInput = ref('');

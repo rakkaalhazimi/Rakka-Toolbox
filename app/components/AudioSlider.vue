@@ -1,10 +1,4 @@
 <script lang="ts" setup>
-import { useClamp } from '~/composables/useClamp';
-import { useDownloadBlob } from '~/composables/useDownloadBlob';
-import { useTrimAudio } from '~/composables/useTrimAudio';
-
-
-
 const props = defineProps<{
   audioFile?: File;
 }>();
