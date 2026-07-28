@@ -34,7 +34,6 @@ export default function useAudioManager(refName: string) {
 
     playAudio: () => {
       audioRef.value?.play();
-      console.log(audioCurrentTime);
       audioManager.isPlaying = true;
     },
 

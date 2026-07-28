@@ -152,9 +152,10 @@ onMounted(async () => {
   // console.log('Progress left: ', progressBaseLeftPx.value);
   // console.log('Offset left: ', leftHandle.pos + handleWidthPx);
   
+  // nextTick() will wait the layout to load.
+  // Sometimes the layout is still loading and some size get off
   // Need to recalculate the layout to get the true value
-  await nextTick();
-  console.log('Progress left after tick: ', progressSliderRef.value!.getBoundingClientRect().left);
+  // await nextTick();
   
 });
 
