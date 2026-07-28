@@ -122,11 +122,6 @@ const seekBar = reactive<TrackHandle>({
 });
 
 
-function round2Decimal(value: number) {
-  return Math.round(value * 100) / 100;
-}
-
-
 function secondsToHHMMSS(totalSeconds: number) {
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
