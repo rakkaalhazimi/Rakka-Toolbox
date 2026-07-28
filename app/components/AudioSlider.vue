@@ -95,30 +95,12 @@ const rightHandle = reactive<TrackHandle>({
   },
 });
 
-const seekBar = reactive<TrackHandle>({
-  pos: 0,
-  isDragging: false,
-  onMouseUp: (event: MouseEvent) => {seekBar.isDragging = false},
-  onMouseDown: (event: MouseEvent) => {seekBar.isDragging = true},
-  onMouseMove: (event: MouseEvent) => {
-    if (!seekBar.isDragging) return;
-    
-    const sliderLeftPx = trackSliderRef.value!.getBoundingClientRect().left;
-    const handlePos = event.clientX - sliderLeftPx - (seekWidthPx / 2);
 
-    seekBar.pos = clampNumber(
-      handlePos,
-      minPos.value,
-      rightHandle.pos - seekWidthPx, // Two handle won't collide
-    );
-    
-    const progressLeftPx = progressSliderRef.value!.getBoundingClientRect().left;
-    
-    timeStartSecond.value = 
-      (progressLeftPx - progressBaseLeftPx.value) / progressBaseWidthPx.value
-      * audioManager.audioDurationSecond;
-    timeStartSecond.value = round2Decimal(timeStartSecond.value);
-  }
+const seekBarPos = computed(() => {
+  const currentProgressPx = 
+    (audioManager.audioCurrentTime / audioManager.audioDurationSecond)
+    * progressBaseWidthPx.value;
+  return currentProgressPx;
 });
 
 
@@ -208,7 +190,7 @@ onUnmounted(() => {
         id="seek-bar"
         class="absolute bg-gray-700"
         :style="{
-          left: `${seekBar.pos}`,
+          left: `${seekBarPos}px`,
           width: `${seekWidthPx}px`,
           height: `${seekHeightPx}px`,
         }"
