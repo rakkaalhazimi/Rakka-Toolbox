@@ -100,7 +100,11 @@ const seekBarPos = computed(() => {
   const currentProgressPx = 
     (audioManager.audioCurrentTime / audioManager.audioDurationSecond)
     * progressBaseWidthPx.value;
-  return currentProgressPx;
+  return clampNumber(
+    currentProgressPx, 
+    leftHandle.pos + handleWidthPx, 
+    rightHandle.pos - seekWidthPx
+  );
 });
 
 
