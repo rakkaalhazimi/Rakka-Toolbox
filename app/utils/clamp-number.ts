@@ -1,4 +1,4 @@
-export default function useClamp(
+export function clampNumber(
     val: number, min: number, max: number): number {
   return Math.min(Math.max(val, min), max);
 };

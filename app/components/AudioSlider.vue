@@ -48,7 +48,7 @@ const leftHandle = reactive<TrackHandle>({
     const sliderLeftPx = trackSliderRef.value!.getBoundingClientRect().left;
     const handlePos = event.clientX - sliderLeftPx - (handleWidthPx / 2);
 
-    leftHandle.pos = useClamp(
+    leftHandle.pos = clampNumber(
       handlePos,
       minPos.value,
       rightHandle.pos - handleWidthPx, // Two handle won't collide
@@ -76,7 +76,7 @@ const rightHandle = reactive<TrackHandle>({
     const sliderLeftPx = trackSliderRef.value!.getBoundingClientRect().left;
     const handlePos = event.clientX - sliderLeftPx - (handleWidthPx / 2);
 
-    rightHandle.pos = useClamp(
+    rightHandle.pos = clampNumber(
       handlePos,
       leftHandle.pos + handleWidthPx, // Two handle won't collide
       maxPos.value,
@@ -104,7 +104,7 @@ const seekBar = reactive<TrackHandle>({
     const sliderLeftPx = trackSliderRef.value!.getBoundingClientRect().left;
     const handlePos = event.clientX - sliderLeftPx - (seekWidthPx / 2);
 
-    seekBar.pos = useClamp(
+    seekBar.pos = clampNumber(
       handlePos,
       minPos.value,
       rightHandle.pos - seekWidthPx, // Two handle won't collide
@@ -175,9 +175,9 @@ function secondsToHHMMSS(totalSeconds: number) {
 
 async function handleTrimAudio() {
   const { outputUrl, outputName } = 
-    await useTrimAudio(props.audioFile!, timeStartSecond.value, timeEndSecond.value);
+    await trimAudio(props.audioFile!, timeStartSecond.value, timeEndSecond.value);
     
-  useDownloadBlob(outputUrl, outputName);
+  downloadBlob(outputUrl, outputName);
 }
 
 
