@@ -44,6 +44,22 @@ export default function useAudioManager(refName: string) {
 
     onAudioEnd: () => {
       audioManager.isPlaying = false;
+    },
+    
+    setAudioCurrentTime: (time: number) => {
+      const audio = audioRef.value!;
+      audio.currentTime = time;
+    },
+    
+    stopAtTime: (timeStart: number, timeEnd: number) => {
+      const audio = audioRef.value!;
+      audio.ontimeupdate = () => {
+        audioCurrentTime.value = audio.currentTime;
+        if (audio.currentTime >= timeEnd) {
+          audioManager.pauseAudio();
+          audioManager.setAudioCurrentTime(timeStart);
+        }
+      };
     }
   });
 
