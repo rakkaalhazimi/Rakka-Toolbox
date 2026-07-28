@@ -35,6 +35,8 @@ const progressBaseLeftPx = computed(() =>
   : 0
 );
 
+const audioRefName = 'audio';
+const audioManager = useAudioManager(audioRefName);
 
 
 const leftHandle = reactive<TrackHandle>({
@@ -120,43 +122,6 @@ const seekBar = reactive<TrackHandle>({
 });
 
 
-const audioManager = reactive({
-  isPlaying: false,
-  audioRef: useTemplateRef<HTMLAudioElement>('audio'),
-  audioContext: ref<AudioContext>(),
-  audioDurationSecond: ref(0),
-  init: () => {
-    audioManager.audioContext = new AudioContext();
-    audioManager.audioRef!.onended = audioManager.onAudioEnd;
-  },
-  
-  loadAudio: async (file: File) => {
-    const url = URL.createObjectURL(file);
-    audioManager.audioRef!.src = url;
-    
-    const arrayBuffer = await file.arrayBuffer();
-    const audioBuffer = await audioManager.audioContext!.decodeAudioData(arrayBuffer);
-    
-    audioManager.audioDurationSecond = round2Decimal(audioBuffer.duration);
-    const audioWaveform = audioBuffer.getChannelData(0);
-  },
-  
-  playAudio: () => {
-    audioManager.audioRef?.play();
-    audioManager.isPlaying = true;
-  },
-  
-  pauseAudio: () => {
-    audioManager.audioRef?.pause();
-    audioManager.isPlaying = false;
-  },
-  
-  onAudioEnd: () => {
-    audioManager.isPlaying = false;
-  }  
-});
-
-
 function round2Decimal(value: number) {
   return Math.round(value * 100) / 100;
 }
@@ -234,7 +199,7 @@ onUnmounted(() => {
         height: `${ sliderHeightPx }px`,
       }"
     >
-      <audio ref="audio"/>
+      <audio :ref="audioRefName"/>
       <div
         ref="progress-slider"
         class="absolute bg-primary origin-left"
