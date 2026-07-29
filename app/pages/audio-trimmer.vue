@@ -68,7 +68,7 @@ const handleBack = () => {
         <div v-else class="flex flex-col items-center gap-y-4 mx-auto max-w-md">
           Syudah
           <UButton @click="handleBack">Eh gajadi deh</UButton>
-          <AudioSlider :audio-file="audioFile"></AudioSlider>
+          <AudioTrimmer :audio-file="audioFile"></AudioTrimmer>
         </div>
         
       </UContainer>
