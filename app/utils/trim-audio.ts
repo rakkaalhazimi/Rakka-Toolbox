@@ -1,11 +1,9 @@
 import { fetchFile } from '@ffmpeg/util';
 
-import { useInitFfmpeg } from '~/composables/useInitFfmpeg';
 
 
-
-export async function useTrimAudio(inputFile: File, startTime: number, endTime: number) {
-  const ffmpeg = await useInitFfmpeg();
+export async function trimAudio(inputFile: File, startTime: number, endTime: number) {
+  const ffmpeg = await initFfmpeg();
   const inputName = inputFile.name;
   const outputName = `output_${inputName}`;
 

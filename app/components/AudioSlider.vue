@@ -1,10 +1,4 @@
 <script lang="ts" setup>
-import { useClamp } from '~/composables/useClamp';
-import { useDownloadBlob } from '~/composables/useDownloadBlob';
-import { useTrimAudio } from '~/composables/useTrimAudio';
-
-
-
 const props = defineProps<{
   audioFile?: File;
 }>();
@@ -41,6 +35,8 @@ const progressBaseLeftPx = computed(() =>
   : 0
 );
 
+const audioRefName = 'audio';
+const audioManager = useAudioManager(audioRefName);
 
 
 const leftHandle = reactive<TrackHandle>({
@@ -54,7 +50,7 @@ const leftHandle = reactive<TrackHandle>({
     const sliderLeftPx = trackSliderRef.value!.getBoundingClientRect().left;
     const handlePos = event.clientX - sliderLeftPx - (handleWidthPx / 2);
 
-    leftHandle.pos = useClamp(
+    leftHandle.pos = clampNumber(
       handlePos,
       minPos.value,
       rightHandle.pos - handleWidthPx, // Two handle won't collide
@@ -66,6 +62,9 @@ const leftHandle = reactive<TrackHandle>({
       (progressLeftPx - progressBaseLeftPx.value) / progressBaseWidthPx.value
       * audioManager.audioDurationSecond;
     timeStartSecond.value = round2Decimal(timeStartSecond.value);
+    
+    audioManager.setAudioCurrentTime(timeStartSecond.value);
+    audioManager.stopAtTime(timeStartSecond.value, timeEndSecond.value);
     
     // console.log('Time start: ', timeStartSecond.value);
   },
@@ -82,7 +81,7 @@ const rightHandle = reactive<TrackHandle>({
     const sliderLeftPx = trackSliderRef.value!.getBoundingClientRect().left;
     const handlePos = event.clientX - sliderLeftPx - (handleWidthPx / 2);
 
-    rightHandle.pos = useClamp(
+    rightHandle.pos = clampNumber(
       handlePos,
       leftHandle.pos + handleWidthPx, // Two handle won't collide
       maxPos.value,
@@ -95,77 +94,23 @@ const rightHandle = reactive<TrackHandle>({
       * audioManager.audioDurationSecond;
     timeEndSecond.value = round2Decimal(timeEndSecond.value);
     
+    audioManager.setAudioCurrentTime(timeStartSecond.value);
+    audioManager.stopAtTime(timeStartSecond.value, timeEndSecond.value);
     // console.log('Time end: ', timeEndSecond.value);
   },
 });
 
-const seekBar = reactive<TrackHandle>({
-  pos: 0,
-  isDragging: false,
-  onMouseUp: (event: MouseEvent) => {seekBar.isDragging = false},
-  onMouseDown: (event: MouseEvent) => {seekBar.isDragging = true},
-  onMouseMove: (event: MouseEvent) => {
-    if (!seekBar.isDragging) return;
-    
-    const sliderLeftPx = trackSliderRef.value!.getBoundingClientRect().left;
-    const handlePos = event.clientX - sliderLeftPx - (seekWidthPx / 2);
 
-    seekBar.pos = useClamp(
-      handlePos,
-      minPos.value,
-      rightHandle.pos - seekWidthPx, // Two handle won't collide
-    );
-    
-    const progressLeftPx = progressSliderRef.value!.getBoundingClientRect().left;
-    
-    timeStartSecond.value = 
-      (progressLeftPx - progressBaseLeftPx.value) / progressBaseWidthPx.value
-      * audioManager.audioDurationSecond;
-    timeStartSecond.value = round2Decimal(timeStartSecond.value);
-  }
+const seekBarPos = computed(() => {
+  const currentProgressPx = 
+    (audioManager.audioCurrentTime / audioManager.audioDurationSecond)
+    * progressBaseWidthPx.value;
+  return clampNumber(
+    currentProgressPx, 
+    leftHandle.pos + handleWidthPx, 
+    rightHandle.pos - seekWidthPx
+  );
 });
-
-
-const audioManager = reactive({
-  isPlaying: false,
-  audioRef: useTemplateRef<HTMLAudioElement>('audio'),
-  audioContext: ref<AudioContext>(),
-  audioDurationSecond: ref(0),
-  init: () => {
-    audioManager.audioContext = new AudioContext();
-    audioManager.audioRef!.onended = audioManager.onAudioEnd;
-  },
-  
-  loadAudio: async (file: File) => {
-    const url = URL.createObjectURL(file);
-    audioManager.audioRef!.src = url;
-    
-    const arrayBuffer = await file.arrayBuffer();
-    const audioBuffer = await audioManager.audioContext!.decodeAudioData(arrayBuffer);
-    
-    audioManager.audioDurationSecond = round2Decimal(audioBuffer.duration);
-    const audioWaveform = audioBuffer.getChannelData(0);
-  },
-  
-  playAudio: () => {
-    audioManager.audioRef?.play();
-    audioManager.isPlaying = true;
-  },
-  
-  pauseAudio: () => {
-    audioManager.audioRef?.pause();
-    audioManager.isPlaying = false;
-  },
-  
-  onAudioEnd: () => {
-    audioManager.isPlaying = false;
-  }  
-});
-
-
-function round2Decimal(value: number) {
-  return Math.round(value * 100) / 100;
-}
 
 
 function secondsToHHMMSS(totalSeconds: number) {
@@ -181,9 +126,9 @@ function secondsToHHMMSS(totalSeconds: number) {
 
 async function handleTrimAudio() {
   const { outputUrl, outputName } = 
-    await useTrimAudio(props.audioFile!, timeStartSecond.value, timeEndSecond.value);
+    await trimAudio(props.audioFile!, timeStartSecond.value, timeEndSecond.value);
     
-  useDownloadBlob(outputUrl, outputName);
+  downloadBlob(outputUrl, outputName);
 }
 
 
@@ -216,9 +161,10 @@ onMounted(async () => {
   // console.log('Progress left: ', progressBaseLeftPx.value);
   // console.log('Offset left: ', leftHandle.pos + handleWidthPx);
   
+  // nextTick() will wait the layout to load.
+  // Sometimes the layout is still loading and some size get off
   // Need to recalculate the layout to get the true value
-  await nextTick();
-  console.log('Progress left after tick: ', progressSliderRef.value!.getBoundingClientRect().left);
+  // await nextTick();
   
 });
 
@@ -240,7 +186,7 @@ onUnmounted(() => {
         height: `${ sliderHeightPx }px`,
       }"
     >
-      <audio ref="audio"/>
+      <audio :ref="audioRefName"/>
       <div
         ref="progress-slider"
         class="absolute bg-primary origin-left"
@@ -254,7 +200,7 @@ onUnmounted(() => {
         id="seek-bar"
         class="absolute bg-gray-700"
         :style="{
-          left: `${seekBar.pos}`,
+          left: `${seekBarPos}px`,
           width: `${seekWidthPx}px`,
           height: `${seekHeightPx}px`,
         }"
