@@ -19,9 +19,7 @@ export default function useAudioManager(refName: string) {
       audioContext.value = new AudioContext();
       const audio = audioRef.value!;
       audio.onended = audioManager.onAudioEnd;
-      audio.ontimeupdate = () => {
-        audioCurrentTime.value = audio.currentTime;
-      };
+      audio.ontimeupdate = audioManager.onTimeUpdate;
     },
 
     loadAudio: async (file: File) => {
@@ -46,6 +44,11 @@ export default function useAudioManager(refName: string) {
       audioManager.isPlaying = false;
     },
     
+    onTimeUpdate: (event: Event) => {
+      const audio = event.currentTarget as HTMLAudioElement;
+      audioCurrentTime.value = audio.currentTime;
+    },
+    
     setAudioCurrentTime: (time: number) => {
       const audio = audioRef.value!;
       audio.currentTime = time;
@@ -57,8 +60,8 @@ export default function useAudioManager(refName: string) {
     
     stopAtTime: (timeStart: number, timeEnd: number) => {
       const audio = audioRef.value!;
-      audio.ontimeupdate = () => {
-        audioCurrentTime.value = audio.currentTime;
+      audio.ontimeupdate = (event: Event) => {
+        audioManager.onTimeUpdate(event);
         if (audio.currentTime >= timeEnd) {
           audioManager.pauseAudio();
           audioManager.setAudioCurrentTime(timeStart);
