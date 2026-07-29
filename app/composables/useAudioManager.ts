@@ -49,6 +49,10 @@ export default function useAudioManager(refName: string) {
     setAudioCurrentTime: (time: number) => {
       const audio = audioRef.value!;
       audio.currentTime = time;
+      audio.onended = () => {
+        audioManager.onAudioEnd();
+        audio.currentTime = time;
+      }
     },
     
     stopAtTime: (timeStart: number, timeEnd: number) => {
