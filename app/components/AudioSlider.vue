@@ -64,6 +64,7 @@ const leftHandle = reactive<TrackHandle>({
     timeStartSecond.value = round2Decimal(timeStartSecond.value);
     
     audioManager.setAudioCurrentTime(timeStartSecond.value);
+    audioManager.stopAtTime(timeStartSecond.value, timeEndSecond.value);
     
     // console.log('Time start: ', timeStartSecond.value);
   },
