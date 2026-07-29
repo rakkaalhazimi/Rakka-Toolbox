@@ -15,7 +15,6 @@ const state = reactive({
   
 const handleOnSubmit = (event: FormSubmitEvent<schema>) => {
   hasUpload.value = true;
-  console.log(event.data);
 };
 
 const handleBack = () => {
