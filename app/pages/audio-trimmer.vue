@@ -64,13 +64,13 @@ const handleBack = () => {
           
         </UForm>
         
-        <div v-else class="flex flex-col items-center gap-y-4 mx-auto max-w-5xl">
+        <div v-else class="flex flex-col items-center gap-y-8 mx-auto max-w-5xl">
           <UButton
             to=""
             variant="link"
             color="primary"
             icon="i-heroicons-arrow-left"
-            class="cursor-pointer"
+            class="cursor-pointer ml-auto"
             @click="handleBack"
           >
             Cancel
