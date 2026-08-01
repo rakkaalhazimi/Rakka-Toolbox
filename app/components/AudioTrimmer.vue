@@ -240,7 +240,7 @@ onUnmounted(() => {
         icon="i-mdi-play"
         size="2xl"
         color="primary"
-        class="rounded-full"
+        class="rounded-full self-start"
         @click="audioManager.playAudio"
       />
       <UButton
@@ -248,7 +248,7 @@ onUnmounted(() => {
         icon="i-material-symbols-pause"
         size="2xl"
         color="primary"
-        class="rounded-full"
+        class="rounded-full self-start"
         @click="audioManager.pauseAudio"
       />
       <div class="grid grid-cols-3 items-center w-full text-center">
