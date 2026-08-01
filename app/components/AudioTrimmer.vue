@@ -11,15 +11,14 @@ type TrackHandle = {
   onMouseMove: (event: MouseEvent) => void;
 }
 
-const audioContext = ref<AudioContext>();
-const audioDurationSecond = ref(10);
 const timeStartSecond = ref(0);
 const timeEndSecond = ref(0);
 
+const epsilon = 1e-7;
 const minPos = ref(0);
 const maxPos = ref(0);
-const handleWidthPx = 12;
-const handleHeightPx = 96;
+const handleWidthPx = 30;
+const handleHeightPx = 30;
 const sliderHeightPx = 48;
 const seekWidthPx = 3;
 const seekHeightPx = sliderHeightPx;
@@ -28,7 +27,7 @@ const trackSliderRef = useTemplateRef<HTMLDivElement>('track-slider');
 const progressSliderRef = useTemplateRef<HTMLDivElement>('progress-slider');
 
 const progressBaseWidthPx = ref(0);
-const progressVarWidthPx = computed(() => rightHandle.pos - leftHandle.pos - handleWidthPx);
+const progressVarWidthPx = computed(() => rightHandle.pos - leftHandle.pos);
 const progressBaseLeftPx = computed(() => 
   trackSliderRef.value 
   ? trackSliderRef.value.getBoundingClientRect().left
@@ -53,7 +52,7 @@ const leftHandle = reactive<TrackHandle>({
     leftHandle.pos = clampNumber(
       handlePos,
       minPos.value,
-      rightHandle.pos - handleWidthPx, // Two handle won't collide
+      rightHandle.pos - epsilon, // Two handles won't collide
     );
     
     const progressLeftPx = progressSliderRef.value!.getBoundingClientRect().left;
@@ -83,7 +82,7 @@ const rightHandle = reactive<TrackHandle>({
 
     rightHandle.pos = clampNumber(
       handlePos,
-      leftHandle.pos + handleWidthPx, // Two handle won't collide
+      leftHandle.pos + epsilon, // Two handles won't collide
       maxPos.value,
     );
     
@@ -149,7 +148,7 @@ onMounted(async () => {
   const sliderWidth = trackSliderRef.value!.getBoundingClientRect().width;
 
   maxPos.value = sliderWidth;
-  minPos.value = -handleWidthPx;
+  minPos.value = 0;
 
   leftHandle.pos = minPos.value;
   rightHandle.pos = maxPos.value;
@@ -191,12 +190,12 @@ onUnmounted(() => {
         ref="progress-slider"
         class="absolute bg-primary origin-left"
         :style="{
-          left: `${ leftHandle.pos + handleWidthPx }px`,
+          left: `${ leftHandle.pos }px`,
           width: `${ progressVarWidthPx }px`,
           height: `${ sliderHeightPx }px`,
         }"
       ></div>
-      <div 
+      <!-- <div 
         id="seek-bar"
         class="absolute bg-gray-700"
         :style="{
@@ -205,8 +204,8 @@ onUnmounted(() => {
           height: `${seekHeightPx}px`,
         }"
       >
-      </div>
-      <button
+      </div> -->
+      <!-- <button
         ref="left-track-handle"
         class="absolute top-[-50%] h-12 rounded-lg border bg-white"
         :style="{
@@ -227,7 +226,30 @@ onUnmounted(() => {
         }"
         @mousedown="rightHandle.onMouseDown?.($event)"
       >
-      </button>
+      </button> -->
+      <HandleTick 
+        ref="left-track-handle"
+        :width="handleWidthPx" 
+        :height="handleHeightPx"
+        class="absolute bg-primary"
+        :style="{
+          top: `-${handleHeightPx}px`,
+          left: `${leftHandle.pos - handleWidthPx / 2}px`,
+        }"
+        @mousedown="leftHandle.onMouseDown?.($event)"
+      ></HandleTick>
+
+      <HandleTick 
+        ref="right-track-handle"
+        :width="handleWidthPx" 
+        :height="handleHeightPx"
+        class="absolute bg-primary"
+        :style="{
+          top: `-${handleHeightPx}px`,
+          left: `${rightHandle.pos - handleWidthPx / 2}px`,
+        }"
+        @mousedown="rightHandle.onMouseDown?.($event)"
+      ></HandleTick>
     </div>
 
     <div class="flex flex-row">
