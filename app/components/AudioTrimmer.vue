@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { useElementSize } from '@vueuse/core';
+
 const props = defineProps<{
   audioFile?: File;
 }>();
@@ -11,20 +13,24 @@ type TrackHandle = {
   onMouseMove: (event: MouseEvent) => void;
 }
 
+const epsilon = 2;
+
 const timeStartSecond = ref(0);
 const timeEndSecond = ref(0);
 
-const epsilon = 1e-7;
+const trackSliderRef = useTemplateRef<HTMLDivElement>('track-slider');
+const progressSliderRef = useTemplateRef<HTMLDivElement>('progress-slider');
+
+const { width: sliderWidth } = useElementSize(trackSliderRef);
 const minPos = ref(0);
-const maxPos = ref(0);
+const maxPos = computed(() => sliderWidth.value);
+
 const handleWidthPx = 30;
 const handleHeightPx = 30;
 const sliderHeightPx = 48;
 const seekWidthPx = 3;
 const seekHeightPx = sliderHeightPx;
 
-const trackSliderRef = useTemplateRef<HTMLDivElement>('track-slider');
-const progressSliderRef = useTemplateRef<HTMLDivElement>('progress-slider');
 
 const progressBaseWidthPx = ref(0);
 const progressVarWidthPx = computed(() => rightHandle.pos - leftHandle.pos);
@@ -69,6 +75,7 @@ const leftHandle = reactive<TrackHandle>({
   },
 });
 
+
 const rightHandle = reactive<TrackHandle>({
   pos: 0,
   isDragging: false,
@@ -106,8 +113,8 @@ const seekBarPos = computed(() => {
     * progressBaseWidthPx.value;
   return clampNumber(
     currentProgressPx, 
-    leftHandle.pos + handleWidthPx, 
-    rightHandle.pos - seekWidthPx
+    leftHandle.pos, 
+    rightHandle.pos
   );
 });
 
@@ -144,11 +151,6 @@ onMounted(async () => {
   await audioManager.loadAudio(props.audioFile!);
   timeEndSecond.value = audioManager.audioDurationSecond;
   // console.log('Time end second: ', timeEndSecond.value);
-
-  const sliderWidth = trackSliderRef.value!.getBoundingClientRect().width;
-
-  maxPos.value = sliderWidth;
-  minPos.value = 0;
 
   leftHandle.pos = minPos.value;
   rightHandle.pos = maxPos.value;
@@ -195,7 +197,8 @@ onUnmounted(() => {
           height: `${ sliderHeightPx }px`,
         }"
       ></div>
-      <!-- <div 
+      
+       <div 
         id="seek-bar"
         class="absolute bg-gray-700"
         :style="{
@@ -204,29 +207,8 @@ onUnmounted(() => {
           height: `${seekHeightPx}px`,
         }"
       >
-      </div> -->
-      <!-- <button
-        ref="left-track-handle"
-        class="absolute top-[-50%] h-12 rounded-lg border bg-white"
-        :style="{
-          left: `${leftHandle.pos}px`,
-          width: `${handleWidthPx}px`,
-          height: `${handleHeightPx}px`,
-        }"
-        @mousedown="leftHandle.onMouseDown?.($event)"
-      >
-      </button>
-      <button
-        ref="right-track-handle"
-        class="absolute top-[-50%] h-12 rounded-lg border bg-white"
-        :style="{
-          left: `${rightHandle.pos}px`,
-          width: `${handleWidthPx}px`,
-          height: `${handleHeightPx}px`,
-        }"
-        @mousedown="rightHandle.onMouseDown?.($event)"
-      >
-      </button> -->
+      </div> 
+      
       <HandleTick 
         ref="left-track-handle"
         :width="handleWidthPx" 
