@@ -31,7 +31,7 @@ const handleBack = () => {
       title="Audio Trimmer"
       description="Let's get the part of audio that you need."
       :ui="{
-        container: 'sm:gap-10'
+        container: 'sm:gap-10',
       }"
     >
       <UContainer>
@@ -64,9 +64,17 @@ const handleBack = () => {
           
         </UForm>
         
-        <div v-else class="flex flex-col items-center gap-y-4 mx-auto max-w-md">
-          Syudah
-          <UButton @click="handleBack">Eh gajadi deh</UButton>
+        <div v-else class="flex flex-col items-center gap-y-4 mx-auto max-w-5xl">
+          <UButton
+            to=""
+            variant="link"
+            color="primary"
+            icon="i-heroicons-arrow-left"
+            class="cursor-pointer"
+            @click="handleBack"
+          >
+            Cancel
+          </UButton>
           <AudioTrimmer :audio-file="audioFile"></AudioTrimmer>
         </div>
         

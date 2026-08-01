@@ -178,7 +178,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="relative w-full">
+  <div class="relative flex flex-col gap-y-6 w-full">
     <div
       ref="track-slider"
       class="relative w-full h-6 bg-gray-300"
@@ -230,30 +230,41 @@ onUnmounted(() => {
       </button>
     </div>
 
+    <div class="flex flex-row">
+      <UButton
+        v-if="!audioManager.isPlaying"
+        icon="i-mdi-play"
+        size="2xl"
+        color="primary"
+        class="rounded-full"
+        @click="audioManager.playAudio"
+      />
+      <UButton
+        v-else
+        icon="i-material-symbols-pause"
+        size="2xl"
+        color="primary"
+        class="rounded-full"
+        @click="audioManager.pauseAudio"
+      />
+      <div class="grid grid-cols-3 items-center w-full text-center">
+        <span>
+          <p>Duration</p>
+          <p id="duration">{{ round2Decimal(timeEndSecond - timeStartSecond) }}</p>
+        </span>
+        <span>
+          <p>Time Start</p>
+          <p id="time-start">{{ secondsToHHMMSS(timeStartSecond) }}</p>
+        </span>
+        <span>
+          <p>Time End</p>
+          <p id="time-end">{{ secondsToHHMMSS(timeEndSecond) }}</p>
+        </span>
+      </div>
+    </div>
 
-    <p id="duration">Duration: {{ secondsToHHMMSS(audioManager.audioDurationSecond) }}</p>
-    <p id="time-start">Time Start: {{ secondsToHHMMSS(timeStartSecond) }}</p>
-    <p id="time-end">Time End: {{ secondsToHHMMSS(timeEndSecond) }}</p>
-    
-    <UButton
-      v-if="!audioManager.isPlaying"
-      icon="i-mdi-play"
-      size="sm"
-      color="primary"
-      square
-      class="rounded-full"
-      @click="audioManager.playAudio"
-    />
-    <UButton
-      v-else
-      icon="i-material-symbols-pause"
-      size="sm"
-      color="primary"
-      square
-      class="rounded-full"
-      @click="audioManager.pauseAudio"
-    />
-    
-    <UButton @click="handleTrimAudio">Trim</UButton>
+    <div class="flex justify-end">
+      <UButton size="lg" @click="handleTrimAudio">Trim</UButton>
+    </div>
   </div>
 </template>
