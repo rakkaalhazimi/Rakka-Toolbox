@@ -113,14 +113,20 @@ const rightPos = computed(() =>
 
 
 const seekBarPos = computed(() => {
-  const currentProgressPx = 
-    (audioManager.audioCurrentTime / audioManager.audioDurationSecond)
-    * progressBaseWidthPx.value;
-  return clampNumber(
-    currentProgressPx, 
-    leftHandle.pos, 
-    rightHandle.pos
-  );
+  if (audioManager.isPlaying) {
+    const currentProgressPx = 
+      (audioManager.audioCurrentTime / audioManager.audioDurationSecond)
+      * progressBaseWidthPx.value;
+
+    return clampNumber(
+      currentProgressPx, 
+      leftPos.value, 
+      rightPos.value,
+    );
+    
+  } else {
+    return leftPos.value + offsetPx;
+  }
 });
 
 
