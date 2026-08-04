@@ -43,6 +43,8 @@ const progressBaseLeftPx = computed(() =>
 const audioRefName = 'audio';
 const audioManager = useAudioManager(audioRefName);
 
+const isLoadingTrim = ref(false);
+
 
 const leftHandle = reactive<TrackHandle>({
   pos: 0,
@@ -147,10 +149,12 @@ function secondsToHHMMSS(totalSeconds: number) {
 }
 
 async function handleTrimAudio() {
+  isLoadingTrim.value = true;
   const { outputUrl, outputName } = 
     await trimAudio(props.audioFile!, timeStartSecond.value, timeEndSecond.value);
     
   downloadBlob(outputUrl, outputName);
+  isLoadingTrim.value = false;
 }
 
 
@@ -286,7 +290,11 @@ onUnmounted(() => {
     </div>
 
     <div class="flex justify-end">
-      <UButton size="lg" @click="handleTrimAudio">Trim</UButton>
+      <UButton 
+        size="lg" 
+        :loading="isLoadingTrim"
+        @click="handleTrimAudio"
+      >Trim</UButton>
     </div>
   </div>
 </template>
