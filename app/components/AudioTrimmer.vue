@@ -6,34 +6,34 @@ const props = defineProps<{
 }>();
 
 type TrackHandle = {
-  pos: number;
+  pos: number | ComputedRef<number>;
   isDragging: boolean;
   onMouseUp: (event: MouseEvent) => void;
   onMouseDown: (event: MouseEvent) => void;
   onMouseMove: (event: MouseEvent) => void;
 }
 
-const epsilon = 2;
-
 const timeStartSecond = ref(0);
 const timeEndSecond = ref(0);
 
-const trackSliderRef = useTemplateRef<HTMLDivElement>('track-slider');
-const progressSliderRef = useTemplateRef<HTMLDivElement>('progress-slider');
+const trackSliderRefName = 'track-slider';
+const trackSliderRef = useTemplateRef<HTMLDivElement>(trackSliderRefName);
+const progressSliderRefName = 'progress-slider';
+const progressSliderRef = useTemplateRef<HTMLDivElement>(progressSliderRefName);
 
 const { width: sliderWidth } = useElementSize(trackSliderRef);
-const minPos = ref(0);
-const maxPos = computed(() => sliderWidth.value);
-
 const handleWidthPx = 30;
 const handleHeightPx = 30;
 const sliderHeightPx = 48;
 const seekWidthPx = 3;
 const seekHeightPx = sliderHeightPx;
 
+const offsetPx = handleWidthPx / 2;
+const minPos = ref(-offsetPx);
+const maxPos = computed(() => sliderWidth.value - offsetPx);
 
 const progressBaseWidthPx = ref(0);
-const progressVarWidthPx = computed(() => rightHandle.pos - leftHandle.pos);
+const progressVarWidthPx = computed(() => rightPos.value - leftPos.value);
 const progressBaseLeftPx = computed(() => 
   trackSliderRef.value 
   ? trackSliderRef.value.getBoundingClientRect().left
@@ -53,14 +53,9 @@ const leftHandle = reactive<TrackHandle>({
     if (!leftHandle.isDragging) return;
 
     const sliderLeftPx = trackSliderRef.value!.getBoundingClientRect().left;
-    const handlePos = event.clientX - sliderLeftPx - (handleWidthPx / 2);
+    const handlePos = event.clientX - sliderLeftPx - offsetPx;
+    leftHandle.pos = Math.min(handlePos, rightHandle.pos);
 
-    leftHandle.pos = clampNumber(
-      handlePos,
-      minPos.value,
-      rightHandle.pos - epsilon, // Two handles won't collide
-    );
-    
     const progressLeftPx = progressSliderRef.value!.getBoundingClientRect().left;
     
     timeStartSecond.value = 
@@ -74,6 +69,12 @@ const leftHandle = reactive<TrackHandle>({
     // console.log('Time start: ', timeStartSecond.value);
   },
 });
+const leftPos = computed(() =>
+  clampNumber(
+    leftHandle.pos,
+    minPos.value,
+    maxPos.value,
+));
 
 
 const rightHandle = reactive<TrackHandle>({
@@ -85,14 +86,9 @@ const rightHandle = reactive<TrackHandle>({
     if (!rightHandle.isDragging) return;
 
     const sliderLeftPx = trackSliderRef.value!.getBoundingClientRect().left;
-    const handlePos = event.clientX - sliderLeftPx - (handleWidthPx / 2);
+    const handlePos = event.clientX - sliderLeftPx - offsetPx;
+    rightHandle.pos = Math.max(handlePos, leftHandle.pos);
 
-    rightHandle.pos = clampNumber(
-      handlePos,
-      leftHandle.pos + epsilon, // Two handles won't collide
-      maxPos.value,
-    );
-    
     const progressRightPx = progressSliderRef.value!.getBoundingClientRect().right;
     
     timeEndSecond.value = 
@@ -102,9 +98,18 @@ const rightHandle = reactive<TrackHandle>({
     
     audioManager.setAudioCurrentTime(timeStartSecond.value);
     audioManager.stopAtTime(timeStartSecond.value, timeEndSecond.value);
+    
     // console.log('Time end: ', timeEndSecond.value);
   },
 });
+const rightPos = computed(() =>
+  clampNumber(
+    rightHandle.pos,
+    minPos.value,
+    maxPos.value,
+  ));
+// The computed doesnt have to include both handle,
+// if we want to resolve screen change, we can just use min and max in computed.
 
 
 const seekBarPos = computed(() => {
@@ -181,7 +186,7 @@ onUnmounted(() => {
 <template>
   <div class="relative flex flex-col gap-y-6 w-full">
     <div
-      ref="track-slider"
+      :ref="trackSliderRefName"
       class="relative w-full h-6 bg-gray-300"
       :style="{
         height: `${ sliderHeightPx }px`,
@@ -189,10 +194,10 @@ onUnmounted(() => {
     >
       <audio :ref="audioRefName"/>
       <div
-        ref="progress-slider"
+        :ref="progressSliderRefName"
         class="absolute bg-primary origin-left"
         :style="{
-          left: `${ leftHandle.pos }px`,
+          left: `${ leftPos + offsetPx }px`,
           width: `${ progressVarWidthPx }px`,
           height: `${ sliderHeightPx }px`,
         }"
@@ -216,9 +221,11 @@ onUnmounted(() => {
         class="absolute bg-primary"
         :style="{
           top: `-${handleHeightPx}px`,
-          left: `${leftHandle.pos - handleWidthPx / 2}px`,
+          // left: `${leftHandle.pos - handleWidthPx / 2}px`,
+          // left: `${leftSlider.pos}px`,
+          left: `${leftPos}px`,
         }"
-        @mousedown="leftHandle.onMouseDown?.($event)"
+         @mousedown="leftHandle.onMouseDown?.($event)"  
       ></HandleTick>
 
       <HandleTick 
@@ -228,9 +235,12 @@ onUnmounted(() => {
         class="absolute bg-primary"
         :style="{
           top: `-${handleHeightPx}px`,
-          left: `${rightHandle.pos - handleWidthPx / 2}px`,
+          // left: `${maxPos - handleWidthPx / 2}px`,
+          // left: `${rightHandle.pos - handleWidthPx / 2}px`,
+          // left: `${rightSlider.pos}px`,
+          left: `${rightPos}px`,
         }"
-        @mousedown="rightHandle.onMouseDown?.($event)"
+         @mousedown="rightHandle.onMouseDown?.($event)" 
       ></HandleTick>
     </div>
 
@@ -251,7 +261,7 @@ onUnmounted(() => {
         class="rounded-full self-start"
         @click="audioManager.pauseAudio"
       />
-      <div class="grid grid-cols-3 items-center w-full text-center">
+      <div class="grid grid-cols-3 items-center w-full text-right">
         <span>
           <p>Duration</p>
           <p id="duration">{{ round2Decimal(timeEndSecond - timeStartSecond) }}</p>
