@@ -14,15 +14,17 @@
             title="URL Shortener"
             description="Generate clean, shareable short links with fast redirects and easy URL management."
             icon="i-lucide-link"
-            highlight 
             spotlight
             to="/url-shorthener"
           />
 
           <UPageCard
-            title="Coming Soon"
-            description="A collection of text formatting and productivity utilities to speed up your everyday workflow."
-            icon="i-lucide-wrench"
+            title="Audio Trimmer"
+            description="Trim and cut audio files with precision. Remove unwanted sections and save your edited audio easily."
+            icon="i-lucide-audio-lines"
+            highlight
+            spotlight
+            to="/audio-trimmer"
           />
 
           <UPageCard

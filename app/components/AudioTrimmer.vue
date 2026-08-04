@@ -1,34 +1,39 @@
 <script lang="ts" setup>
+import { useElementSize } from '@vueuse/core';
+
 const props = defineProps<{
   audioFile?: File;
 }>();
 
 type TrackHandle = {
-  pos: number;
+  pos: number | ComputedRef<number>;
   isDragging: boolean;
   onMouseUp: (event: MouseEvent) => void;
   onMouseDown: (event: MouseEvent) => void;
   onMouseMove: (event: MouseEvent) => void;
 }
 
-const audioContext = ref<AudioContext>();
-const audioDurationSecond = ref(10);
 const timeStartSecond = ref(0);
 const timeEndSecond = ref(0);
 
-const minPos = ref(0);
-const maxPos = ref(0);
-const handleWidthPx = 12;
-const handleHeightPx = 96;
+const trackSliderRefName = 'track-slider';
+const trackSliderRef = useTemplateRef<HTMLDivElement>(trackSliderRefName);
+const progressSliderRefName = 'progress-slider';
+const progressSliderRef = useTemplateRef<HTMLDivElement>(progressSliderRefName);
+
+const { width: sliderWidth } = useElementSize(trackSliderRef);
+const handleWidthPx = 30;
+const handleHeightPx = 30;
 const sliderHeightPx = 48;
 const seekWidthPx = 3;
 const seekHeightPx = sliderHeightPx;
 
-const trackSliderRef = useTemplateRef<HTMLDivElement>('track-slider');
-const progressSliderRef = useTemplateRef<HTMLDivElement>('progress-slider');
+const offsetPx = handleWidthPx / 2;
+const minPos = ref(-offsetPx);
+const maxPos = computed(() => sliderWidth.value - offsetPx);
 
 const progressBaseWidthPx = ref(0);
-const progressVarWidthPx = computed(() => rightHandle.pos - leftHandle.pos - handleWidthPx);
+const progressVarWidthPx = computed(() => rightPos.value - leftPos.value);
 const progressBaseLeftPx = computed(() => 
   trackSliderRef.value 
   ? trackSliderRef.value.getBoundingClientRect().left
@@ -37,6 +42,8 @@ const progressBaseLeftPx = computed(() =>
 
 const audioRefName = 'audio';
 const audioManager = useAudioManager(audioRefName);
+
+const isLoadingTrim = ref(false);
 
 
 const leftHandle = reactive<TrackHandle>({
@@ -48,14 +55,9 @@ const leftHandle = reactive<TrackHandle>({
     if (!leftHandle.isDragging) return;
 
     const sliderLeftPx = trackSliderRef.value!.getBoundingClientRect().left;
-    const handlePos = event.clientX - sliderLeftPx - (handleWidthPx / 2);
+    const handlePos = event.clientX - sliderLeftPx - offsetPx;
+    leftHandle.pos = Math.min(handlePos, rightHandle.pos);
 
-    leftHandle.pos = clampNumber(
-      handlePos,
-      minPos.value,
-      rightHandle.pos - handleWidthPx, // Two handle won't collide
-    );
-    
     const progressLeftPx = progressSliderRef.value!.getBoundingClientRect().left;
     
     timeStartSecond.value = 
@@ -69,6 +71,13 @@ const leftHandle = reactive<TrackHandle>({
     // console.log('Time start: ', timeStartSecond.value);
   },
 });
+const leftPos = computed(() =>
+  clampNumber(
+    leftHandle.pos,
+    minPos.value,
+    maxPos.value,
+));
+
 
 const rightHandle = reactive<TrackHandle>({
   pos: 0,
@@ -79,14 +88,9 @@ const rightHandle = reactive<TrackHandle>({
     if (!rightHandle.isDragging) return;
 
     const sliderLeftPx = trackSliderRef.value!.getBoundingClientRect().left;
-    const handlePos = event.clientX - sliderLeftPx - (handleWidthPx / 2);
+    const handlePos = event.clientX - sliderLeftPx - offsetPx;
+    rightHandle.pos = Math.max(handlePos, leftHandle.pos);
 
-    rightHandle.pos = clampNumber(
-      handlePos,
-      leftHandle.pos + handleWidthPx, // Two handle won't collide
-      maxPos.value,
-    );
-    
     const progressRightPx = progressSliderRef.value!.getBoundingClientRect().right;
     
     timeEndSecond.value = 
@@ -96,20 +100,40 @@ const rightHandle = reactive<TrackHandle>({
     
     audioManager.setAudioCurrentTime(timeStartSecond.value);
     audioManager.stopAtTime(timeStartSecond.value, timeEndSecond.value);
+    
     // console.log('Time end: ', timeEndSecond.value);
   },
 });
+const rightPos = computed(() =>
+  clampNumber(
+    rightHandle.pos,
+    minPos.value,
+    maxPos.value,
+  ));
+// The computed doesnt have to include both handle,
+// if we want to resolve screen change, we can just use min and max in computed.
 
 
 const seekBarPos = computed(() => {
-  const currentProgressPx = 
-    (audioManager.audioCurrentTime / audioManager.audioDurationSecond)
-    * progressBaseWidthPx.value;
-  return clampNumber(
-    currentProgressPx, 
-    leftHandle.pos + handleWidthPx, 
-    rightHandle.pos - seekWidthPx
-  );
+
+  const ticking = setInterval(() => {
+    
+  }, 100);
+  
+  if (audioManager.isPlaying) {
+    const currentProgressPx = 
+      (audioManager.audioCurrentTime / audioManager.audioDurationSecond)
+      * progressBaseWidthPx.value;
+
+    return clampNumber(
+      currentProgressPx, 
+      leftPos.value, 
+      rightPos.value,
+    );
+    
+  } else {
+    return leftPos.value + offsetPx;
+  }
 });
 
 
@@ -125,10 +149,12 @@ function secondsToHHMMSS(totalSeconds: number) {
 }
 
 async function handleTrimAudio() {
+  isLoadingTrim.value = true;
   const { outputUrl, outputName } = 
     await trimAudio(props.audioFile!, timeStartSecond.value, timeEndSecond.value);
     
   downloadBlob(outputUrl, outputName);
+  isLoadingTrim.value = false;
 }
 
 
@@ -145,11 +171,6 @@ onMounted(async () => {
   await audioManager.loadAudio(props.audioFile!);
   timeEndSecond.value = audioManager.audioDurationSecond;
   // console.log('Time end second: ', timeEndSecond.value);
-
-  const sliderWidth = trackSliderRef.value!.getBoundingClientRect().width;
-
-  maxPos.value = sliderWidth;
-  minPos.value = -handleWidthPx;
 
   leftHandle.pos = minPos.value;
   rightHandle.pos = maxPos.value;
@@ -178,9 +199,9 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="relative w-full">
+  <div class="relative flex flex-col gap-y-6 w-full">
     <div
-      ref="track-slider"
+      :ref="trackSliderRefName"
       class="relative w-full h-6 bg-gray-300"
       :style="{
         height: `${ sliderHeightPx }px`,
@@ -188,15 +209,16 @@ onUnmounted(() => {
     >
       <audio :ref="audioRefName"/>
       <div
-        ref="progress-slider"
+        :ref="progressSliderRefName"
         class="absolute bg-primary origin-left"
         :style="{
-          left: `${ leftHandle.pos + handleWidthPx }px`,
+          left: `${ leftPos + offsetPx }px`,
           width: `${ progressVarWidthPx }px`,
           height: `${ sliderHeightPx }px`,
         }"
       ></div>
-      <div 
+      
+       <div 
         id="seek-bar"
         class="absolute bg-gray-700"
         :style="{
@@ -205,55 +227,74 @@ onUnmounted(() => {
           height: `${seekHeightPx}px`,
         }"
       >
-      </div>
-      <button
+      </div> 
+      
+      <HandleTick 
         ref="left-track-handle"
-        class="absolute top-[-50%] h-12 rounded-lg border bg-white"
+        :width="handleWidthPx" 
+        :height="handleHeightPx"
+        class="absolute bg-primary"
         :style="{
-          left: `${leftHandle.pos}px`,
-          width: `${handleWidthPx}px`,
-          height: `${handleHeightPx}px`,
+          top: `-${handleHeightPx}px`,
+          left: `${leftPos}px`,
         }"
-        @mousedown="leftHandle.onMouseDown?.($event)"
-      >
-      </button>
-      <button
+        :disabled="audioManager.isPlaying"
+        @mousedown="leftHandle.onMouseDown?.($event)"  
+      ></HandleTick>
+
+      <HandleTick 
         ref="right-track-handle"
-        class="absolute top-[-50%] h-12 rounded-lg border bg-white"
+        :width="handleWidthPx" 
+        :height="handleHeightPx"
+        class="absolute bg-primary"
         :style="{
-          left: `${rightHandle.pos}px`,
-          width: `${handleWidthPx}px`,
-          height: `${handleHeightPx}px`,
+          top: `-${handleHeightPx}px`,
+          left: `${rightPos}px`,
         }"
+        :disabled="audioManager.isPlaying"
         @mousedown="rightHandle.onMouseDown?.($event)"
-      >
-      </button>
+      ></HandleTick>
     </div>
 
+    <div class="flex flex-row">
+      <UButton
+        v-if="!audioManager.isPlaying"
+        icon="i-mdi-play"
+        size="2xl"
+        color="primary"
+        class="rounded-full self-start"
+        @click="audioManager.playAudio"
+      />
+      <UButton
+        v-else
+        icon="i-material-symbols-pause"
+        size="2xl"
+        color="primary"
+        class="rounded-full self-start"
+        @click="audioManager.pauseAudio"
+      />
+      <div class="grid grid-cols-3 items-center w-full text-right">
+        <span>
+          <p>Duration</p>
+          <p id="duration">{{ round2Decimal(timeEndSecond - timeStartSecond) }}</p>
+        </span>
+        <span>
+          <p>Time Start</p>
+          <p id="time-start">{{ secondsToHHMMSS(timeStartSecond) }}</p>
+        </span>
+        <span>
+          <p>Time End</p>
+          <p id="time-end">{{ secondsToHHMMSS(timeEndSecond) }}</p>
+        </span>
+      </div>
+    </div>
 
-    <p id="duration">Duration: {{ secondsToHHMMSS(audioManager.audioDurationSecond) }}</p>
-    <p id="time-start">Time Start: {{ secondsToHHMMSS(timeStartSecond) }}</p>
-    <p id="time-end">Time End: {{ secondsToHHMMSS(timeEndSecond) }}</p>
-    
-    <UButton
-      v-if="!audioManager.isPlaying"
-      icon="i-mdi-play"
-      size="sm"
-      color="primary"
-      square
-      class="rounded-full"
-      @click="audioManager.playAudio"
-    />
-    <UButton
-      v-else
-      icon="i-material-symbols-pause"
-      size="sm"
-      color="primary"
-      square
-      class="rounded-full"
-      @click="audioManager.pauseAudio"
-    />
-    
-    <UButton @click="handleTrimAudio">Trim</UButton>
+    <div class="flex justify-end">
+      <UButton 
+        size="lg" 
+        :loading="isLoadingTrim"
+        @click="handleTrimAudio"
+      >Trim</UButton>
+    </div>
   </div>
 </template>
