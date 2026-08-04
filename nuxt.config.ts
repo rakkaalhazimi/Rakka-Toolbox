@@ -10,6 +10,13 @@ export default defineNuxtConfig({
     optimizeDeps: {
       exclude: ['@ffmpeg/ffmpeg', '@ffmpeg/util'],
     },
+    server: {
+      // Enable ffmpeg workers to run in dev
+      headers: {
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+      },
+    },
   },
   
   devtools: {
@@ -20,6 +27,7 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/': { prerender: true },
+    // Enable ffmpeg for Nitro
     '/**': {
       headers: {
         'Cross-Origin-Opener-Policy': 'same-origin',
