@@ -1,8 +1,11 @@
 <script setup lang="ts">
-const props = defineProps<{
+import type { ButtonHTMLAttributes } from 'vue';
+
+interface Props extends /* @vue-ignore */ ButtonHTMLAttributes {
   width: number;
   height: number;
-}>();
+};
+const props = defineProps<Props>();
 
 </script>
 

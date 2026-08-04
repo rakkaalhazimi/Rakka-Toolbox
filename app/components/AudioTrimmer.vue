@@ -113,6 +113,11 @@ const rightPos = computed(() =>
 
 
 const seekBarPos = computed(() => {
+
+  const ticking = setInterval(() => {
+    
+  }, 100);
+  
   if (audioManager.isPlaying) {
     const currentProgressPx = 
       (audioManager.audioCurrentTime / audioManager.audioDurationSecond)
@@ -227,11 +232,10 @@ onUnmounted(() => {
         class="absolute bg-primary"
         :style="{
           top: `-${handleHeightPx}px`,
-          // left: `${leftHandle.pos - handleWidthPx / 2}px`,
-          // left: `${leftSlider.pos}px`,
           left: `${leftPos}px`,
         }"
-         @mousedown="leftHandle.onMouseDown?.($event)"  
+        :disabled="audioManager.isPlaying"
+        @mousedown="leftHandle.onMouseDown?.($event)"  
       ></HandleTick>
 
       <HandleTick 
@@ -241,12 +245,10 @@ onUnmounted(() => {
         class="absolute bg-primary"
         :style="{
           top: `-${handleHeightPx}px`,
-          // left: `${maxPos - handleWidthPx / 2}px`,
-          // left: `${rightHandle.pos - handleWidthPx / 2}px`,
-          // left: `${rightSlider.pos}px`,
           left: `${rightPos}px`,
         }"
-         @mousedown="rightHandle.onMouseDown?.($event)" 
+        :disabled="audioManager.isPlaying"
+        @mousedown="rightHandle.onMouseDown?.($event)"
       ></HandleTick>
     </div>
 
