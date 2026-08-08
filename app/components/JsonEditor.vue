@@ -19,6 +19,53 @@ const textAreaRef = useTemplateRef<HTMLTextAreaElement>(textAreaRefName);
 const { width: textAreaWidth, height: textAreaHeight } = useElementSize(textAreaRef);
 
 
+function highlightJsonError(jsonString: string) {
+  try {
+    JSON.parse(jsonString);
+    // Return string as it is if no error
+    return jsonString;
+
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : 'Invalid JSON format.';
+    const lineColMatch = errorMessage.match(/line\s+(\d+)\s+column\s+(\d+)/i);
+
+    // Insert additional error tag based on Parse Error line and col.
+    if (lineColMatch) {
+      let row = parseInt(lineColMatch[1] ?? '0');
+      let col = parseInt(lineColMatch[2] ?? '0');
+      
+      const lines = jsonString.split('\n');
+      row = Math.max(0, row - 1);
+      const selectedLine = lines[row] ?? '';
+
+      col = Math.max(0, col - 1);
+      let modifiedLine =
+        selectedLine.slice(0, col)
+        + '<error>'
+        + selectedLine.slice(col, col + 1)
+        + '</error>'
+        + selectedLine.slice(col + 1, selectedLine.length);
+
+      // Replace error tag if no character found 
+      // note: (maybe not because empty string can trigger error)
+      //
+      // modifiedLine = modifiedLine.replace('<error></error>', '');
+
+      lines[row] = modifiedLine;
+      const highlightedJson = lines.join('\n');
+      console.log(highlightedJson);
+      return highlightedJson;
+    }
+    
+    console.error('Failed to parse JSON: ');
+    console.error(error as Error);
+
+    return jsonString;
+  }
+  
+}
+
 const colorMap: Record<string, string> = {
   key: 'text-red-400',
   string: 'text-green-400',
@@ -52,10 +99,10 @@ function syntaxHighlight(json: string | object) {
     json = JSON.stringify(json, null, "\t");
   }
   
-  json = json
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+  // json = json
+  //   .replace(/&/g, "&amp;")
+  //   .replace(/</g, "&lt;")
+  //   .replace(/>/g, "&gt;");
   
   return json.replace(
     /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
@@ -69,7 +116,14 @@ const updateCode = (value: string) => {
   if (text[text.length-1] == "\n") {
     text += " ";
   }
-  
+
+  // Let the user type plain <,> and & before highlighting
+  text = text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  text = highlightJsonError(text);
   text = syntaxHighlight(text);
   codeContentRef.value!.innerHTML = text;
 }
@@ -153,7 +207,7 @@ onMounted(() => {
 </template>
 
 
-<style scoped>
+<style>
 .syntax-highlighter, .code-content, .json-editor {
   /* Text editor tab size */
   tab-size: 2;
@@ -200,5 +254,11 @@ onMounted(() => {
 } 
 .json-editor {
   z-index: 1;
+}
+
+/* Error highlight */
+error {
+  background-color: #fb2c36;
+  color: var(--text-color-default);
 }
 </style>
