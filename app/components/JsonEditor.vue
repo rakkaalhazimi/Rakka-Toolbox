@@ -133,6 +133,9 @@ onMounted(() => {
       name="json-editor" 
       class="
         json-editor
+        w-full h-full
+        bg-transparent text-transparent
+        resize-none
         ring ring-inset ring-accented 
         outline-primary/25 
         focus-visible:outline-3 
@@ -160,19 +163,6 @@ onMounted(() => {
   font-size: 11pt;
   font-family: monospace;
   line-height: 15pt;
-}
-
-.json-editor {
-  /* Define textarea size */
-  width: 100%;
-  height: 100%;
-
-  /* Make textarea transparent */
-  background-color: transparent;
-  color: transparent;
-
-  /* Disable resize */
-  resize: none;
 }
 
 .syntax-highlighter, .json-editor {
