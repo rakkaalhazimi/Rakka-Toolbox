@@ -172,7 +172,7 @@ onMounted(() => {
 /* Padding for both pre and textarea */
 .syntax-highlighter, .json-editor {
   padding-inline: 0.625rem;
-  padding-block: 0.375rem;
+  padding-block: 0.625rem;
 }
 
 /* Define Typography */
