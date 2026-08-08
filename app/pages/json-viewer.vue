@@ -7,13 +7,6 @@ const textAreaRefName = 'text-area';
 const textAreaRef = useTemplateRef<any>(textAreaRefName);
 const { width: textAreaWidth, height: textAreaHeight } = useElementSize(textAreaRef);
 
-const paddingTop = ref('');
-const paddingBottom = ref('');
-const paddingLeft = ref('');
-const paddingRight = ref('');
-
-const preTextRefName = 'pre-text';
-const preTextRef = useTemplateRef<HTMLPreElement>(preTextRefName);
 
 const jsonInput = ref('');
 const jsonResult = ref<object | null>(null);
@@ -30,40 +23,6 @@ const state = reactive({
   json: jsonInput,
 });
 
-
-function highlightText(match: string) {
-  let cls = 'number';
-  if (/^"/.test(match)) {
-    if (/:$/.test(match)) {
-      cls = 'key';
-    } else {
-      cls = 'string';
-    }
-  } else if (/true|false/.test(match)) {
-    cls = 'boolean';
-  } else if (/null/.test(match)) {
-    cls = 'null';
-  }
-  return '<span class="' + cls + '">' + match + '</span>';
-}
-
-// Function - JSON Syntax Highlighting
-// ref: https://codepen.io/absolutedevelopment/pen/EpwVzN
-function syntaxHighlight(json: string | object) {
-  if (typeof json != "string") {
-    json = JSON.stringify(json, null, "\t");
-  }
-  
-  json = json
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-  
-  return json.replace(
-    /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
-    highlightText
-  );
-}
 
 const handleOnSubmit = (event: FormSubmitEvent<schema>) => {
   try {
@@ -108,23 +67,6 @@ const handleCopyJson = () => {
 const handlePasteJson = async () => {
   const clipboardText = await navigator.clipboard.readText();
   jsonInput.value = clipboardText;
-}
-
-const handleOnFocus = () => {
-  preTextRef.value!.focus();
-};
-
-const handleOnScroll = (event: Event) => {
-  const textarea = event.target as HTMLTextAreaElement;
-  // Sync scroll between textarea and pre
-  preTextRef.value!.scrollTop = textarea.scrollTop;
-  preTextRef.value!.scrollLeft = textarea.scrollLeft;
-};
-
-const handleInputText = (event: InputEvent) => {
-  const textarea = event.target as HTMLTextAreaElement;
-  const text = syntaxHighlight(textarea.value);
-  preTextRef.value!.innerHTML = text;
 }
 
 const handleTest = () => {
