@@ -108,6 +108,7 @@ const handleOnScroll = (event: Event) => {
 };
 
 onMounted(() => {
+  updateCode(textModel.value as string);
 });
 
 </script>
