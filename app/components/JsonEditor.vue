@@ -76,9 +76,12 @@ const colorMap: Record<string, string> = {
 
 function highlightText(match: string) {
   let cls = 'number';
+  // Start with double quote
   if (/^"/.test(match)) {
+    // End with colon
     if (/:$/.test(match)) {
       cls = 'key';
+    // End without colon is always string
     } else {
       cls = 'string';
     }
