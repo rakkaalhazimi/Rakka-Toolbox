@@ -135,48 +135,8 @@ const handleTest = () => {
 
 onMounted(async () => {
   window.addEventListener('paste', handleTest);
-  // const nativeTextarea: HTMLTextAreaElement = textAreaRef.value!.textareaRef;
+});
 
-  // paddingTop.value = window.getComputedStyle(nativeTextarea).paddingTop;
-  // paddingBottom.value = window.getComputedStyle(nativeTextarea).paddingBottom;
-  // paddingLeft.value = window.getComputedStyle(nativeTextarea).paddingLeft;
-  // paddingRight.value = window.getComputedStyle(nativeTextarea).paddingRight;
-
-  // <!-- JSON Input -->
-  // <UFormField 
-  //   name="json" 
-  //   label="Paste your JSON here"
-  //   class="relative"
-  // >
-  //   <!-- Overlay <textarea> with <pre> tag -->
-  //   <pre 
-  //     :ref="preTextRefName" 
-  //     class="absolute top-0 mt-2 overflow-scroll text-sm"
-  //     :style="{
-  //       width: `${textAreaWidth}px`,
-  //       height: `${textAreaHeight}px`,
-  //       paddingTop: paddingTop,
-  //       paddingBottom: paddingBottom,
-  //       paddingLeft: paddingLeft,
-  //       paddingRight: paddingRight,
-  //     }"
-  //   ></pre>
-    
-  //   <UTextarea
-  //     :ref="textAreaRefName"
-  //     v-model="jsonInput"
-  //     placeholder="{ }"
-  //     :rows="12"
-  //     color="primary"
-  //     class="mt-2 w-full"
-  //     :ui="{ base: 'bg-transparent caret-black text-transparent text-sm' }"
-  //     @input="handleInputText"
-  //     @scroll="handleOnScroll"
-  //   /> 
-    
-  // </UFormField>
-   
-})
 </script>
 
 <template>
@@ -207,7 +167,7 @@ onMounted(async () => {
             View JSON
           </UButton>
 
-          <UTooltip text="Paste from your Clipboard" class="absolute right-0 top-0">
+          <!-- <UTooltip text="Paste from your Clipboard" class="absolute right-0 top-0">
             <UButton
               color="primary"
               variant="outline"
@@ -217,7 +177,7 @@ onMounted(async () => {
               class="cursor-pointer"
               @click="handlePasteJson"
             />
-          </UTooltip>
+          </UTooltip> -->
         </UForm>
 
         <div v-else class="flex flex-col items-center gap-y-6 mx-auto max-w-4xl">
