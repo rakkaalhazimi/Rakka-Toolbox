@@ -254,7 +254,7 @@ onMounted(() => {
 
 /* Error highlight */
 error {
-  background-color: #fb2c36;
+  background-color: #ec4899;
   color: var(--text-color-default);
 }
 </style>
