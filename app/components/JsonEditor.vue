@@ -217,9 +217,9 @@ onMounted(() => {
   -moz-tab-size: 2;
 
   /* Text editor font */
-  font-size: 11pt;
+  font-size: var(--text-base);
   font-family: monospace;
-  line-height: 15pt;
+  line-height: var(--text-base--line-height);
 }
 
 .syntax-highlighter, .json-editor {
@@ -230,13 +230,6 @@ onMounted(() => {
 .syntax-highlighter, .json-editor {
   padding-inline: 0.625rem;
   padding-block: 0.625rem;
-}
-
-/* Define Typography */
-.syntax-highlighter, .code-content, .json-editor {
-  font-size: 15pt;
-  font-family: monospace;
-  line-height: 20pt;
 }
 
 /* Make pre and textarea on top of each other */
