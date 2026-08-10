@@ -135,7 +135,7 @@ onMounted(async () => {
 
           <div class="w-full">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-lg font-semibold">Formatted JSON</h3>
+              <h3 class="text-lg font-semibold">JSON Tree-view</h3>
               <UButton
                 color="success"
                 variant="solid"
