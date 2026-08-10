@@ -146,9 +146,10 @@ onMounted(async () => {
               />
             </div>
 
-            <div class="bg-slate-900 rounded-lg p-6 overflow-auto max-h-96 border border-slate-700">
+            <!-- <div class="bg-slate-900 rounded-lg p-6 overflow-auto max-h-96 border border-slate-700">
               <pre class="text-sm text-slate-100 font-mono whitespace-pre-wrap wrap-break-words">{{ JSON.stringify(jsonResult, null, 2) }}</pre>
-            </div>
+            </div> -->
+            <JsonViewer :json="jsonInput"></JsonViewer>
           </div>
         </div>
       </UContainer>
