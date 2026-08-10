@@ -76,7 +76,7 @@ const handleTest = () => {
 
 
 onMounted(async () => {
-  window.addEventListener('paste', handleTest);
+  // window.addEventListener('paste', handleTest);
 });
 
 </script>
