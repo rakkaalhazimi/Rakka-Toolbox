@@ -28,6 +28,13 @@
           />
 
           <UPageCard
+            title="JSON Viewer"
+            description="Visualize and format your JSON data with ease. Paste and explore structured data beautifully."
+            icon="i-lucide-braces"
+            to="/json-viewer"
+          />
+
+          <UPageCard
             title="Coming Soon"
             description="More handy developer and utility tools are on the way. Stay tuned for future updates."
             icon="i-lucide-sparkles"
