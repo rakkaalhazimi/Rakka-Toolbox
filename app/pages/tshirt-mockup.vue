@@ -5,6 +5,9 @@ const canvasRefName = 'base-canvas';
 const canvasRef = useTemplateRef<HTMLCanvasElement>(canvasRefName);
 const { x: canvasX, y: canvasY, left: canvasLeft, top: canvasTop } = useElementBounding(canvasRef);
 
+const MIN_WIDTH_PX = 20;
+const MIN_HEIGHT_PX = 20;
+
 const buttonSizePx = 8;
 const buttonOffsetPx = buttonSizePx / 2;
 
@@ -15,14 +18,7 @@ const isResizing = ref(false);
 const dragOffsetX = ref(0);
 const dragOffsetY = ref(0);
 
-const imageInitWidth = ref(0);
-const imageInitHeight = ref(0);
-const imageRatio = ref(1);
-const resizePivotX = ref(0);
-const resizePivotY = ref(0);
-
-const selectionTop = ref(0);
-const selectionLeft = ref(0);
+const handle = ref('');
 
 const imageState = reactive({
   x: 0,
@@ -87,15 +83,9 @@ const handleCanvasOnMove = (event: MouseEvent) => {
 
 const handleOnResizePress = (event: MouseEvent) => {
   isResizing.value = true;
-  console.log('Initial coordinates: ');
-  console.log(event.clientX - canvasLeft.value, event.clientY - canvasTop.value);
-  
-  resizePivotX.value = event.clientX;
-  resizePivotY.value = event.clientY;
-  imageInitWidth.value = imageState.width;
-  imageInitHeight.value = imageState.height;
-
-  imageRatio.value = imageInitWidth.value / imageInitHeight.value;
+  const elm = event.target as HTMLButtonElement;
+  const handleClass = elm.classList.toString();
+  handle.value = handleClass;
 };
 
 const handleOnResizeRelease = () => {
@@ -103,22 +93,48 @@ const handleOnResizeRelease = () => {
 };
 
 const handleOnResizeImage = (event: MouseEvent) => {
-  if (isResizing.value) {
-    const widthChange = imageInitWidth.value + (resizePivotX.value - event.clientX);
-    const heightChange = imageInitHeight.value + (resizePivotY.value - event.clientY);
-    // console.log(widthChange, heightChange);
-
-    if (widthChange > 0) {
-      imageState.width = Math.max(widthChange, 40);
-    };
-    if (heightChange > 0) {
-      imageState.height = Math.max(heightChange, 40);
-    };
-    imageState.x = event.clientX - canvasLeft.value;
-    imageState.y = event.clientY - canvasTop.value;
-
-    handleOnDrawImage();
+  if (!isResizing.value) return;
+  // I need to make our image starting coordinate glide with the cursor on resize.
+  // for top left, just use the offset coordinate of our mouse in canvas.
+  // For top handle, we only need to resize vertically, so we dont change the x coordinate.
+  let x = imageState.x;
+  let y = imageState.y;
+  let width = imageState.width;
+  let height = imageState.height;
+  
+  const right = x + width;
+  const bottom = y + height;
+  
+  const mouseX = event.clientX - canvasLeft.value;
+  const mouseY = event.clientY - canvasTop.value;
+  
+  if (handle.value.includes('top')) {
+    y = mouseY;
+    height = Math.max(MIN_HEIGHT_PX, bottom - mouseY);
   }
+
+  if (handle.value.includes('bottom')) {
+    height = mouseY - y;
+  }
+  
+  if (handle.value.includes('left')) {
+    x = mouseX;
+    width = right - mouseX;
+  }
+
+  if (handle.value.includes('right')) {
+    width = mouseX - x;
+  }
+  
+  // Top Left (x, y, w, h)
+  // Top Right (y, w, h)
+
+  imageState.x = x;
+  imageState.y = y;
+  imageState.width = width;
+  imageState.height = height;
+
+  handleOnDrawImage();
 };
 
 onMounted(() => {
@@ -192,6 +208,7 @@ onMounted(() => {
               width: `${buttonSizePx}px`, 
               height: `${buttonSizePx}px`,
             }"
+            @mousedown="handleOnResizePress"
           />
           <button 
             class="handle top-right absolute bg-black border border-black cursor-nesw-resize pointer-events-auto" 
@@ -201,6 +218,7 @@ onMounted(() => {
               width: `${buttonSizePx}px`, 
               height: `${buttonSizePx}px`,
             }"
+            @mousedown="handleOnResizePress"
           />
           <button 
             class="handle left absolute bg-black border border-black cursor-ew-resize pointer-events-auto" 
@@ -210,6 +228,7 @@ onMounted(() => {
               width: `${buttonSizePx}px`, 
               height: `${buttonSizePx}px`,
             }"
+            @mousedown="handleOnResizePress"
           />
           <button 
             class="handle right absolute bg-black border border-black cursor-ew-resize pointer-events-auto" 
@@ -219,6 +238,7 @@ onMounted(() => {
               width: `${buttonSizePx}px`, 
               height: `${buttonSizePx}px`,
             }"
+            @mousedown="handleOnResizePress"
           />
           <button 
             class="handle bottom-left absolute bg-black border border-black cursor-nesw-resize pointer-events-auto" 
@@ -228,6 +248,7 @@ onMounted(() => {
               width: `${buttonSizePx}px`, 
               height: `${buttonSizePx}px`,
             }"
+            @mousedown="handleOnResizePress"
           />
           <button 
             class="handle bottom absolute bg-black border border-black cursor-ns-resize pointer-events-auto" 
@@ -237,6 +258,7 @@ onMounted(() => {
               width: `${buttonSizePx}px`, 
               height: `${buttonSizePx}px`,
             }"
+            @mousedown="handleOnResizePress"
           />
           <button 
             class="handle bottom-right absolute bg-black border border-black cursor-nwse-resize pointer-events-auto" 
@@ -246,6 +268,7 @@ onMounted(() => {
               width: `${buttonSizePx}px`, 
               height: `${buttonSizePx}px`,
             }"
+            @mousedown="handleOnResizePress"
           />
         </div>
       </div>
