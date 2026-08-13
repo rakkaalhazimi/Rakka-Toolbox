@@ -3,7 +3,7 @@ import { useElementBounding } from '@vueuse/core';
 
 const canvasRefName = 'base-canvas';
 const canvasRef = useTemplateRef<HTMLCanvasElement>(canvasRefName);
-const { x: canvasX, y: canvasY } = useElementBounding(canvasRef);
+const { x: canvasX, y: canvasY, left: canvasLeft, top: canvasTop } = useElementBounding(canvasRef);
 
 const buttonSizePx = 8;
 const buttonOffsetPx = buttonSizePx / 2;
@@ -14,6 +14,12 @@ const isResizing = ref(false);
 
 const dragOffsetX = ref(0);
 const dragOffsetY = ref(0);
+
+const imageInitWidth = ref(0);
+const imageInitHeight = ref(0);
+const imageRatio = ref(1);
+const resizePivotX = ref(0);
+const resizePivotY = ref(0);
 
 const selectionTop = ref(0);
 const selectionLeft = ref(0);
@@ -30,14 +36,18 @@ const handleOnDrawImage = () => {
   const ctx = canvas.getContext('2d')!;
 
   const image = document.getElementById('test-image') as HTMLImageElement;
-  imageState.width = image.width;
-  imageState.height = image.height;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(image, imageState.x, imageState.y);
+  ctx.drawImage(
+    image,
+    imageState.x,
+    imageState.y,
+    imageState.width,
+    imageState.height
+  );
 };
 
 const handleCanvasOnPress = (event: MouseEvent) => {
-  console.log(event.offsetX, event.offsetY);
+  // console.log(event.offsetX, event.offsetY);
   const mouseX = event.offsetX;
   const mouseY = event.offsetY;
 
@@ -75,8 +85,17 @@ const handleCanvasOnMove = (event: MouseEvent) => {
   }
 };
 
-const handleOnResizePress = () => {
+const handleOnResizePress = (event: MouseEvent) => {
   isResizing.value = true;
+  console.log('Initial coordinates: ');
+  console.log(event.clientX - canvasLeft.value, event.clientY - canvasTop.value);
+  
+  resizePivotX.value = event.clientX;
+  resizePivotY.value = event.clientY;
+  imageInitWidth.value = imageState.width;
+  imageInitHeight.value = imageState.height;
+
+  imageRatio.value = imageInitWidth.value / imageInitHeight.value;
 };
 
 const handleOnResizeRelease = () => {
@@ -85,13 +104,32 @@ const handleOnResizeRelease = () => {
 
 const handleOnResizeImage = (event: MouseEvent) => {
   if (isResizing.value) {
-    imageState.width += 5;
-    imageState.height += 5;
+    const widthChange = imageInitWidth.value + (resizePivotX.value - event.clientX);
+    const heightChange = imageInitHeight.value + (resizePivotY.value - event.clientY);
+    // console.log(widthChange, heightChange);
+
+    if (widthChange > 0) {
+      imageState.width = Math.max(widthChange, 40);
+    };
+    if (heightChange > 0) {
+      imageState.height = Math.max(heightChange, 40);
+    };
+    imageState.x = event.clientX - canvasLeft.value;
+    imageState.y = event.clientY - canvasTop.value;
+
+    handleOnDrawImage();
   }
 };
 
 onMounted(() => {
   document.addEventListener('mouseup', handleOnResizeRelease);
+  // document.addEventListener('mouseup', handleCanvasOnRelease);
+
+  document.addEventListener('mousemove', handleOnResizeImage);
+
+  const image = document.getElementById('test-image') as HTMLImageElement;
+  imageState.width = image.width;
+  imageState.height = image.height;
 });
 
 </script>
@@ -145,7 +183,6 @@ onMounted(() => {
               height: `${buttonSizePx}px`,
             }"
             @mousedown="handleOnResizePress"
-            @mousemove="handleOnResizeImage"
           />
           <button 
             class="handle top absolute bg-black border border-black cursor-ns-resize pointer-events-auto" 
