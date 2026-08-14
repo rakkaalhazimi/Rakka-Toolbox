@@ -27,6 +27,13 @@ const imageState = reactive({
   height: 0,
 });
 
+const start = reactive({
+  x: 0,
+  y: 0,
+  width: 0,
+  height: 0,
+});
+
 const handleOnDrawImage = () => {
   const canvas = canvasRef.value!;
   const ctx = canvas.getContext('2d')!;
@@ -86,6 +93,11 @@ const handleOnResizePress = (event: MouseEvent) => {
   const elm = event.target as HTMLButtonElement;
   const handleClass = elm.classList.toString();
   handle.value = handleClass;
+
+  start.x = imageState.x;
+  start.y = imageState.y;
+  start.width = imageState.width;
+  start.height = imageState.height;
 };
 
 const handleOnResizeRelease = () => {
@@ -97,10 +109,10 @@ const handleOnResizeImage = (event: MouseEvent) => {
   // I need to make our image starting coordinate glide with the cursor on resize.
   // for top left, just use the offset coordinate of our mouse in canvas.
   // For top handle, we only need to resize vertically, so we dont change the x coordinate.
-  let x = imageState.x;
-  let y = imageState.y;
-  let width = imageState.width;
-  let height = imageState.height;
+  let x = start.x;
+  let y = start.y;
+  let width = start.width;
+  let height = start.height;
   
   const right = x + width;
   const bottom = y + height;
@@ -109,7 +121,7 @@ const handleOnResizeImage = (event: MouseEvent) => {
   const mouseY = event.clientY - canvasTop.value;
   
   if (handle.value.includes('top')) {
-    y = mouseY;
+    y = Math.min(mouseY, bottom - MIN_HEIGHT_PX);
     height = Math.max(MIN_HEIGHT_PX, bottom - mouseY);
   }
 
