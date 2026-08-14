@@ -126,16 +126,16 @@ const handleOnResizeImage = (event: MouseEvent) => {
   }
 
   if (handle.value.includes('bottom')) {
-    height = mouseY - y;
+    height = Math.max(MIN_HEIGHT_PX, mouseY - y);
   }
   
   if (handle.value.includes('left')) {
-    x = mouseX;
-    width = right - mouseX;
+    x = Math.min(mouseX, right - MIN_WIDTH_PX);
+    width = Math.max(MIN_WIDTH_PX, right - mouseX);
   }
 
   if (handle.value.includes('right')) {
-    width = mouseX - x;
+    width = Math.max(MIN_WIDTH_PX, mouseX - x);
   }
   
   // Top Left (x, y, w, h)
