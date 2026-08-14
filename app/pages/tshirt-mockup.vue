@@ -192,7 +192,16 @@ onMounted(() => {
         >
         </canvas>
 
-        <div
+        <ResizeBox 
+          :imageX="canvasX + imageState.x" 
+          :imageY="canvasY + imageState.y"
+          :imageWidth="imageState.width"
+          :imageHeight="imageState.height"
+          :isSelected="isSelected"
+          :handleOnResizePress="handleOnResizePress"
+        />
+
+        <!-- <div
           v-if="isSelected"
           class="fixed w-5 h-5 border-2 border-primary pointer-events-none"
           :style="{
@@ -282,7 +291,7 @@ onMounted(() => {
             }"
             @mousedown="handleOnResizePress"
           />
-        </div>
+        </div> -->
       </div>
 
       
