@@ -163,7 +163,11 @@ onMounted(() => {
 </script>
 
 <template>
-<div>
+
+<div class="relative flex">
+  
+  <TshirtMockupSide />
+
   <UPageSection
     id="tshirt-mockup"
     title="T-shirt Mockup"
