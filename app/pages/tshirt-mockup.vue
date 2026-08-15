@@ -168,6 +168,7 @@ onMounted(() => {
     id="tshirt-mockup"
     title="T-shirt Mockup"
     description="What T-shirt are you gonna make today?"
+    class="w-full bg-elevated"
     :ui="{
       container: 'sm:gap-10',
     }"
@@ -185,7 +186,7 @@ onMounted(() => {
           :ref="canvasRefName" 
           width="500" 
           height="600"
-          class="mx-auto border"
+          class="border bg-white"
           @mousedown="handleCanvasOnPress"
           @mousemove="handleCanvasOnMove"
           @mouseup="handleCanvasOnRelease"
