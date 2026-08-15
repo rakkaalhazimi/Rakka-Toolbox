@@ -8,6 +8,8 @@ const sideWidthPx = ref(80);
 const activePanel = ref('');
 const isPanelActive = ref(false);
 
+const imageList = useImageList();
+
 enum Panel {
   IMAGE = 'image',
   COLOR = 'color',
@@ -88,24 +90,9 @@ const handleIconPress = (event: Event, id: Panel) => {
 
   <div
     v-if="isPanelActive"
-    class="p-2 w-72 border-r border-default"
+    class="px-4 py-4 w-72 border-r border-default"
   >
-    <div v-if="activePanel === Panel.IMAGE" class="w-full h-full">
-      <UForm class="flex flex-col gap-y-2">
-        <UFileUpload 
-          name="file"
-          variant="area" 
-          layout="list"
-          file-icon="i-lucide-file-audio"
-          accept="image/*"
-          :ui="{ base: 'bg-elevated hover:bg-primary-200' }"
-        />
-        <UButton class="w-full justify-center">Upload</UButton>
-      </UForm>
-      
-      
-      
-    </div>
+    <ImageUploadPanel v-if="activePanel === Panel.IMAGE" :images="imageList" />
     
     <div v-if="activePanel === Panel.COLOR" class="w-full h-full bg-elevated"></div>
     <div v-if="activePanel === Panel.SKIN" class="w-full h-full"></div>
