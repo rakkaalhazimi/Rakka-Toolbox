@@ -30,7 +30,7 @@
 </script>
 
 <template>
-<div class="w-full h-full overflow-scroll">
+<div class="w-full h-full">
   
   <UForm :state="state" class="flex flex-col gap-y-2 mb-8" @submit="handleOnSubmit">
     <UFileUpload
@@ -52,8 +52,13 @@
     </UButton>
   </UForm>
   
-  <div class="flex flex-col gap-y-2">
-    <img v-for="img in props.images" :key="img.url" :src="img.url" />
-  </div>
+  <UScrollArea 
+    v-slot="{ item, index }"
+    :items="props.images"
+    :virtualize="{ gap: 16 }"
+    shadow
+  >
+    <img :key="index" :src="item.url" />
+  </UScrollArea>
 </div>
 </template>

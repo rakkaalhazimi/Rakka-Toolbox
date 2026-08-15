@@ -90,11 +90,11 @@ const handleIconPress = (event: Event, id: Panel) => {
 
   <div
     v-if="isPanelActive"
-    class="px-4 py-4 w-72 border-r border-default"
+    class="overflow-scroll px-4 my-4 w-72 border-r border-default"
   >
     <ImageUploadPanel v-if="activePanel === Panel.IMAGE" :images="imageList" />
     
-    <div v-if="activePanel === Panel.COLOR" class="w-full h-full bg-elevated"></div>
+    <div v-if="activePanel === Panel.COLOR" class="w-full h-full"></div>
     <div v-if="activePanel === Panel.SKIN" class="w-full h-full"></div>
   </div>
 
