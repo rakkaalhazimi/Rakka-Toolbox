@@ -49,6 +49,26 @@ const handleOnDrawImage = () => {
   );
 };
 
+const drawImage = (url: string) => {
+  const image = new Image();
+  image.src = url;
+  
+  imageState.width = image.width;
+  imageState.height = image.height;
+  
+  const canvas = canvasRef.value!;
+  const ctx = canvas.getContext('2d')!;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(
+    image,
+    imageState.x,
+    imageState.y,
+    imageState.width,
+    imageState.height
+  );
+};
+
 const handleCanvasOnPress = (event: MouseEvent) => {
   // console.log(event.offsetX, event.offsetY);
   const mouseX = event.offsetX;
@@ -149,15 +169,23 @@ const handleOnResizeImage = (event: MouseEvent) => {
   handleOnDrawImage();
 };
 
+const handleOnDrop = (event: DragEvent) => {
+  if (!event.dataTransfer) return;
+  const url = event.dataTransfer.getData('text');
+  console.log('Data transferred: ', event.dataTransfer.getData('text'));
+  
+  drawImage(url);
+};
+
 onMounted(() => {
   document.addEventListener('mouseup', handleOnResizeRelease);
   // document.addEventListener('mouseup', handleCanvasOnRelease);
 
   document.addEventListener('mousemove', handleOnResizeImage);
 
-  const image = document.getElementById('test-image') as HTMLImageElement;
-  imageState.width = image.width;
-  imageState.height = image.height;
+  // const image = document.getElementById('test-image') as HTMLImageElement;
+  // imageState.width = image.width;
+  // imageState.height = image.height;
 });
 
 </script>
@@ -178,15 +206,17 @@ onMounted(() => {
     }"
   >
     <UContainer>
-      
-      <UButton variant="outline" class="cursor-pointer" @click="handleOnDrawImage">
-        Draw
-      </UButton>
 
-      <img id="test-image" src="assets/logo/python.png" alt="python-logo">
+      <div class="flex flex-col items-center">
+        
+        <!-- <div>
+          <UButton variant="outline" class="cursor-pointer" @click="handleOnDrawImage">
+            Draw
+          </UButton>
+          <img id="test-image" src="assets/logo/python.png" alt="python-logo">
+        </div> -->
 
-      <div>
-        <canvas 
+        <!-- <canvas 
           :ref="canvasRefName" 
           width="500" 
           height="600"
@@ -194,8 +224,19 @@ onMounted(() => {
           @mousedown="handleCanvasOnPress"
           @mousemove="handleCanvasOnMove"
           @mouseup="handleCanvasOnRelease"
+          @dragover.prevent
+          @drop.prevent
+          @drop="handleOnDrop"
         >
-        </canvas>
+        </canvas> -->
+        <!-- dragover.prevent = Preventing forbidden cursor and allow drop -->
+        <!-- drop.prevent = Preventing opening file in browser when user drop a file -->
+         
+        <TshirtMockupCanvas 
+          :refName="canvasRefName" 
+          :width="500" 
+          :height="600" 
+        />
 
         <ResizeBox 
           :imageX="canvasX + imageState.x" 
@@ -205,102 +246,11 @@ onMounted(() => {
           :isSelected="isSelected"
           :handleOnResizePress="handleOnResizePress"
         />
-
-        <!-- <div
-          v-if="isSelected"
-          class="fixed w-5 h-5 border-2 border-primary pointer-events-none"
-          :style="{
-            top: `${canvasY + imageState.y}px`, 
-            left: `${canvasX + imageState.x}px`,
-            width: `${imageState.width}px`,
-            height: `${imageState.height}px`,
-          }"
-        >
-          <button 
-            class="handle top-left absolute bg-black border border-black cursor-nwse-resize pointer-events-auto" 
-            :style="{
-              top: `-${buttonOffsetPx}px`, 
-              left: `-${buttonOffsetPx}px`, 
-              width: `${buttonSizePx}px`, 
-              height: `${buttonSizePx}px`,
-            }"
-            @mousedown="handleOnResizePress"
-          />
-          <button 
-            class="handle top absolute bg-black border border-black cursor-ns-resize pointer-events-auto" 
-            :style="{
-              top: `-${buttonOffsetPx}px`, 
-              left: `${(imageState.width / 2) - buttonOffsetPx}px`,
-              width: `${buttonSizePx}px`, 
-              height: `${buttonSizePx}px`,
-            }"
-            @mousedown="handleOnResizePress"
-          />
-          <button 
-            class="handle top-right absolute bg-black border border-black cursor-nesw-resize pointer-events-auto" 
-            :style="{
-              top: `-${buttonOffsetPx}px`, 
-              right: `-${buttonOffsetPx}px`, 
-              width: `${buttonSizePx}px`, 
-              height: `${buttonSizePx}px`,
-            }"
-            @mousedown="handleOnResizePress"
-          />
-          <button 
-            class="handle left absolute bg-black border border-black cursor-ew-resize pointer-events-auto" 
-            :style="{
-              top: `${(imageState.height / 2) - buttonOffsetPx}px`, 
-              left: `-${buttonOffsetPx}px`, 
-              width: `${buttonSizePx}px`, 
-              height: `${buttonSizePx}px`,
-            }"
-            @mousedown="handleOnResizePress"
-          />
-          <button 
-            class="handle right absolute bg-black border border-black cursor-ew-resize pointer-events-auto" 
-            :style="{
-              top: `${(imageState.height / 2) - buttonOffsetPx}px`, 
-              right: `-${buttonOffsetPx}px`, 
-              width: `${buttonSizePx}px`, 
-              height: `${buttonSizePx}px`,
-            }"
-            @mousedown="handleOnResizePress"
-          />
-          <button 
-            class="handle bottom-left absolute bg-black border border-black cursor-nesw-resize pointer-events-auto" 
-            :style="{
-              bottom: `-${buttonOffsetPx}px`, 
-              left: `-${buttonOffsetPx}px`, 
-              width: `${buttonSizePx}px`, 
-              height: `${buttonSizePx}px`,
-            }"
-            @mousedown="handleOnResizePress"
-          />
-          <button 
-            class="handle bottom absolute bg-black border border-black cursor-ns-resize pointer-events-auto" 
-            :style="{
-              bottom: `-${buttonOffsetPx}px`, 
-              left: `${(imageState.width / 2) - buttonOffsetPx}px`, 
-              width: `${buttonSizePx}px`, 
-              height: `${buttonSizePx}px`,
-            }"
-            @mousedown="handleOnResizePress"
-          />
-          <button 
-            class="handle bottom-right absolute bg-black border border-black cursor-nwse-resize pointer-events-auto" 
-            :style="{
-              bottom: `-${buttonOffsetPx}px`, 
-              right: `-${buttonOffsetPx}px`, 
-              width: `${buttonSizePx}px`, 
-              height: `${buttonSizePx}px`,
-            }"
-            @mousedown="handleOnResizePress"
-          />
-        </div> -->
       </div>
 
       
     </UContainer>
+
   </UPageSection>
 </div>
 </template>
