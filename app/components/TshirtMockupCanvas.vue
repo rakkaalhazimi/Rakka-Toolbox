@@ -14,6 +14,8 @@
   const canvasRef = useTemplateRef<HTMLCanvasElement>(props.refName);
   const { left: canvasLeft, top: canvasTop } = useElementBounding(canvasRef);
   
+  const dragOffset = reactive({ x: 0, y: 0 });
+  
 
   const handleCanvasOnPress = (event: MouseEvent) => {
     console.log(event.offsetX, event.offsetY);
@@ -34,8 +36,8 @@
         elm.isSelected = true;
         selectedElement.value = elm;
   
-        // dragOffsetX.value = mouseX - imageState.x;
-        // dragOffsetY.value = mouseY - imageState.y;
+        dragOffset.x = mouseX - elm.x;
+        dragOffset.y = mouseY - elm.y;
       } else {
         elm.isSelected = false;
         if (selectedElement.value?.id === elm.id) {
@@ -55,20 +57,41 @@
       selectedElement.value = undefined;
     }
   }
+  
+  const handleCanvasOnMove = (event: MouseEvent) => {
+    if (!selectedElement.value) return;
+    
+    selectedElement.value.x = event.offsetX - dragOffset.x;
+    selectedElement.value.y = event.offsetY - dragOffset.y;
+    
+    // canvasClear(canvasRef.value!);
+    imageDraw(
+      selectedElement.value.x,
+      selectedElement.value.y,
+      selectedElement.value.width,
+      selectedElement.value.height,
+      canvasRef.value!,
+      selectedElement.value.imageUrl!
+    );
+  };
 
   const handleOnDrop = (event: DragEvent) => {
     if (!event.dataTransfer) return;
     const url = event.dataTransfer.getData('text');
     // console.log('Data transferred: ', event.dataTransfer.getData('text'));
 
-    const state = imageDraw(canvasRef.value!, url);
+    const x = 0;
+    const y = 0;
+    const { width, height } = imageSize(url);
+    
+    imageDraw(x, y, width, height, canvasRef.value!, url);
     elements.value.push({
       id: url,
       type: ElementType.IMAGE,
-      x: 0,
-      y: 0,
-      width: state.width,
-      height: state.height,
+      x: x,
+      y: y,
+      width: width,
+      height: height,
       isSelected: false,
       imageUrl: url,
     });
@@ -89,6 +112,7 @@
     :width="props.width" 
     :height="props.height" 
     class="border bg-white"
+    @mousemove="handleCanvasOnMove"
     @dragover.prevent
     @drop.prevent
     @drop="handleOnDrop"

@@ -1,4 +1,8 @@
 export function imageDraw(
+  x: number,
+  y: number,
+  width: number,
+  height: number,
   canvas: HTMLCanvasElement,
   imageUrl: string,
 ) {
@@ -6,16 +10,17 @@ export function imageDraw(
 
   image.onload = () => {
     const ctx = canvas.getContext("2d")!;
+    
+    canvasClear(canvas);
 
     ctx.drawImage(
       image,
-      0,
-      0,
-      image.width,
-      image.height,
+      x,
+      y,
+      width,
+      height,
     );
   };
 
   image.src = imageUrl;
-  return { width: image.width, height: image.height };
 }
