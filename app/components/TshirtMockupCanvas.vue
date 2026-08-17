@@ -16,9 +16,13 @@
   
   const moveOffset = reactive({ x: 0, y: 0 });
   
-
+  const MIN_RESIZE_WIDTH_PX = 20;
+  const MIN_RESIZE_HEIGHT_PX = 20;
+  const resizeStart = reactive({ x: 0, y: 0, width: 0, height: 0 });
+  const resizeHandle = ref('');
+  
   const handleCanvasOnPress = (event: MouseEvent) => {
-    console.log(event.offsetX, event.offsetY);
+    // console.log(event.offsetX, event.offsetY);
     const mouseX = event.offsetX;
     const mouseY = event.offsetY;
     
@@ -55,6 +59,7 @@
       handleCanvasOnPress(event);
     } else {
       if (!selectedElement.value) return;
+      if (selectedElement.value.isResizing) return;
       selectedElement.value.isSelected = false;
       selectedElement.value = undefined;
     }
@@ -80,23 +85,81 @@
     );
   };
   
-  // const handleOnResizePress = (event: MouseEvent) => {
-  //   if (!selectedElement.value) return;
+  const handleOnResizePress = (event: MouseEvent) => {
+    if (!selectedElement.value) return;
     
-  //   isResizing.value = true;
-  //   const elm = event.target as HTMLButtonElement;
-  //   const handleClass = elm.classList.toString();
-  //   handle.value = handleClass;
+    selectedElement.value.isResizing = true;
+    
+    const item = selectedElement.value;
+    
+    const elm = event.target as HTMLButtonElement;
+    const handleClass = elm.classList.toString();
+    resizeHandle.value = handleClass;
+    // console.log('Handle class: ', handleClass);
 
-  //   start.x = imageState.x;
-  //   start.y = imageState.y;
-  //   start.width = imageState.width;
-  //   start.height = imageState.height;
-  // };
+    resizeStart.x = item.x;
+    resizeStart.y = item.y;
+    resizeStart.width = item.width;
+    resizeStart.height = item.height;
+  };
+  
+  const handleOnResizeImage = (event: MouseEvent) => {
+    if (!selectedElement.value) return;
+    if (!selectedElement.value.isResizing) return;
+    
+    let x = resizeStart.x;
+    let y = resizeStart.y;
+    let width = resizeStart.width;
+    let height = resizeStart.height;
+    
+    const right = x + width;
+    const bottom = y + height;
+    
+    const mouseX = event.clientX - canvasLeft.value;
+    const mouseY = event.clientY - canvasTop.value;
+    
+    if (resizeHandle.value.includes('top')) {
+      y = Math.min(mouseY, bottom - MIN_RESIZE_HEIGHT_PX);
+      height = Math.max(MIN_RESIZE_HEIGHT_PX, bottom - mouseY);
+    }
+
+    if (resizeHandle.value.includes('bottom')) {
+      height = Math.max(MIN_RESIZE_HEIGHT_PX, mouseY - y);
+    }
+    
+    if (resizeHandle.value.includes('left')) {
+      x = Math.min(mouseX, right - MIN_RESIZE_WIDTH_PX);
+      width = Math.max(MIN_RESIZE_WIDTH_PX, right - mouseX);
+    }
+
+    if (resizeHandle.value.includes('right')) {
+      width = Math.max(MIN_RESIZE_WIDTH_PX, mouseX - x);
+    }
+    
+    // Top Left (x, y, w, h)
+    // Top Right (y, w, h)
+    
+    const item = selectedElement.value;
+
+    item.x = x;
+    item.y = y;
+    item.width = width;
+    item.height = height;
+
+    imageDraw(
+      item.x,
+      item.y,
+      item.width,
+      item.height,
+      canvasRef.value!,
+      item.imageUrl
+    );
+  };
   
   const handleOnMouseRelease = (event: MouseEvent) => {
     if (!selectedElement.value) return;
     selectedElement.value.isMoving = false;
+    selectedElement.value.isResizing = false;
   };
 
   const handleOnDrop = (event: DragEvent) => {
@@ -122,6 +185,7 @@
   onMounted(() => {
     document.addEventListener('mousedown', handleOutsideOnPress);
     document.addEventListener('mouseup', handleOnMouseRelease);
+    document.addEventListener('mousemove', handleOnResizeImage);
   });
 
 </script>
@@ -148,6 +212,7 @@
       :imageWidth="img.width"
       :imageHeight="img.height"
       :isSelected="img.isSelected"
+      :handleOnResizePress="handleOnResizePress"
     />
   </CanvasImageItem>
   
