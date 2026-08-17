@@ -1,19 +1,23 @@
 export enum ElementType {
+  NULL = 'NULL',
   IMAGE = 'IMAGE',
   SHAPE = 'SHAPE',
 };
 
 
-export type CanvasItem = {
-  id: string;
-  type: ElementType;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  isSelected: boolean;
-  isDragging: boolean;
-  imageUrl?: string;
+const NULL_ID = '<NULL_ID>';
+
+export class CanvasItem {
+  public id: string = NULL_ID;
+  public type: ElementType = ElementType.NULL;
+  public x: number = 0;
+  public y: number = 0;
+  public width: number = 0;
+  public height: number = 0;
+  public isSelected: boolean = false;
+  public isMoving: boolean = false;
+  public isResizing: boolean = false;
+  public imageUrl: string = '';
 };
 
 
@@ -23,15 +27,10 @@ export function createCanvasImageItem(props: {
   height: number, 
   imageUrl: string
 }) {
-  return {
-    id: props.id,
-    type: ElementType.IMAGE,
-    x: 0,
-    y: 0,
-    width: props.width,
-    height: props.height,
-    isSelected: false,
-    isDragging: false,
-    imageUrl: props.imageUrl,
-  } as CanvasItem
+  const item = new CanvasItem();
+  item.width = props.width;
+  item.height = props.height;
+  item.imageUrl = props.imageUrl;
+  item.type = ElementType.IMAGE;
+  return item;
 }

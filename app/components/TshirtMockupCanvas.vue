@@ -34,7 +34,7 @@
         // isDragging.value = true;
         // isSelected.value = true;
         elm.isSelected = true;
-        elm.isDragging = true;
+        elm.isMoving = true;
         selectedElement.value = elm;
   
         dragOffset.x = mouseX - elm.x;
@@ -62,25 +62,41 @@
   
   const handleCanvasOnMove = (event: MouseEvent) => {
     if (!selectedElement.value) return;
-    if (!selectedElement.value.isDragging) return;
+    if (!selectedElement.value.isMoving) return;
     
-    selectedElement.value.x = event.offsetX - dragOffset.x;
-    selectedElement.value.y = event.offsetY - dragOffset.y;
+    const item = selectedElement.value;
+    
+    item.x = event.offsetX - dragOffset.x;
+    item.y = event.offsetY - dragOffset.y;
     
     // canvasClear(canvasRef.value!);
     imageDraw(
-      selectedElement.value.x,
-      selectedElement.value.y,
-      selectedElement.value.width,
-      selectedElement.value.height,
+      item.x,
+      item.y,
+      item.width,
+      item.height,
       canvasRef.value!,
-      selectedElement.value.imageUrl!
+      item.imageUrl
     );
   };
   
+  // const handleOnResizePress = (event: MouseEvent) => {
+  //   if (!selectedElement.value) return;
+    
+  //   isResizing.value = true;
+  //   const elm = event.target as HTMLButtonElement;
+  //   const handleClass = elm.classList.toString();
+  //   handle.value = handleClass;
+
+  //   start.x = imageState.x;
+  //   start.y = imageState.y;
+  //   start.width = imageState.width;
+  //   start.height = imageState.height;
+  // };
+  
   const handleOnMouseRelease = (event: MouseEvent) => {
     if (!selectedElement.value) return;
-    selectedElement.value.isDragging = false;
+    selectedElement.value.isMoving = false;
   };
 
   const handleOnDrop = (event: DragEvent) => {
