@@ -14,7 +14,7 @@
   const canvasRef = useTemplateRef<HTMLCanvasElement>(props.refName);
   const { left: canvasLeft, top: canvasTop } = useElementBounding(canvasRef);
   
-  const dragOffset = reactive({ x: 0, y: 0 });
+  const moveOffset = reactive({ x: 0, y: 0 });
   
 
   const handleCanvasOnPress = (event: MouseEvent) => {
@@ -37,8 +37,8 @@
         elm.isMoving = true;
         selectedElement.value = elm;
   
-        dragOffset.x = mouseX - elm.x;
-        dragOffset.y = mouseY - elm.y;
+        moveOffset.x = mouseX - elm.x;
+        moveOffset.y = mouseY - elm.y;
         
       } else {
         elm.isSelected = false;
@@ -66,8 +66,8 @@
     
     const item = selectedElement.value;
     
-    item.x = event.offsetX - dragOffset.x;
-    item.y = event.offsetY - dragOffset.y;
+    item.x = event.offsetX - moveOffset.x;
+    item.y = event.offsetY - moveOffset.y;
     
     // canvasClear(canvasRef.value!);
     imageDraw(
