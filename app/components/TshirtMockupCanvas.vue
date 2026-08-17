@@ -34,10 +34,12 @@
         // isDragging.value = true;
         // isSelected.value = true;
         elm.isSelected = true;
+        elm.isDragging = true;
         selectedElement.value = elm;
   
         dragOffset.x = mouseX - elm.x;
         dragOffset.y = mouseY - elm.y;
+        
       } else {
         elm.isSelected = false;
         if (selectedElement.value?.id === elm.id) {
@@ -60,6 +62,7 @@
   
   const handleCanvasOnMove = (event: MouseEvent) => {
     if (!selectedElement.value) return;
+    if (!selectedElement.value.isDragging) return;
     
     selectedElement.value.x = event.offsetX - dragOffset.x;
     selectedElement.value.y = event.offsetY - dragOffset.y;
@@ -73,6 +76,11 @@
       canvasRef.value!,
       selectedElement.value.imageUrl!
     );
+  };
+  
+  const handleOnMouseRelease = (event: MouseEvent) => {
+    if (!selectedElement.value) return;
+    selectedElement.value.isDragging = false;
   };
 
   const handleOnDrop = (event: DragEvent) => {
@@ -97,6 +105,7 @@
   
   onMounted(() => {
     document.addEventListener('mousedown', handleOutsideOnPress);
+    document.addEventListener('mouseup', handleOnMouseRelease);
   });
 
 </script>
