@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { useElementBounding, useElementSize } from '@vueuse/core';
-  import { ElementType, type CanvasElement } from '~/types/canvas';
+  import { type CanvasItem, createCanvasImageItem } from '~/types/canvas';
 
 
   const props = defineProps<{
@@ -9,8 +9,8 @@
     height: number;
   }>();
 
-  const elements = ref<CanvasElement[]>([]);
-  const selectedElement = ref<CanvasElement>();
+  const elements = ref<CanvasItem[]>([]);
+  const selectedElement = ref<CanvasItem>();
   const canvasRef = useTemplateRef<HTMLCanvasElement>(props.refName);
   const { left: canvasLeft, top: canvasTop } = useElementBounding(canvasRef);
   
@@ -80,21 +80,18 @@
     const url = event.dataTransfer.getData('text');
     // console.log('Data transferred: ', event.dataTransfer.getData('text'));
 
-    const x = 0;
-    const y = 0;
     const { width, height } = imageSize(url);
+    const imgItem = createCanvasImageItem({id: '', width, height, imageUrl: url});
+    elements.value.push(imgItem);
     
-    imageDraw(x, y, width, height, canvasRef.value!, url);
-    elements.value.push({
-      id: url,
-      type: ElementType.IMAGE,
-      x: x,
-      y: y,
-      width: width,
-      height: height,
-      isSelected: false,
-      imageUrl: url,
-    });
+    imageDraw(
+      imgItem.x, 
+      imgItem.y, 
+      imgItem.width, 
+      imgItem.height, 
+      canvasRef.value!, 
+      imgItem.imageUrl!
+    );
   };
 
   
@@ -119,7 +116,7 @@
   >
   </canvas>
   
-  <CanvasImageElement v-for="img in elements" :key="img.id">
+  <CanvasImageItem v-for="img in elements" :key="img.id">
     <ResizeBox 
       :imageX="canvasLeft + img.x" 
       :imageY="canvasTop + img.y"
@@ -127,6 +124,6 @@
       :imageHeight="img.height"
       :isSelected="img.isSelected"
     />
-  </CanvasImageElement>
+  </CanvasImageItem>
   
 </template>
