@@ -23,8 +23,8 @@
   
   const handleCanvasOnPress = (event: MouseEvent) => {
     // console.log(event.offsetX, event.offsetY);
-    const mouseX = event.offsetX;
-    const mouseY = event.offsetY;
+    const mouseX = event.clientX - canvasLeft.value;
+    const mouseY = event.clientY - canvasTop.value;
     
     for (const elm of elements.value) {
       const isMouseOnTheImage = (
@@ -71,8 +71,11 @@
     
     const item = selectedElement.value;
     
-    item.x = event.offsetX - moveOffset.x;
-    item.y = event.offsetY - moveOffset.y;
+    const mouseX = event.clientX - canvasLeft.value;
+    const mouseY = event.clientY - canvasTop.value;
+    
+    item.x = mouseX - moveOffset.x;
+    item.y = mouseY - moveOffset.y;
     
     // canvasClear(canvasRef.value!);
     imageDraw(
