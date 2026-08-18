@@ -18,19 +18,21 @@ export class CanvasItem {
   public isMoving: boolean = false;
   public isResizing: boolean = false;
   public imageUrl: string = '';
+  public image: HTMLImageElement = new Image();
 };
 
 
-export function createCanvasImageItem(props: {
+export async function createCanvasImageItem(props: {
   id: string, 
   width: number, 
   height: number, 
   imageUrl: string
-}) {
+}): Promise<CanvasItem> {
   const item = new CanvasItem();
   item.width = props.width;
   item.height = props.height;
   item.imageUrl = props.imageUrl;
+  item.image = await imageLoad(props.imageUrl);
   item.type = ElementType.IMAGE;
   return item;
 }

@@ -4,23 +4,8 @@ export function imageDraw(
   width: number,
   height: number,
   canvas: HTMLCanvasElement,
-  imageUrl: string,
+  image: HTMLImageElement,
 ) {
-  const image = new Image();
-
-  image.onload = () => {
-    const ctx = canvas.getContext("2d")!;
-    
-    canvasClear(canvas);
-
-    ctx.drawImage(
-      image,
-      x,
-      y,
-      width,
-      height,
-    );
-  };
-
-  image.src = imageUrl;
+  const ctx = canvas.getContext("2d")!;
+  ctx.drawImage(image, x, y, width, height);
 }

@@ -2,7 +2,6 @@
   import { useElementBounding, useElementSize } from '@vueuse/core';
   import { type CanvasItem, createCanvasImageItem } from '~/types/canvas';
 
-
   const props = defineProps<{
     refName: string;
     width: number;
@@ -20,6 +19,22 @@
   const MIN_RESIZE_HEIGHT_PX = 20;
   const resizeStart = reactive({ x: 0, y: 0, width: 0, height: 0 });
   const resizeHandle = ref('');
+  
+  
+  const handleDrawImages = async () => {
+    canvasClear(canvasRef.value!);
+    for (const elm of elements.value) {
+      imageDraw(
+        elm.x, 
+        elm.y, 
+        elm.width, 
+        elm.height, 
+        canvasRef.value!, 
+        elm.image,
+      );
+    }
+  };
+  
   
   const handleCanvasOnPress = (event: MouseEvent) => {
     // console.log(event.offsetX, event.offsetY);
@@ -77,15 +92,7 @@
     item.x = mouseX - moveOffset.x;
     item.y = mouseY - moveOffset.y;
     
-    // canvasClear(canvasRef.value!);
-    imageDraw(
-      item.x,
-      item.y,
-      item.width,
-      item.height,
-      canvasRef.value!,
-      item.imageUrl
-    );
+    handleDrawImages();
   };
   
   const handleOnResizePress = (event: MouseEvent) => {
@@ -155,7 +162,7 @@
       item.width,
       item.height,
       canvasRef.value!,
-      item.imageUrl
+      item.image,
     );
   };
   
@@ -165,7 +172,7 @@
     selectedElement.value.isResizing = false;
   };
 
-  const handleOnDrop = (event: DragEvent) => {
+  const handleOnDrop = async (event: DragEvent) => {
     if (!event.dataTransfer) return;
     
     // Update canvas bounding rectangle
@@ -175,7 +182,7 @@
     // console.log('Data transferred: ', event.dataTransfer.getData('text'));
 
     const { width, height } = imageSize(url);
-    const imgItem = createCanvasImageItem({id: '', width, height, imageUrl: url});
+    const imgItem = await createCanvasImageItem({id: '', width, height, imageUrl: url});
     elements.value.push(imgItem);
     
     imageDraw(
@@ -184,7 +191,7 @@
       imgItem.width, 
       imgItem.height, 
       canvasRef.value!, 
-      imgItem.imageUrl!
+      imgItem.image,
     );
   };
 
