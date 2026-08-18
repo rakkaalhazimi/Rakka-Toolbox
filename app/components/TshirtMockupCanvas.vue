@@ -47,7 +47,7 @@
       } else {
         elm.isSelected = false;
         if (selectedElement.value?.id === elm.id) {
-          selectedElement.value = undefined;
+          // selectedElement.value = undefined;
         }
       }
     }
