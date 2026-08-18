@@ -41,6 +41,8 @@
     const mouseX = event.clientX - canvasLeft.value;
     const mouseY = event.clientY - canvasTop.value;
     
+    let prevElement: CanvasItem | undefined = undefined;
+    
     for (const elm of elements.value) {
       const isMouseOnTheImage = (
         mouseX >= elm.x
@@ -50,8 +52,6 @@
       );
       
       if (isMouseOnTheImage) {
-        // isDragging.value = true;
-        // isSelected.value = true;
         elm.isSelected = true;
         elm.isMoving = true;
         selectedElement.value = elm;
@@ -59,12 +59,15 @@
         moveOffset.x = mouseX - elm.x;
         moveOffset.y = mouseY - elm.y;
         
+        if (prevElement) {
+          prevElement.isSelected = false;
+        }
+        
       } else {
         elm.isSelected = false;
-        if (selectedElement.value?.id === elm.id) {
-          // selectedElement.value = undefined;
-        }
       }
+      
+      prevElement = elm;
     }
 
   };
