@@ -21,9 +21,9 @@
   const resizeHandle = ref('');
   
   
-  const handleDrawImages = async () => {
+  const handleDrawImages = async (elements: CanvasItem[]) => {
     canvasClear(canvasRef.value!);
-    for (const elm of elements.value) {
+    for (const elm of elements) {
       imageDraw(
         elm.x, 
         elm.y, 
@@ -92,7 +92,7 @@
     item.x = mouseX - moveOffset.x;
     item.y = mouseY - moveOffset.y;
     
-    handleDrawImages();
+    handleDrawImages(elements.value);
   };
   
   const handleOnResizePress = (event: MouseEvent) => {
@@ -155,15 +155,8 @@
     item.y = y;
     item.width = width;
     item.height = height;
-
-    imageDraw(
-      item.x,
-      item.y,
-      item.width,
-      item.height,
-      canvasRef.value!,
-      item.image,
-    );
+    
+    handleDrawImages(elements.value);
   };
   
   const handleOnMouseRelease = (event: MouseEvent) => {
@@ -185,14 +178,7 @@
     const imgItem = await createCanvasImageItem({id: '', width, height, imageUrl: url});
     elements.value.push(imgItem);
     
-    imageDraw(
-      imgItem.x, 
-      imgItem.y, 
-      imgItem.width, 
-      imgItem.height, 
-      canvasRef.value!, 
-      imgItem.image,
-    );
+    handleDrawImages(elements.value);
   };
 
   
@@ -206,6 +192,8 @@
 
 
 <template>
+  
+  <!-- {{ selectedElement }} -->
   
   <canvas
     :ref="props.refName"
