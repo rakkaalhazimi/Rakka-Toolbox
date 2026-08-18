@@ -12,7 +12,7 @@
   const elements = ref<CanvasItem[]>([]);
   const selectedElement = ref<CanvasItem>();
   const canvasRef = useTemplateRef<HTMLCanvasElement>(props.refName);
-  const { left: canvasLeft, top: canvasTop } = useElementBounding(canvasRef);
+  const { left: canvasLeft, top: canvasTop, update: updateCanvasRect } = useElementBounding(canvasRef);
   
   const moveOffset = reactive({ x: 0, y: 0 });
   
@@ -167,6 +167,10 @@
 
   const handleOnDrop = (event: DragEvent) => {
     if (!event.dataTransfer) return;
+    
+    // Update canvas bounding rectangle
+    updateCanvasRect();
+    
     const url = event.dataTransfer.getData('text');
     // console.log('Data transferred: ', event.dataTransfer.getData('text'));
 
