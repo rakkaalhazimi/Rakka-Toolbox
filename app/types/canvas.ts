@@ -23,12 +23,12 @@ export class CanvasItem {
 
 
 export async function createCanvasImageItem(props: {
-  id: string, 
   width: number, 
   height: number, 
   imageUrl: string
 }): Promise<CanvasItem> {
   const item = new CanvasItem();
+  item.id = generateId();
   item.width = props.width;
   item.height = props.height;
   item.imageUrl = props.imageUrl;

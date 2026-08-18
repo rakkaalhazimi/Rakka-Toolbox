@@ -178,10 +178,21 @@
     // console.log('Data transferred: ', event.dataTransfer.getData('text'));
 
     const { width, height } = imageSize(url);
-    const imgItem = await createCanvasImageItem({id: '', width, height, imageUrl: url});
+    const imgItem = await createCanvasImageItem({width, height, imageUrl: url});
     elements.value.push(imgItem);
     
     handleDrawImages(elements.value);
+  };
+  
+  const handleOnDeleteElement = (event: KeyboardEvent) => {
+    const key = event.key;
+    if (key === 'Delete') {
+      if (!selectedElement.value) return;
+      const selected = selectedElement.value;
+      elements.value = elements.value.filter(item => item.id !== selected.id);
+      handleDrawImages(elements.value);
+      selectedElement.value = undefined;
+    }
   };
 
   
@@ -189,6 +200,7 @@
     document.addEventListener('mousedown', handleOutsideOnPress);
     document.addEventListener('mouseup', handleOnMouseRelease);
     document.addEventListener('mousemove', handleOnResizeImage);
+    document.addEventListener('keydown', handleOnDeleteElement);
   });
 
 </script>
