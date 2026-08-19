@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { useElementBounding } from '@vueuse/core';
-  import { CanvasItem, createCanvasImageItem } from '~/types/canvas';
+  import { CanvasItem, createCanvasImageItem, createCanvasShapeItem } from '~/types/canvas';
   import tshirtImageUrl from '~/assets/tshirt/white.jpg';
 
   const props = defineProps<{
@@ -12,6 +12,8 @@
   const elements = ref<CanvasItem[]>([]);
   const selectedElement = ref<CanvasItem>();
   const tshirtElement = ref<CanvasItem>();
+  const backgroundElement = ref<CanvasItem>();
+    
   const canvasRef = useTemplateRef<HTMLCanvasElement>(props.refName);
   const { left: canvasLeft, top: canvasTop, update: updateCanvasRect } = useElementBounding(canvasRef);
   
@@ -34,11 +36,25 @@
     );
   }
   
+  const handleDrawShape = (element: CanvasItem) => {
+    shapeRectDraw(
+      element.x, 
+      element.y, 
+      element.width, 
+      element.height, 
+      canvasRef.value!
+    );
+  }
+  
   const handleDrawImages = async (elements: CanvasItem[]) => {
     canvasClear(canvasRef.value!);
     
+    if (backgroundElement.value) {
+      handleDrawShape(backgroundElement.value);
+    }
+    
     if (tshirtElement.value) {
-      handleDrawSingleImage(tshirtElement.value);
+      // handleDrawSingleImage(tshirtElement.value);
     }
     
     for (const elm of elements) {
@@ -220,11 +236,16 @@
     document.addEventListener('mousemove', handleOnResizeImage);
     document.addEventListener('keydown', handleOnDeleteElement);
     
+    // TShirt Image
     // console.log('Tshirt: ', tshirtImage);
     const { width: tshirtWidth, height: tshirtHeight } = imageSize(tshirtImageUrl);
     const height = imageHeightFromRatio(tshirtWidth, tshirtHeight, props.height);
     tshirtElement.value = await createCanvasImageItem({width: props.width, height, imageUrl: tshirtImageUrl});
-    handleDrawSingleImage(tshirtElement.value);
+    // handleDrawSingleImage(tshirtElement.value);
+    
+    // Background
+    backgroundElement.value = createCanvasShapeItem({ width: props.width, height: props.height });
+    handleDrawShape(backgroundElement.value);
   });
 
 </script>

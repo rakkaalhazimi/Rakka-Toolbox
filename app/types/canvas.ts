@@ -36,3 +36,16 @@ export async function createCanvasImageItem(props: {
   item.type = ElementType.IMAGE;
   return item;
 }
+
+export function createCanvasShapeItem(props: {
+  width: number,
+  height: number,
+} 
+): CanvasItem {
+  const item = new CanvasItem();
+  item.id = generateId();
+  item.width = props.width;
+  item.height = props.height;
+  item.type = ElementType.SHAPE;
+  return item;
+}
