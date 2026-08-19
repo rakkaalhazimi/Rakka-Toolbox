@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-  import { useElementBounding, useElementSize } from '@vueuse/core';
-  import { type CanvasItem, createCanvasImageItem } from '~/types/canvas';
+  import { useElementBounding } from '@vueuse/core';
+  import { CanvasItem, createCanvasImageItem } from '~/types/canvas';
+  import tshirtImageUrl from '~/assets/tshirt/white.jpg';
 
   const props = defineProps<{
     refName: string;
@@ -10,6 +11,7 @@
 
   const elements = ref<CanvasItem[]>([]);
   const selectedElement = ref<CanvasItem>();
+  const tshirtElement = ref<CanvasItem>();
   const canvasRef = useTemplateRef<HTMLCanvasElement>(props.refName);
   const { left: canvasLeft, top: canvasTop, update: updateCanvasRect } = useElementBounding(canvasRef);
   
@@ -21,8 +23,24 @@
   const resizeHandle = ref('');
   
   
+  const handleDrawSingleImage = (element: CanvasItem) => {
+    imageDraw(
+      element.x, 
+      element.y, 
+      element.width, 
+      element.height, 
+      canvasRef.value!, 
+      element.image,
+    );
+  }
+  
   const handleDrawImages = async (elements: CanvasItem[]) => {
     canvasClear(canvasRef.value!);
+    
+    if (tshirtElement.value) {
+      handleDrawSingleImage(tshirtElement.value);
+    }
+    
     for (const elm of elements) {
       imageDraw(
         elm.x, 
@@ -196,11 +214,17 @@
   };
 
   
-  onMounted(() => {
+  onMounted(async () => {
     document.addEventListener('mousedown', handleOutsideOnPress);
     document.addEventListener('mouseup', handleOnMouseRelease);
     document.addEventListener('mousemove', handleOnResizeImage);
     document.addEventListener('keydown', handleOnDeleteElement);
+    
+    // console.log('Tshirt: ', tshirtImage);
+    const { width: tshirtWidth, height: tshirtHeight } = imageSize(tshirtImageUrl);
+    const height = imageHeightFromRatio(tshirtWidth, tshirtHeight, props.height);
+    tshirtElement.value = await createCanvasImageItem({width: props.width, height, imageUrl: tshirtImageUrl});
+    handleDrawSingleImage(tshirtElement.value);
   });
 
 </script>
