@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import type { Image } from '~/types/Image';
 
 const baseSideWidthPx = 80;
 const sideWContentPx = 240;
@@ -8,7 +8,7 @@ const sideWidthPx = ref(80);
 const activePanel = ref('');
 const isPanelActive = ref(false);
 
-const imageList = useImageList();
+const imageList = ref<Image[]>([]);
 
 enum Panel {
   IMAGE = 'image',
@@ -94,7 +94,11 @@ const handleIconPress = (event: Event, id: Panel) => {
   >
     <ImageUploadPanel v-if="activePanel === Panel.IMAGE" :images="imageList" />
     
-    <div v-if="activePanel === Panel.COLOR" class="w-full h-full"></div>
+    <div v-if="activePanel === Panel.COLOR" class="w-full h-full">
+        
+    </div>
+    
+    
     <div v-if="activePanel === Panel.SKIN" class="w-full h-full"></div>
   </div>
 
