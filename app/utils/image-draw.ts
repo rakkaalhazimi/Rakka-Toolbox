@@ -6,6 +6,6 @@ export function imageDraw(
   canvas: HTMLCanvasElement,
   image: HTMLImageElement,
 ) {
-  const ctx = canvas.getContext("2d")!;
+  const ctx = canvas.getContext('2d')!;
   ctx.drawImage(image, x, y, width, height);
 }
