@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import type { Image } from '~/types/Image';
+import { TShirtColor, tshirtColors } from '~/types/color'; 
+
+
+const props = defineProps<{
+  handleTshirtColorChange?: (color: TShirtColor) => void;
+}>();
 
 const baseSideWidthPx = 80;
 const sideWContentPx = 240;
@@ -37,11 +43,31 @@ const items = [
   },
 ];
 
+const colorItems: TShirtColor[] = [
+  tshirtColors.WHITE,
+  tshirtColors.BLACK,
+  tshirtColors.GRAY,
+  tshirtColors.GREEN,
+  tshirtColors.BLUE,
+  tshirtColors.NAVY,
+  tshirtColors.PURPLE,
+  tshirtColors.RED,
+  tshirtColors.PINK,
+  tshirtColors.YELLOW,
+  tshirtColors.ORANGE,
+  tshirtColors.BROWN,
+  tshirtColors.BEIGE,
+];
+
 const handleIconPress = (event: Event, id: Panel) => {
   // console.log('Pressed from: ', id);
   sideWidthPx.value = sideWContentPx;
   isPanelActive.value = !isPanelActive.value;
   activePanel.value = id;
+};
+
+const handleIconColorPress = (event: Event, color: TShirtColor) => {
+  props.handleTshirtColorChange?.(color);
 };
 
 </script>
@@ -92,10 +118,33 @@ const handleIconPress = (event: Event, id: Panel) => {
     v-if="isPanelActive"
     class="overflow-scroll px-4 my-4 w-72 border-r border-default"
   >
+    <!-- Image Panel -->
     <ImageUploadPanel v-if="activePanel === Panel.IMAGE" :images="imageList" />
     
+    <!-- Color Panel -->
     <div v-if="activePanel === Panel.COLOR" class="w-full h-full">
-        
+      <ul class="grid grid-cols-3 gap-y-2">
+        <li
+          v-for="(item, index) in colorItems"
+          :key="index"
+          class="relative flex flex-col justify-center items-center cursor-pointer"
+          @click="(event: Event) => handleIconColorPress(event, item)"
+        >
+          <div 
+            class="
+              flex justify-center items-center 
+              w-10 h-10 rounded-full
+              border border-default hover:border-primary-500
+            "
+          >
+            <button 
+              class="w-8 h-8 rounded-full border border-neutral-500 cursor-pointer"
+              :style="{ 'background-color': item.hex }"
+            />
+          </div>
+          <p>{{ item.label }}</p>
+        </li>
+      </ul>
     </div>
     
     

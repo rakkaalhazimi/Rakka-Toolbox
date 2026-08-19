@@ -1,5 +1,19 @@
 <script setup lang="ts">
+import type { TShirtColor } from '~/types/color';
+
+
 const canvasRefName = 'base-canvas';
+const tshirtColor = ref<TShirtColor>();
+
+
+const handleTshirtColorChange = (color: TShirtColor) => {
+  tshirtColor.value = color;
+  // console.log('Color changed to: ', color);
+};
+
+const handleSkinColorChange = () => {
+  
+};
 
 </script>
 
@@ -7,7 +21,7 @@ const canvasRefName = 'base-canvas';
 
 <div class="relative flex">
   
-  <TshirtMockupSide />
+  <TshirtMockupSide :handleTshirtColorChange="handleTshirtColorChange" />
 
   <UPageSection
     id="tshirt-mockup"
