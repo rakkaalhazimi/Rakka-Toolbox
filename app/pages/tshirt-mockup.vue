@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { TShirtColor } from '~/types/color';
+import { type TShirtColor, tshirtColors } from '~/types/color';
 
 
 const canvasRefName = 'base-canvas';
-const tshirtColor = ref<TShirtColor>();
+const tshirtColor = ref<TShirtColor>(tshirtColors.BEIGE);
 
 
 const handleTshirtColorChange = (color: TShirtColor) => {
   tshirtColor.value = color;
-  // console.log('Color changed to: ', color);
+  // console.log('[Page] Color changed to: ', color);
 };
 
 const handleSkinColorChange = () => {
@@ -37,7 +37,8 @@ const handleSkinColorChange = () => {
         <TshirtMockupCanvas 
           :refName="canvasRefName" 
           :width="500" 
-          :height="600" 
+          :height="600"
+          :tshirtColor="tshirtColor"
         />
       </div>
     </UContainer>

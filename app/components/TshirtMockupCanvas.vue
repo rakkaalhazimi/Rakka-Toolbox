@@ -1,12 +1,16 @@
 <script lang="ts" setup>
   import { useElementBounding } from '@vueuse/core';
-  import { CanvasItem, createCanvasImageItem, createCanvasShapeItem } from '~/types/canvas';
+  
   import tshirtImageUrl from '~/assets/tshirt/white.jpg';
+  import { CanvasItem, createCanvasImageItem, createCanvasShapeItem } from '~/types/canvas';
+  import type { TShirtColor } from '~/types/color';
 
+  
   const props = defineProps<{
     refName: string;
     width: number;
     height: number;
+    tshirtColor: TShirtColor;
   }>();
 
   const elements = ref<CanvasItem[]>([]);
@@ -41,7 +45,8 @@
       element.x, 
       element.y, 
       element.width, 
-      element.height, 
+      element.height,
+      element.color,
       canvasRef.value!
     );
   }
@@ -244,8 +249,20 @@
     // handleDrawSingleImage(tshirtElement.value);
     
     // Background
-    backgroundElement.value = createCanvasShapeItem({ width: props.width, height: props.height });
+    const tshirtColor = props.tshirtColor?.hex ?? '#ffffff';
+    backgroundElement.value = createCanvasShapeItem({
+      width: props.width, 
+      height: props.height, 
+      color: tshirtColor, 
+    });
     handleDrawShape(backgroundElement.value);
+  });
+  
+  watch(() => props.tshirtColor, (newColor: TShirtColor) => {
+    if (!backgroundElement.value) return;
+    backgroundElement.value.color = newColor.hex;
+    
+    handleDrawImages(elements.value);
   });
 
 </script>

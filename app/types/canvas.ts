@@ -14,6 +14,7 @@ export class CanvasItem {
   public y: number = 0;
   public width: number = 0;
   public height: number = 0;
+  public color: string = '#ffffff';
   public isSelected: boolean = false;
   public isMoving: boolean = false;
   public isResizing: boolean = false;
@@ -40,12 +41,14 @@ export async function createCanvasImageItem(props: {
 export function createCanvasShapeItem(props: {
   width: number,
   height: number,
+  color: string,
 } 
 ): CanvasItem {
   const item = new CanvasItem();
   item.id = generateId();
   item.width = props.width;
   item.height = props.height;
+  item.color = props.color;
   item.type = ElementType.SHAPE;
   return item;
 }
