@@ -4,7 +4,7 @@ export class TShirtColor {
 
 export const TSHIRT_COLOR_CHOICES = {
   WHITE: new TShirtColor('white', '#FFFFFF'),
-  BLACK: new TShirtColor('black', '#18181B'),
+  BLACK: new TShirtColor('black', '#27272A'),
   GRAY: new TShirtColor('gray', '#71717A'),
   GREEN: new TShirtColor('green', '#42B883'),
   BLUE: new TShirtColor('blue', '#3B82F6'),
