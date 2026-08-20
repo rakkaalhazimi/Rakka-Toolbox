@@ -1,9 +1,9 @@
 <script lang="ts" setup>
   import { useElementBounding } from '@vueuse/core';
   
-  import tshirtImageUrl from '~/assets/tshirt/white.jpg';
+  import tshirtImageUrl from '~/assets/tshirt/white.png';
   import { CanvasItem, createCanvasImageItem, createCanvasShapeItem } from '~/types/canvas';
-  import type { TShirtColor } from '~/types/color';
+  import { tshirtColors, type TShirtColor } from '~/types/color';
 
   
   const props = defineProps<{
@@ -38,6 +38,14 @@
       canvasRef.value!, 
       element.image,
     );
+    imageColorize(
+      element.x, 
+      element.y, 
+      element.width, 
+      element.height,
+      props.tshirtColor.hex,
+      canvasRef.value!,
+    );
   }
   
   const handleDrawShape = (element: CanvasItem) => {
@@ -51,15 +59,15 @@
     );
   }
   
-  const handleDrawImages = async (elements: CanvasItem[]) => {
+  const handleRenderElements = async (elements: CanvasItem[]) => {
     canvasClear(canvasRef.value!);
     
     if (backgroundElement.value) {
-      handleDrawShape(backgroundElement.value);
+      // handleDrawShape(backgroundElement.value);
     }
     
     if (tshirtElement.value) {
-      // handleDrawSingleImage(tshirtElement.value);
+      handleDrawSingleImage(tshirtElement.value);
     }
     
     for (const elm of elements) {
@@ -134,7 +142,7 @@
     item.x = mouseX - moveOffset.x;
     item.y = mouseY - moveOffset.y;
     
-    handleDrawImages(elements.value);
+    handleRenderElements(elements.value);
   };
   
   const handleOnResizePress = (event: MouseEvent) => {
@@ -198,7 +206,7 @@
     item.width = width;
     item.height = height;
     
-    handleDrawImages(elements.value);
+    handleRenderElements(elements.value);
   };
   
   const handleOnMouseRelease = (event: MouseEvent) => {
@@ -220,7 +228,7 @@
     const imgItem = await createCanvasImageItem({width, height, imageUrl: url});
     elements.value.push(imgItem);
     
-    handleDrawImages(elements.value);
+    handleRenderElements(elements.value);
   };
   
   const handleOnDeleteElement = (event: KeyboardEvent) => {
@@ -229,7 +237,7 @@
       if (!selectedElement.value) return;
       const selected = selectedElement.value;
       elements.value = elements.value.filter(item => item.id !== selected.id);
-      handleDrawImages(elements.value);
+      handleRenderElements(elements.value);
       selectedElement.value = undefined;
     }
   };
@@ -246,7 +254,7 @@
     const { width: tshirtWidth, height: tshirtHeight } = imageSize(tshirtImageUrl);
     const height = imageHeightFromRatio(tshirtWidth, tshirtHeight, props.height);
     tshirtElement.value = await createCanvasImageItem({width: props.width, height, imageUrl: tshirtImageUrl});
-    // handleDrawSingleImage(tshirtElement.value);
+    handleDrawSingleImage(tshirtElement.value);
     
     // Background
     const tshirtColor = props.tshirtColor?.hex ?? '#ffffff';
@@ -255,14 +263,14 @@
       height: props.height, 
       color: tshirtColor, 
     });
-    handleDrawShape(backgroundElement.value);
+    // handleDrawShape(backgroundElement.value);
   });
   
   watch(() => props.tshirtColor, (newColor: TShirtColor) => {
     if (!backgroundElement.value) return;
     backgroundElement.value.color = newColor.hex;
     
-    handleDrawImages(elements.value);
+    handleRenderElements(elements.value);
   });
 
 </script>
