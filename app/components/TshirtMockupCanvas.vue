@@ -230,6 +230,9 @@
 
     const { width, height } = imageSize(url);
     const imgItem = await createCanvasImageItem({width, height, imageUrl: url});
+    // Current selection will be cancelled when user drags another image.
+    // I'll let it like this for a moment.
+    imgItem.isSelected = true;
     elements.value.push(imgItem);
     
     handleRenderElements(elements.value);
