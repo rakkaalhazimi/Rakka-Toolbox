@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Image } from '~/types/Image';
-import { TShirtColor, tshirtColors } from '~/types/color'; 
+import { TShirtColor, TSHIRT_COLOR_CHOICES } from '~/types/color'; 
 
 
 const props = defineProps<{
@@ -44,19 +44,19 @@ const items = [
 ];
 
 const colorItems: TShirtColor[] = [
-  tshirtColors.WHITE,
-  tshirtColors.BLACK,
-  tshirtColors.GRAY,
-  tshirtColors.GREEN,
-  tshirtColors.BLUE,
-  tshirtColors.NAVY,
-  tshirtColors.PURPLE,
-  tshirtColors.RED,
-  tshirtColors.PINK,
-  tshirtColors.YELLOW,
-  tshirtColors.ORANGE,
-  tshirtColors.BROWN,
-  tshirtColors.BEIGE,
+  TSHIRT_COLOR_CHOICES.WHITE,
+  TSHIRT_COLOR_CHOICES.BLACK,
+  TSHIRT_COLOR_CHOICES.GRAY,
+  TSHIRT_COLOR_CHOICES.GREEN,
+  TSHIRT_COLOR_CHOICES.BLUE,
+  TSHIRT_COLOR_CHOICES.NAVY,
+  TSHIRT_COLOR_CHOICES.PURPLE,
+  TSHIRT_COLOR_CHOICES.RED,
+  TSHIRT_COLOR_CHOICES.PINK,
+  TSHIRT_COLOR_CHOICES.YELLOW,
+  TSHIRT_COLOR_CHOICES.ORANGE,
+  TSHIRT_COLOR_CHOICES.BROWN,
+  TSHIRT_COLOR_CHOICES.BEIGE,
 ];
 
 const handleIconPress = (event: Event, id: Panel) => {

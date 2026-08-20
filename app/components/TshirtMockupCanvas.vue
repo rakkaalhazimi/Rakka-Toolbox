@@ -3,7 +3,7 @@
   
   import tshirtImageUrl from '~/assets/tshirt/white.png';
   import { CanvasItem, createCanvasImageItem, createCanvasShapeItem } from '~/types/canvas';
-  import { tshirtColors, type TShirtColor } from '~/types/color';
+  import { type TShirtColor } from '~/types/color';
 
   
   const props = defineProps<{
@@ -83,6 +83,10 @@
   };
   
   
+  // TODO: 
+  // - Prioritize select for earliest element [ v ] 
+  // - Another element select means the other is unselected [ v ]
+  // - Draw T-shirt image on canvas but dont lump it with other element
   const handleCanvasOnPress = (event: MouseEvent) => {
     // console.log(event.offsetX, event.offsetY);
     const mouseX = event.clientX - canvasLeft.value;

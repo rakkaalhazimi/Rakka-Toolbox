@@ -2,7 +2,7 @@ export class TShirtColor {
   constructor(public label: string, public hex: string) { };
 };
 
-export const tshirtColors = {
+export const TSHIRT_COLOR_CHOICES = {
   WHITE: new TShirtColor('white', '#FFFFFF'),
   BLACK: new TShirtColor('black', '#18181B'),
   GRAY: new TShirtColor('gray', '#71717A'),

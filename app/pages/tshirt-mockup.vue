@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { type TShirtColor, tshirtColors } from '~/types/color';
+import { type TShirtColor, TSHIRT_COLOR_CHOICES } from '~/types/color';
 
 
 const canvasRefName = 'base-canvas';
-const tshirtColor = ref<TShirtColor>(tshirtColors.BEIGE);
+const tshirtColor = ref<TShirtColor>(TSHIRT_COLOR_CHOICES.WHITE);
 
 
 const handleTshirtColorChange = (color: TShirtColor) => {
