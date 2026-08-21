@@ -1,7 +1,6 @@
 <script lang="ts" setup>
   import { useElementBounding } from '@vueuse/core';
   
-  import tshirtImageUrl from '~/assets/tshirt/white.png';
   import { CanvasItem, createCanvasImageItem, createCanvasShapeItem } from '~/types/canvas';
 
   
@@ -9,6 +8,7 @@
     refName: string;
     width: number;
     height: number;
+    tshirtImageUrl: string;
     tshirtHexColor: string;
   }>();
 
@@ -266,9 +266,9 @@
     
     // TShirt Image
     // console.log('Tshirt: ', tshirtImage);
-    const { width: tshirtWidth, height: tshirtHeight } = imageSize(tshirtImageUrl);
+    const { width: tshirtWidth, height: tshirtHeight } = imageSize(props.tshirtImageUrl);
     const height = imageHeightFromRatio(tshirtWidth, tshirtHeight, props.height);
-    tshirtElement.value = await createCanvasImageItem({width: props.width, height, imageUrl: tshirtImageUrl});
+    tshirtElement.value = await createCanvasImageItem({width: props.width, height, imageUrl: props.tshirtImageUrl});
     handleDrawTshirtImage(tshirtElement.value);
     
     // Background

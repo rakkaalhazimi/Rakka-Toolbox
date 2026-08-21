@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { type TShirtColor, TSHIRT_COLOR_CHOICES } from '~/types/color';
+import frontTshirtImageUrl from '~/assets/tshirt/white.png';
+import backTshirtImageUrl from '~/assets/tshirt/white-back.png';
+
 
 
 const canvasRefName = 'base-canvas';
@@ -33,11 +36,19 @@ const handleSkinColorChange = () => {
     }"
   >
     <UContainer>
-      <div class="flex flex-col items-center">
+      <div class="flex flex-row items-center">
         <TshirtMockupCanvas 
           :refName="canvasRefName" 
           :width="500" 
           :height="600"
+          :tshirtImageUrl="frontTshirtImageUrl"
+          :tshirtHexColor="tshirtColor.hex"
+        />
+        <TshirtMockupCanvas 
+          :refName="canvasRefName" 
+          :width="500" 
+          :height="600"
+          :tshirtImageUrl="backTshirtImageUrl"
           :tshirtHexColor="tshirtColor.hex"
         />
       </div>
