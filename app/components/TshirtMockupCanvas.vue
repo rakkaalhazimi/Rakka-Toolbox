@@ -3,14 +3,13 @@
   
   import tshirtImageUrl from '~/assets/tshirt/white.png';
   import { CanvasItem, createCanvasImageItem, createCanvasShapeItem } from '~/types/canvas';
-  import { type TShirtColor } from '~/types/color';
 
   
   const props = defineProps<{
     refName: string;
     width: number;
     height: number;
-    tshirtColor: TShirtColor;
+    tshirtHexColor: string;
   }>();
 
   const elements = ref<CanvasItem[]>([]);
@@ -47,7 +46,7 @@
       element.y, 
       element.width, 
       element.height,
-      props.tshirtColor.hex,
+      props.tshirtHexColor,
       canvasRef.value!,
     );
   };
@@ -273,7 +272,7 @@
     handleDrawTshirtImage(tshirtElement.value);
     
     // Background
-    const tshirtColor = props.tshirtColor?.hex ?? '#ffffff';
+    const tshirtColor = props.tshirtHexColor ?? '#ffffff';
     backgroundElement.value = createCanvasShapeItem({
       width: props.width, 
       height: props.height, 
@@ -282,9 +281,9 @@
     // handleDrawShape(backgroundElement.value);
   });
   
-  watch(() => props.tshirtColor, (newColor: TShirtColor) => {
+  watch(() => props.tshirtHexColor, (newColor: string) => {
     if (!backgroundElement.value) return;
-    backgroundElement.value.color = newColor.hex;
+    backgroundElement.value.color = newColor;
     
     handleRenderElements(elements.value);
   });

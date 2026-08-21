@@ -38,7 +38,7 @@ const handleSkinColorChange = () => {
           :refName="canvasRefName" 
           :width="500" 
           :height="600"
-          :tshirtColor="tshirtColor"
+          :tshirtHexColor="tshirtColor.hex"
         />
       </div>
     </UContainer>
