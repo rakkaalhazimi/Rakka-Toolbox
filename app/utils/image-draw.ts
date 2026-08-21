@@ -4,7 +4,7 @@ export function imageDraw(
   width: number,
   height: number,
   canvas: HTMLCanvasElement,
-  image: HTMLImageElement,
+  image: HTMLImageElement | HTMLCanvasElement,
 ) {
   const ctx = canvas.getContext('2d')!;
   ctx.drawImage(image, x, y, width, height);

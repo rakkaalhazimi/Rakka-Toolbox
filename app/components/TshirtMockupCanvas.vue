@@ -38,6 +38,10 @@
       canvasRef.value!, 
       element.image,
     );
+  };
+  
+  const handleDrawTshirtImage = (element: CanvasItem) => {
+    handleDrawSingleImage(element);
     imageColorize(
       element.x, 
       element.y, 
@@ -46,7 +50,19 @@
       props.tshirtColor.hex,
       canvasRef.value!,
     );
-  }
+  };
+  
+  const handleDrawResizedImage = (element: CanvasItem) => {
+    const resized = imageResize(element.width, element.height, element.image);
+    imageDraw(
+      element.x, 
+      element.y, 
+      element.width, 
+      element.height, 
+      canvasRef.value!, 
+      resized
+    );
+  };
   
   const handleDrawShape = (element: CanvasItem) => {
     shapeRectDraw(
@@ -67,18 +83,11 @@
     }
     
     if (tshirtElement.value) {
-      handleDrawSingleImage(tshirtElement.value);
+      handleDrawTshirtImage(tshirtElement.value);
     }
     
     for (const elm of elements) {
-      imageDraw(
-        elm.x, 
-        elm.y, 
-        elm.width, 
-        elm.height, 
-        canvasRef.value!, 
-        elm.image,
-      );
+      handleDrawSingleImage(elm);
     }
   };
   
@@ -261,7 +270,7 @@
     const { width: tshirtWidth, height: tshirtHeight } = imageSize(tshirtImageUrl);
     const height = imageHeightFromRatio(tshirtWidth, tshirtHeight, props.height);
     tshirtElement.value = await createCanvasImageItem({width: props.width, height, imageUrl: tshirtImageUrl});
-    handleDrawSingleImage(tshirtElement.value);
+    handleDrawTshirtImage(tshirtElement.value);
     
     // Background
     const tshirtColor = props.tshirtColor?.hex ?? '#ffffff';
