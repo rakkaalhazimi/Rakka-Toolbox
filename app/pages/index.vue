@@ -35,6 +35,13 @@
           />
 
           <UPageCard
+            title="T-shirt Mockup"
+            description="Create realistic custom T-shirt that match with your logo."
+            icon="i-lucide-shirt"
+            to="/tshirt-mockup"
+          />
+
+          <UPageCard
             title="Coming Soon"
             description="More handy developer and utility tools are on the way. Stay tuned for future updates."
             icon="i-lucide-sparkles"
