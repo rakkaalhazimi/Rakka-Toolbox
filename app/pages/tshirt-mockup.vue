@@ -36,7 +36,7 @@ const handleSkinColorChange = () => {
     }"
   >
     <UContainer>
-      <div class="flex flex-row items-center">
+      <div class="flex flex-row justify-center">
         <TshirtMockupCanvas 
           :refName="canvasRefName" 
           :width="500" 
