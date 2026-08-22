@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { type TShirtColor, TSHIRT_COLOR_CHOICES } from '~/types/color';
-import frontTshirtImageUrl from '~/assets/tshirt/white.png';
-import backTshirtImageUrl from '~/assets/tshirt/white-back.png';
 
 
+const frontTshirtImageUrl = '/tshirt/white.png';
+const backTshirtImageUrl = '/tshirt/white-back.png';
 
 const canvasRefName = 'base-canvas';
 const tshirtColor = ref<TShirtColor>(TSHIRT_COLOR_CHOICES.WHITE);
@@ -36,7 +36,7 @@ const handleSkinColorChange = () => {
     }"
   >
     <UContainer>
-      <div class="flex flex-row items-center">
+      <div class="flex flex-row justify-center">
         <TshirtMockupCanvas 
           :refName="canvasRefName" 
           :width="500" 
