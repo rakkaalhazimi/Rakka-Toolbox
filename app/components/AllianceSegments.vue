@@ -9,8 +9,9 @@
   const gap = 6;
   const paddingPx = 4.5;
   const sizePx = 45;
-  const filledColor = '#42AC98';
+  const filledColor = '#04E5AA';
   const emptyColor = '#71717a';
+  const iconBgColor = '#06CB99';
 
   const segmentBackground = computed(() => {
     const segmentSize = 360 / props.segments;
@@ -45,16 +46,28 @@
     height: `${sizePx}px` 
   }"
 >
-  <img
-    :src="props.imageUrl"
-    class="absolute rounded-full bg-red-400"
+  <div
+    class="absolute rounded-full ring-2 ring-inset ring-gray-800"
     :style="{ 
       top: `${paddingPx}px`,
       left: `${paddingPx}px`,
       width: `${sizePx - paddingPx * 2}px`, 
-      height: `${sizePx - paddingPx * 2}px`
+      height: `${sizePx - paddingPx * 2}px`,
+      background: iconBgColor,
     }"
-  ></img>
+  ></div>
+  
+  <img
+    :src="props.imageUrl"
+    class="absolute rounded-full"
+    :style="{ 
+      top: `${paddingPx}px`,
+      left: `${paddingPx}px`,
+      width: `${sizePx - paddingPx * 2}px`, 
+      height: `${sizePx - paddingPx * 2}px`,
+      filter: 'brightness(0.1)',
+    }"
+  />
   
   <div 
     class="arc absolute"
