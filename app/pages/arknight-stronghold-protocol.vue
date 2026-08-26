@@ -79,15 +79,10 @@
     
     <!-- Activated Alliances -->
     {{ alliancesCount }}
-    <img src="/arknights-protocol/alliances/Agile_Alliance.webp" />
-    
-    <div class="relative h-100">
-      <div class="absolute arc-diff"></div>
-    </div>
-    
-    <div class="relative h-100">
-      <div class="absolute arc-segment"></div>
-    </div>
+    <AllianceSegments 
+      :segments="3" 
+      :completed="2" 
+      :imageUrl="'/arknights-protocol/alliances/Agile_Alliance.webp'" />
     
     <!-- Choosen Operators -->
     <div class="grid grid-cols-4 gap-2 max-w-md">
@@ -165,79 +160,3 @@
   
   
 </template>
-
-<style>
-.arc {
-  --a: 170deg; /* control the progression */
-  width: 250px;
-  aspect-ratio: 1;
-  padding: 40px; /* the border thickness */
-  box-sizing: border-box;
-  border-radius: 50%;
-  background: #c0d860;
-  mask:
-    linear-gradient(#0000 0 0) content-box intersect,
-    conic-gradient(
-      #0000 0deg 5deg,
-      #000 5deg 175deg,
-      #0000 175deg 185deg, 
-      #000 185deg 355deg,
-      #0000 355deg 360deg
-    );
-    /* conic-gradient(#000 var(--a),#0000 0); */
-}
-
-/* HTML: <div class="arc"></div> */
-.arc-segment {
-  --segments: 3;
-  --gap: 4deg;
-  --b: 10px;
-
-  width: 250px;
-  aspect-ratio: 1;
-  padding: var(--b);
-  box-sizing: border-box;
-  border-radius: 50%;
-  background: #c0d860;
-
-  mask:
-    linear-gradient(#0000 0 0) content-box intersect,
-    repeating-conic-gradient(
-      #aaa 0 calc(360deg / var(--segments) - var(--gap)),
-      #0000 0 calc(360deg / var(--segments))
-    );
-}
-
-.arc-diff {
-  --b: 40px;
-  --gap: 6deg;
-
-  width: 250px;
-  aspect-ratio: 1;
-  padding: var(--b);
-  box-sizing: border-box;
-  border-radius: 50%;
-
-  background: conic-gradient(
-    #22c55e 0deg 114deg,
-    transparent 114deg 120deg,
-
-    #71717a 120deg 234deg,
-    transparent 234deg 240deg,
-
-    #71717a 240deg 354deg,
-    transparent 354deg 360deg
-  );
-
-  mask:
-    linear-gradient(#0000 0 0) content-box intersect,
-    conic-gradient(
-      #000 0deg 114deg,
-      #0000 114deg 120deg,
-      #000 120deg 234deg,
-      #0000 234deg 240deg,
-      #000 240deg 354deg,
-      #0000 354deg 360deg
-    );
-}
-</style>
