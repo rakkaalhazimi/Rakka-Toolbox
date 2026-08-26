@@ -57,7 +57,6 @@
       if (acc[curr]) {
         const currentCount = acc[curr];
         currentCount.count += 1;
-        console.log(curr, currentCount.count);
       } else {
         const alli = getAllianceByName(curr);
         const alliCount = new AllianceCount();
