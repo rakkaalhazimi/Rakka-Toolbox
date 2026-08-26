@@ -40,6 +40,13 @@
             icon="i-lucide-shirt"
             to="/tshirt-mockup"
           />
+          
+          <UPageCard
+            title="Arknight Stronghold Protocol"
+            description="Find the operator combination to conquer the mode."
+            icon="i-lucide-shirt"
+            to="/arknight-stronghold-protocol"
+          />
 
           <UPageCard
             title="Coming Soon"
