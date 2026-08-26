@@ -1,6 +1,7 @@
 <script lang="ts" setup>
   import allianceJson from '~/assets/arknights-stronghold/alliance.json';
-  import { type Alliance, type Operator, AllianceEnum } from '~/types/arknights';
+  import { type Alliance, type Operator, AllianceCount, AllianceEnum } from '~/types/arknights';
+  
   
   const allianceDir = '/arknights-protocol/alliances';
   const operatorDir = '/arknights-protocol/operators-II';
@@ -14,9 +15,15 @@
   const currentAliance = ref<AllianceEnum>(AllianceEnum.YAN);
   const selectedOperators = ref<Operator[]>([]);
   
+  
+  function getAllianceByName(name: AllianceEnum) {
+    const index = alliances.findIndex((item, _) => item.name === name);
+    return alliances[index];
+  }
+  
   // Map Operator with Alliance
   // Ex: Grain Buds => [Yan, Agile]
-  const allianceMap = computed(() => {
+  const operatorMap = computed(() => {
     const map = new Map<string, AllianceEnum[]>();
     
     for (const item of alliances) {
@@ -33,17 +40,33 @@
   });
   
   // Count all availables Alliances
-  // Ex: Leizi, Grain Buds => {Yan: 2, Agile: 1}
+  // Ex: 
+  // Leizi, Grain Buds 
+  // => 
+  // {
+  //  Yan: {count: 2, requiredToActivate: 3}, 
+  //  Agile: {count: 1, requiredToActivate: 3}
+  // }
   const alliancesCount = computed(() => {
     const listAlli = selectedOperators.value.flatMap(item => {
-      const a = allianceMap.value.get(item.name);
+      const a = operatorMap.value.get(item.name);
       return a ?? [];
     });
     
-    const count = listAlli.reduce<Record<AllianceEnum, number>>((acc, curr) => {
-      acc[curr] = (acc[curr] || 0) + 1;
+    const count = listAlli.reduce<Record<AllianceEnum, AllianceCount>>((acc, curr) => {
+      if (acc[curr]) {
+        const currentCount = acc[curr];
+        currentCount.count += 1;
+        console.log(curr, currentCount.count);
+      } else {
+        const alli = getAllianceByName(curr);
+        const alliCount = new AllianceCount();
+        alliCount.requiredToActivate = alli?.operatorsToActivate || 1;
+        alliCount.imageUrl = alli?.imageUrl || '';
+        acc[curr] = alliCount;
+      }
       return acc;
-    }, {} as Record<AllianceEnum, number>);
+    }, {} as Record<AllianceEnum, AllianceCount>);
     
     return count;
   });
@@ -78,11 +101,14 @@
   <UContainer>
     
     <!-- Activated Alliances -->
-    {{ alliancesCount }}
-    <AllianceSegments 
-      :segments="3" 
-      :completed="2" 
-      :imageUrl="'/arknights-protocol/alliances/Agile_Alliance.webp'" />
+    <div class="flex flex-wrap gap-2">
+      <AllianceSegments
+        v-for="(value, key) in alliancesCount"
+        :key="key"
+        :segments="value.requiredToActivate" 
+        :completed="value.count" 
+        :imageUrl="`${allianceDir}/${value.imageUrl}`" />
+    </div>
     
     <!-- Choosen Operators -->
     <div class="grid grid-cols-4 gap-2 max-w-md">

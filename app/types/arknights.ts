@@ -32,6 +32,12 @@ export enum AllianceEnum {
   SOLO = 'Solo',
 }
 
+export class AllianceCount {
+  count: number = 1;
+  requiredToActivate: number = 1;
+  imageUrl: string = '';
+}
+
 export type Operator = {
   name: string;
   faction: string;

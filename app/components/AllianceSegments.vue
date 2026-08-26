@@ -6,8 +6,6 @@
     imageUrl?: string;
   }>();
 
-  const segments = props.segments;
-  const completed = props.completed;
   const gap = 6;
   const paddingPx = 4.5;
   const sizePx = 45;
@@ -15,16 +13,16 @@
   const emptyColor = '#71717a';
 
   const segmentBackground = computed(() => {
-    const segmentSize = 360 / segments;
+    const segmentSize = 360 / props.segments;
     const visibleSize = segmentSize - gap;
 
     const colors = [];
 
-    for (let i = 0; i < segments; i++) {
+    for (let i = 0; i < props.segments; i++) {
       const start = i * segmentSize;
       const end = start + visibleSize;
 
-      const color = i < completed
+      const color = i < props.completed
         ? filledColor
         : emptyColor;
 
