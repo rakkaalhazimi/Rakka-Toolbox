@@ -160,7 +160,7 @@
     
     <!-- Alliances -->
     <h3 class="mt-4 mb-2 text-left">Alliances</h3>
-    <ul class="overflow-x-scroll no-scrollbar flex gap-2 mb-4">
+    <ul class="overflow-x-scroll no-scrollbar flex items-center gap-2 mb-4 h-[80px]">
       <li v-for="item in alliances" class="shrink-0">
         <img
           :key="item.name"
@@ -169,6 +169,7 @@
           :width="allianceIconSizePx"
           :height="allianceIconSizePx"
           class="rounded-full bg-neutral-700 cursor-pointer"
+          :class="{'outline-2 outline-primary/75': item.name === currentAliance}"
           @click="() => handleChangeAlliance(item.name)"
         /> 
       </li>
