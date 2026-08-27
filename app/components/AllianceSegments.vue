@@ -4,6 +4,7 @@
     segments: number;
     completed: number;
     imageUrl?: string;
+    name?: string;
   }>();
 
   const gap = 6;
@@ -39,45 +40,49 @@
 
 
 <template>
-<div 
-  class="relative" 
-  :style="{ 
-    width: `${sizePx}px`, 
-    height: `${sizePx}px` 
-  }"
->
-  <div
-    class="absolute rounded-full ring-2 ring-inset ring-gray-800"
-    :style="{ 
-      top: `${paddingPx}px`,
-      left: `${paddingPx}px`,
-      width: `${sizePx - paddingPx * 2}px`, 
-      height: `${sizePx - paddingPx * 2}px`,
-      background: iconBgColor,
-    }"
-  ></div>
-  
-  <img
-    :src="props.imageUrl"
-    class="absolute rounded-full"
-    :style="{ 
-      top: `${paddingPx}px`,
-      left: `${paddingPx}px`,
-      width: `${sizePx - paddingPx * 2}px`, 
-      height: `${sizePx - paddingPx * 2}px`,
-      filter: 'brightness(0.1)',
-    }"
-  />
-  
+<div class="flex flex-col justify-start items-center">
   <div 
-    class="arc absolute"
+    class="relative" 
     :style="{ 
       width: `${sizePx}px`, 
-      height: `${sizePx}px`,
-      background: segmentBackground,
-      padding: `${paddingPx}px`,
-    }">
+      height: `${sizePx}px` 
+    }"
+  >
+    <div
+      class="absolute rounded-full ring-2 ring-inset ring-gray-800"
+      :style="{ 
+        top: `${paddingPx}px`,
+        left: `${paddingPx}px`,
+        width: `${sizePx - paddingPx * 2}px`, 
+        height: `${sizePx - paddingPx * 2}px`,
+        background: iconBgColor,
+      }"
+    ></div>
+    
+    <img
+      :src="props.imageUrl"
+      class="absolute rounded-full"
+      :style="{ 
+        top: `${paddingPx}px`,
+        left: `${paddingPx}px`,
+        width: `${sizePx - paddingPx * 2}px`, 
+        height: `${sizePx - paddingPx * 2}px`,
+        filter: 'brightness(0.1)',
+      }"
+    />
+    
+    <div 
+      class="arc absolute"
+      :style="{ 
+        width: `${sizePx}px`, 
+        height: `${sizePx}px`,
+        background: segmentBackground,
+        padding: `${paddingPx}px`,
+      }">
+    </div>
+    
   </div>
+  <p class="w-[60px] text-xs text-center text-wrap">{{ props.name }}</p>
 </div>
 </template>
 

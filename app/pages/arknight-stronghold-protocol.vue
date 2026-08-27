@@ -102,9 +102,10 @@
     <!-- Activated Alliances -->
     <!-- flex flex-wrap gap-2 justify-around -->
     <div class="
-      grid grid-cols-8 grid-rows-2 justify-items-center
-      mx-auto p-[10px]
-      max-w-md h-[140px]
+      overflow-x-scroll
+      flex gap-x-8
+      mx-auto mt-4 mb-2
+      max-w-md h-[80px]
       "
     >
       <AllianceSegments
@@ -112,7 +113,10 @@
         :key="key"
         :segments="value.requiredToActivate" 
         :completed="value.count" 
-        :imageUrl="`${allianceDir}/${value.imageUrl}`" />
+        :imageUrl="`${allianceDir}/${value.imageUrl}`"
+        :name="key"
+        class="shrink-0"
+      />
     </div>
     
     <!-- Choosen Operators -->
