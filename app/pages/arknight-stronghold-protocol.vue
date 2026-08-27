@@ -100,7 +100,13 @@
   <UContainer>
     
     <!-- Activated Alliances -->
-    <div class="flex flex-wrap gap-2">
+    <!-- flex flex-wrap gap-2 justify-around -->
+    <div class="
+      grid grid-cols-8 grid-rows-2 justify-items-center
+      mx-auto p-[10px]
+      max-w-md h-[140px]
+      "
+    >
       <AllianceSegments
         v-for="(value, key) in alliancesCount"
         :key="key"
@@ -110,14 +116,14 @@
     </div>
     
     <!-- Choosen Operators -->
-    <div class="grid grid-cols-4 gap-2 max-w-md">
+    <div class="grid grid-cols-4 gap-2 mx-auto max-w-md">
       <div 
         v-for="(_, index) in maxOperatorDeploy" 
         :key="index"
         class="
           aspect-square 
           flex justify-center items-center 
-          bg-primary
+          bg-neutral-500
         "
         :class="{'cursor-pointer': selectedOperators[index]}"
       >
@@ -132,14 +138,16 @@
     </div>
     
     <UButton 
-      variant="solid"
+      variant="outline"
+      color="error"
+      class="block mx-auto my-2 cursor-pointer"
       @click="handleClearOperators"
     >
       Clear
     </UButton>
     
     <!-- Alliances -->
-    <ul class="flex flex-wrap gap-2">
+    <ul class="overflow-x-scroll flex gap-2">
       <li v-for="item in alliances" class="shrink-0">
         <img
           :key="item.name"
@@ -147,7 +155,7 @@
           :src="`${allianceDir}/${item.imageUrl}`"
           :width="allianceIconSizePx"
           :height="allianceIconSizePx"
-          class="bg-red-400 cursor-pointer"
+          class="rounded-full bg-neutral-700 cursor-pointer"
           @click="() => handleChangeAlliance(item.name)"
         /> 
       </li>
@@ -158,8 +166,14 @@
       <template v-for="item in alliances" :key="item.name">
         <li v-if="item.name === currentAliance">
           <!-- Alliances Summary -->
-          <h3>{{ item.name }}</h3>
-          <p class="whitespace-pre-line">{{ item.desc }}</p>
+          <!-- <h3>{{ item.name }}</h3> -->
+          <UAccordion :items="[{label: item.name, ...item}]">
+            <template #content="{ item }">
+              <p class="text-sm whitespace-pre-line">{{ item.desc }}</p>
+            </template>
+          </UAccordion>
+          
+          <!-- <p class="whitespace-pre-line">{{ item.desc }}</p> -->
           
           <!-- Operators -->
           <ul class="flex flex-wrap gap-2">
