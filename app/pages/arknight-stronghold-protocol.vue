@@ -161,7 +161,10 @@
     <!-- Alliances -->
     <h3 class="mt-4 mb-2 text-left">Alliances</h3>
     <ul class="overflow-x-scroll no-scrollbar flex items-center gap-2 mb-4 h-[80px]">
-      <li v-for="item in alliances" class="shrink-0">
+      <li 
+        v-for="item in alliances" 
+        class="shrink-0 flex flex-col justify-start items-center h-full"
+      >
         <img
           :key="item.name"
           :alt="item.imageUrl"
@@ -171,7 +174,8 @@
           class="rounded-full bg-neutral-700 cursor-pointer"
           :class="{'outline-2 outline-primary/75': item.name === currentAliance}"
           @click="() => handleChangeAlliance(item.name)"
-        /> 
+        />
+        <p class="w-[60px] text-xs text-center text-wrap">{{ item.name }}</p>
       </li>
     </ul>
     
