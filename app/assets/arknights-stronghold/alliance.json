@@ -1,0 +1,1869 @@
+[
+  {
+    "name": "Yan",
+    "desc": "[Yan] Operators' ATK increases (affected by no. of stacks)\n<With 6 different [Yan] Operators on field> At the start of battle, \"Yan's Protection\" is summoned with ATK and HP equal to 30% of the total ATK and HP of all [Yan] Operators on the field; can attack 3 targets simultaneously; can use \"Cleansing Flame\"; attacks inflict a percentage of damage as Burn and inflicts Elemental Fragility on surrounding enemies",
+    "operatorsToActivate": 3,
+    "operators": [
+      {
+        "name": "Leizi",
+        "faction": "Yan",
+        "star": 5,
+        "class_": "Caster",
+        "branch": "Chain",
+        "imageUrl": "90px-Leizi_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Grain Buds",
+        "faction": "Yan",
+        "star": 5,
+        "class_": "Supporter",
+        "branch": "Decel Binder",
+        "imageUrl": "90px-Grain_Buds_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Swire the Elegant Wit",
+        "faction": "Lungmen",
+        "star": 6,
+        "class_": "Specialist",
+        "branch": "Merchant",
+        "imageUrl": "90px-Swire_the_Elegant_Wit_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Swire",
+        "faction": "Lungmen Guard Department",
+        "star": 5,
+        "class_": "Guard",
+        "branch": "Instructor",
+        "imageUrl": "90px-Swire_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Hoshiguma",
+        "faction": "Lungmen Guard Department",
+        "star": 6,
+        "class_": "Defender",
+        "branch": "Protector",
+        "imageUrl": "90px-Hoshiguma_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Dusk",
+        "faction": "Sui",
+        "star": 6,
+        "class_": "Caster",
+        "branch": "Splash",
+        "imageUrl": "90px-Dusk_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Blaze the Igniting Spark",
+        "faction": "Elite Op",
+        "star": 6,
+        "class_": "Caster",
+        "branch": "Primal",
+        "imageUrl": "90px-Blaze_the_Igniting_Spark_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Yu",
+        "faction": "Sui",
+        "star": 6,
+        "class_": "Defender",
+        "branch": "Primal Protector",
+        "imageUrl": "90px-Yu_icon_H0P8.webp",
+        "rank": "VI"
+      },
+      {
+        "name": "Qiubai",
+        "faction": "Yan",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Lord",
+        "imageUrl": "90px-Qiubai_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Yan_Alliance.webp"
+  },
+  {
+    "name": "Sargon",
+    "desc": "When any [Sargon] Operator activates a skill, all [Sargon] Operators temporarily gain increased ASPD (up to a limit) for a duration (affected by no. of stacks)\n<With 6 different [Sargon] Operators on field> Skill activations will also cause all [Sargon] Operators to temporarily gain increased ATK (up to a limit) for the same duration",
+    "operatorsToActivate": 3,
+    "operators": [
+      {
+        "name": "Estelle",
+        "faction": "Sargon",
+        "star": 4,
+        "class_": "Guard",
+        "branch": "Centurion",
+        "imageUrl": "90px-Estelle_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Papyrus",
+        "faction": "Sargon",
+        "star": 5,
+        "class_": "Medic",
+        "branch": "Chain",
+        "imageUrl": "90px-Papyrus_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Bubble",
+        "faction": "Sargon",
+        "star": 4,
+        "class_": "Defender",
+        "branch": "Protector",
+        "imageUrl": "90px-Bubble_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Philae",
+        "faction": "Sargon",
+        "star": 5,
+        "class_": "Defender",
+        "branch": "Primal Protector",
+        "imageUrl": "90px-Philae_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Minimalist",
+        "faction": "Sargon",
+        "star": 5,
+        "class_": "Caster",
+        "branch": "Mech-Accord",
+        "imageUrl": "90px-Minimalist_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Carnelian",
+        "faction": "Leithanien",
+        "star": 6,
+        "class_": "Caster",
+        "branch": "Phalanx",
+        "imageUrl": "90px-Carnelian_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Gavial the Invincible",
+        "faction": "Rhodes Island",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Centurion",
+        "imageUrl": "90px-Gavial_the_Invincible_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Titi",
+        "faction": "Sargon",
+        "star": 6,
+        "class_": "Medic",
+        "branch": "Incantation",
+        "imageUrl": "90px-Titi_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Passenger",
+        "faction": "Sargon",
+        "star": 6,
+        "class_": "Caster",
+        "branch": "Chain",
+        "imageUrl": "90px-Passenger_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Narantuya",
+        "faction": "Sargon",
+        "star": 6,
+        "class_": "Sniper",
+        "branch": "Loopshooter",
+        "imageUrl": "90px-Narantuya_icon_H0P8.webp",
+        "rank": "VI"
+      },
+      {
+        "name": "Pepe",
+        "faction": "Sargon",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Earthshaker",
+        "imageUrl": "90px-Pepe_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Sargon_Alliance.webp"
+  },
+  {
+    "name": "Victoria",
+    "desc": "[Victoria] Operators carrying equipment deal more damage (affected by no. of stacks)\n<Every 25 stacks> Obtain 1 random Victorian Hammer\n<With 6 different [Victoria] Operators on field> All [Victoria] Operators carrying equipment gain increased ATK, with an extra increase if equipment is upgraded",
+    "operatorsToActivate": 3,
+    "operators": [
+      {
+        "name": "Vendela",
+        "faction": "Victoria",
+        "star": 5,
+        "class_": "Medic",
+        "branch": "Incantation",
+        "imageUrl": "90px-Vendela_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Rockrock",
+        "faction": "Victoria",
+        "star": 5,
+        "class_": "Caster",
+        "branch": "Mech-Accord",
+        "imageUrl": "90px-Rockrock_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Harold",
+        "faction": "Victoria",
+        "star": 5,
+        "class_": "Medic",
+        "branch": "Wandering",
+        "imageUrl": "90px-Harold_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Mint",
+        "faction": "Victoria",
+        "star": 5,
+        "class_": "Caster",
+        "branch": "Phalanx",
+        "imageUrl": "90px-Mint_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Bagpipe",
+        "faction": "Victoria",
+        "star": 6,
+        "class_": "Vanguard",
+        "branch": "Charger",
+        "imageUrl": "90px-Bagpipe_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Catherine",
+        "faction": "Victoria",
+        "star": 5,
+        "class_": "Supporter",
+        "branch": "Artificer",
+        "imageUrl": "90px-Catherine_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Blaze the Igniting Spark",
+        "faction": "Elite Op",
+        "star": 6,
+        "class_": "Caster",
+        "branch": "Primal",
+        "imageUrl": "90px-Blaze_the_Igniting_Spark_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Horn",
+        "faction": "Victoria",
+        "star": 6,
+        "class_": "Defender",
+        "branch": "Fortress",
+        "imageUrl": "90px-Horn_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Reed the Flame Shadow",
+        "faction": "Tara",
+        "star": 6,
+        "class_": "Medic",
+        "branch": "Incantation",
+        "imageUrl": "90px-Reed_the_Flame_Shadow_icon_H0P8.webp",
+        "rank": "VI"
+      },
+      {
+        "name": "Vina Victoria",
+        "faction": "Victoria",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Arts Fighter",
+        "imageUrl": "90px-Vina_Victoria_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Victoria_Alliance.webp"
+  },
+  {
+    "name": "Kjerag",
+    "desc": "[Kjerag] Operators deal increased damage, and even more to Cold and Frozen enemies (affected by no. of stacks)\n<With 6 different [Kjerag] Operators on field> A chill gust blows on the battlefield every 25 seconds, inflicting Cold on enemies for a period of time (affected by no. of stacks)",
+    "operatorsToActivate": 3,
+    "operators": [
+      {
+        "name": "Matterhorn",
+        "faction": "Karlan Trade",
+        "star": 4,
+        "class_": "Defender",
+        "branch": "Protector",
+        "imageUrl": "90px-Matterhorn_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Harold",
+        "faction": "Victoria",
+        "star": 5,
+        "class_": "Medic",
+        "branch": "Wandering",
+        "imageUrl": "90px-Harold_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Kjera",
+        "faction": "Kjerag",
+        "star": 5,
+        "class_": "Caster",
+        "branch": "Mech-Accord",
+        "imageUrl": "90px-Kjera_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Pramanix",
+        "faction": "Kjerag",
+        "star": 5,
+        "class_": "Supporter",
+        "branch": "Hexer",
+        "imageUrl": "90px-Pramanix_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Snow Hunter",
+        "faction": "Kjerag",
+        "star": 5,
+        "class_": "Sniper",
+        "branch": "Hunter",
+        "imageUrl": "90px-Snow_Hunter_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Gnosis",
+        "faction": "Karlan Trade",
+        "star": 6,
+        "class_": "Supporter",
+        "branch": "Hexer",
+        "imageUrl": "90px-Gnosis_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "SilverAsh",
+        "faction": "Karlan Trade",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Lord",
+        "imageUrl": "90px-SilverAsh_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "SilverAsh the Reignfrost",
+        "faction": "Kjerag",
+        "star": 6,
+        "class_": "Vanguard",
+        "branch": "Strategist",
+        "imageUrl": "90px-SilverAsh_the_Reignfrost_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Pramanix the Prerita",
+        "faction": "Kjerag",
+        "star": 6,
+        "class_": "Caster",
+        "branch": "Phalanx",
+        "imageUrl": "90px-Pramanix_the_Prerita_icon_H0P8.webp",
+        "rank": "VI"
+      },
+      {
+        "name": "Degenbrecher",
+        "faction": "Karlan Trade",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Swordmaster",
+        "imageUrl": "90px-Degenbrecher_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Kjerag_Alliance.webp"
+  },
+  {
+    "name": "Laterano",
+    "desc": "[Laterano] Operators gain ammo on skill activation (affected by no. of stacks)\n<With 6 different [Laterano] Operators on field> All [Laterano] Operators gain increased ATK (up to a limit) when any [Laterano] Operator spends 1 bullet",
+    "operatorsToActivate": 3,
+    "operators": [
+      {
+        "name": "Insider",
+        "faction": "Laterano",
+        "star": 5,
+        "class_": "Sniper",
+        "branch": "Marksman",
+        "imageUrl": "90px-Insider_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Executor",
+        "faction": "Laterano",
+        "star": 5,
+        "class_": "Sniper",
+        "branch": "Spreadshooter",
+        "imageUrl": "90px-Executor_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Archetto",
+        "faction": "Laterano",
+        "star": 6,
+        "class_": "Sniper",
+        "branch": "Marksman",
+        "imageUrl": "90px-Archetto_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Exusiai",
+        "faction": "Penguin Logistics",
+        "star": 6,
+        "class_": "Sniper",
+        "branch": "Marksman",
+        "imageUrl": "90px-Exusiai_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Sankta Miksaparato",
+        "faction": "Laterano",
+        "star": 6,
+        "class_": "Defender",
+        "branch": "Sentry Protector",
+        "imageUrl": "90px-Sankta_Miksaparato_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Executor the Ex Foedere",
+        "faction": "Laterano",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Reaper",
+        "imageUrl": "90px-Executor_the_Ex_Foedere_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Exusiai the New Covenant",
+        "faction": "Penguin Logistics",
+        "star": 6,
+        "class_": "Specialist",
+        "branch": "Geek",
+        "imageUrl": "90px-Exusiai_the_New_Covenant_icon_H0P8.webp",
+        "rank": "VI"
+      },
+      {
+        "name": "Virtuosa",
+        "faction": "Laterano",
+        "star": 6,
+        "class_": "Supporter",
+        "branch": "Ritualist",
+        "imageUrl": "90px-Virtuosa_icon_H0P8.webp",
+        "rank": "VI"
+      },
+      {
+        "name": "Lemuen",
+        "faction": "Laterano",
+        "star": 6,
+        "class_": "Sniper",
+        "branch": "Deadeye",
+        "imageUrl": "90px-Lemuen_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Laterano_Alliance.webp"
+  },
+  {
+    "name": "Ægir",
+    "desc": "[Ægir] Operators' HP increases (affected by no. of stacks)\nWhen the battle begins, [Ægir] Operators will devour the Operator on the tile in front of them, dealing 5000 Physical damage to the Operator and gaining their base ATK and Block, while adding [Ægir] stacks equal to the devoured Operator's Tier (among [Ægir] Operators, those positioned further up or to the left are prioritized to start a devour)\n<With 5 different [Ægir] Operators on the field> the first 3 defeated will immediately revive",
+    "operatorsToActivate": 3,
+    "operators": [
+      {
+        "name": "Underflow",
+        "faction": "Aegir",
+        "star": 5,
+        "class_": "Defender",
+        "branch": "Sentry Protector",
+        "imageUrl": "90px-Underflow_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Specter",
+        "faction": "Abyssal Hunters",
+        "star": 5,
+        "class_": "Guard",
+        "branch": "Centurion",
+        "imageUrl": "90px-Specter_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Lucilla",
+        "faction": "Aegir",
+        "star": 5,
+        "class_": "Supporter",
+        "branch": "Hexer",
+        "imageUrl": "90px-Lucilla_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Skadi",
+        "faction": "Abyssal Hunters",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Dreadnought",
+        "imageUrl": "90px-Skadi_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Gladiia",
+        "faction": "Abyssal Hunters",
+        "star": 6,
+        "class_": "Specialist",
+        "branch": "Hookmaster",
+        "imageUrl": "90px-Gladiia_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Mizuki",
+        "faction": "Higashi",
+        "star": 6,
+        "class_": "Specialist",
+        "branch": "Ambusher",
+        "imageUrl": "90px-Mizuki_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Specter the Unchained",
+        "faction": "Abyssal Hunters",
+        "star": 6,
+        "class_": "Specialist",
+        "branch": "Dollkeeper",
+        "imageUrl": "90px-Specter_the_Unchained_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Ulpianus",
+        "faction": "Abyssal Hunters",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Crusher",
+        "imageUrl": "90px-Ulpianus_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Skadi the Corrupting Heart",
+        "faction": "Aegir",
+        "star": 6,
+        "class_": "Supporter",
+        "branch": "Bard",
+        "imageUrl": "90px-Skadi_the_Corrupting_Heart_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Ægir_Alliance.webp"
+  },
+  {
+    "name": "Siracusa",
+    "desc": "[Siracusa] Opeartors gain increased ASDP on deployment for a period of time (affected by no. of stacks)\n<With 6 different [Siracusa] Operators on field> [Siracusa] Operators to deal a set amount of True damage (affected by no. of stacks) and inflict Fear for 3 seconds when Invisible, or for 10 seconds after losing Invisbility",
+    "operatorsToActivate": 3,
+    "operators": [
+      {
+        "name": "Texas",
+        "faction": "Penguin Logistics",
+        "star": 5,
+        "class_": "Vanguard",
+        "branch": "Pioneer",
+        "imageUrl": "90px-Texas_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Provence",
+        "faction": "Siracusa",
+        "star": 5,
+        "class_": "Sniper",
+        "branch": "Heavyshooter",
+        "imageUrl": "90px-Provence_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Lappland",
+        "faction": "Siracusa",
+        "star": 5,
+        "class_": "Guard",
+        "branch": "Lord",
+        "imageUrl": "90px-Lappland_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Vigil",
+        "faction": "Siracusa",
+        "star": 6,
+        "class_": "Vanguard",
+        "branch": "Tactician",
+        "imageUrl": "90px-Vigil_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Vulpisfoglia",
+        "faction": "Siracusa",
+        "star": 6,
+        "class_": "Vanguard",
+        "branch": "Pioneer",
+        "imageUrl": "90px-Vulpisfoglia_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Texas the Omertosa",
+        "faction": "Penguin Logistics",
+        "star": 6,
+        "class_": "Specialist",
+        "branch": "Executor",
+        "imageUrl": "90px-Texas_the_Omertosa_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Aroma",
+        "faction": "Siracusa",
+        "star": 5,
+        "class_": "Caster",
+        "branch": "Blast",
+        "imageUrl": "90px-Aroma_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Angelina",
+        "faction": "Siracusa",
+        "star": 6,
+        "class_": "Supporter",
+        "branch": "Decel Binder",
+        "imageUrl": "90px-Angelina_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Suzuran",
+        "faction": "Siracusa",
+        "star": 6,
+        "class_": "Supporter",
+        "branch": "Decel Binder",
+        "imageUrl": "90px-Suzuran_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Lappland the Decadenza",
+        "faction": "Siracusa",
+        "star": 6,
+        "class_": "Caster",
+        "branch": "Mech-Accord",
+        "imageUrl": "90px-Lappland_the_Decadenza_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Siracusa_Alliance.webp"
+  },
+  {
+    "name": "Kazimierz",
+    "desc": "On every Operator deployment, [Kazimierz] Operators gain +20% ATK until the battle ends (limit affected by no. of stacks)\n<With 6 different [Kazimierz] Oeprators on field> [Kazimierz] Operators blocking enemies deal 120% of ATK as True Damage and inflict 0.1 seconds of Stun on nearby enemies every 2 seconds; otherwise dealing damage also deals extra 30% ATK as True damage when not blocking an enemy",
+    "operatorsToActivate": 3,
+    "operators": [
+      {
+        "name": "Wild Mane",
+        "faction": "Pinus Sylvestris",
+        "star": 5,
+        "class_": "Vanguard",
+        "branch": "Charger",
+        "imageUrl": "90px-Wild_Mane_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Gravel",
+        "faction": "Kazimierz",
+        "star": 4,
+        "class_": "Specialist",
+        "branch": "Executor",
+        "imageUrl": "90px-Gravel_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Ashlock",
+        "faction": "Pinus Sylvestris",
+        "star": 5,
+        "class_": "Defender",
+        "branch": "Fortress",
+        "imageUrl": "90px-Ashlock_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Blemishine",
+        "faction": "Kazimierz",
+        "star": 6,
+        "class_": "Defender",
+        "branch": "Guardian",
+        "imageUrl": "90px-Blemishine_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Meteor",
+        "faction": "Kazimierz",
+        "star": 4,
+        "class_": "Sniper",
+        "branch": "Marksman",
+        "imageUrl": "90px-Meteor_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Flametail",
+        "faction": "Pinus Sylvestris",
+        "star": 6,
+        "class_": "Vanguard",
+        "branch": "Pioneer",
+        "imageUrl": "90px-Flametail_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Fartooth",
+        "faction": "Pinus Sylvestris",
+        "star": 6,
+        "class_": "Sniper",
+        "branch": "Deadeye",
+        "imageUrl": "90px-Fartooth_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Młynar",
+        "faction": "Kazimierz",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Liberator",
+        "imageUrl": "90px-Młynar_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Degenbrecher",
+        "faction": "Karlan Trade",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Swordmaster",
+        "imageUrl": "90px-Degenbrecher_icon_H0P8.webp",
+        "rank": "VI"
+      },
+      {
+        "name": "Nearl the Radiant Knight",
+        "faction": "Kazimierz",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Dreadnought",
+        "imageUrl": "90px-Nearl_the_Radiant_Knight_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Kazimierz_Alliance.webp"
+  },
+  {
+    "name": "Precision",
+    "desc": "[Precision] Operators gains increased ATK (affected by no. of stacks)\n<With 3 different [Precision] Operators on field> Buff affects all [Precision] and Ranged Operators, and attacks ignore some DEF and RES",
+    "operatorsToActivate": 2,
+    "operators": [
+      {
+        "name": "Indigo",
+        "faction": "Iberia",
+        "star": 4,
+        "class_": "Caster",
+        "branch": "Mystic",
+        "imageUrl": "90px-Indigo_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Caper",
+        "faction": "Bolívar",
+        "star": 4,
+        "class_": "Sniper",
+        "branch": "Loopshooter",
+        "imageUrl": "90px-Caper_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Executor",
+        "faction": "Laterano",
+        "star": 5,
+        "class_": "Sniper",
+        "branch": "Spreadshooter",
+        "imageUrl": "90px-Executor_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Snow Hunter",
+        "faction": "Kjerag",
+        "star": 5,
+        "class_": "Sniper",
+        "branch": "Hunter",
+        "imageUrl": "90px-Snow_Hunter_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Leonhardt",
+        "faction": "Rim Billiton",
+        "star": 5,
+        "class_": "Caster",
+        "branch": "Splash",
+        "imageUrl": "90px-Leonhardt_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Fartooth",
+        "faction": "Pinus Sylvestris",
+        "star": 6,
+        "class_": "Sniper",
+        "branch": "Deadeye",
+        "imageUrl": "90px-Fartooth_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Kroos the Keen Glint",
+        "faction": "Rhodes Island",
+        "star": 5,
+        "class_": "Sniper",
+        "branch": "Marksman",
+        "imageUrl": "90px-Kroos_the_Keen_Glint_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Titi",
+        "faction": "Sargon",
+        "star": 6,
+        "class_": "Medic",
+        "branch": "Incantation",
+        "imageUrl": "90px-Titi_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Passenger",
+        "faction": "Sargon",
+        "star": 6,
+        "class_": "Caster",
+        "branch": "Chain",
+        "imageUrl": "90px-Passenger_icon_H0P8.webp",
+        "rank": "VI"
+      },
+      {
+        "name": "Reed the Flame Shadow",
+        "faction": "Tara",
+        "star": 6,
+        "class_": "Medic",
+        "branch": "Incantation",
+        "imageUrl": "90px-Reed_the_Flame_Shadow_icon_H0P8.webp",
+        "rank": "VI"
+      },
+      {
+        "name": "Rosmontis",
+        "faction": "Elite Op",
+        "star": 6,
+        "class_": "Sniper",
+        "branch": "Flinger",
+        "imageUrl": "90px-Rosmontis_icon_H0P8.webp",
+        "rank": "VI"
+      },
+      {
+        "name": "Lemuen",
+        "faction": "Laterano",
+        "star": 6,
+        "class_": "Sniper",
+        "branch": "Deadeye",
+        "imageUrl": "90px-Lemuen_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Precision_Alliance.webp"
+  },
+  {
+    "name": "Swift",
+    "desc": "[Swift] Operators have a chance when their skill ends to immediately recover 12 SP (affected by no. of stacks)\n<At 40 stacks> All Operators have the same chance to recover 15 SP when their skill ends",
+    "operatorsToActivate": 2,
+    "operators": [
+      {
+        "name": "Wild Mane",
+        "faction": "Pinus Sylvestris",
+        "star": 5,
+        "class_": "Vanguard",
+        "branch": "Charger",
+        "imageUrl": "90px-Wild_Mane_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Insider",
+        "faction": "Laterano",
+        "star": 5,
+        "class_": "Sniper",
+        "branch": "Marksman",
+        "imageUrl": "90px-Insider_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Tin Man",
+        "faction": "Columbia",
+        "star": 5,
+        "class_": "Specialist",
+        "branch": "Alchemist",
+        "imageUrl": "90px-Tin_Man_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Tippi",
+        "faction": "Columbia",
+        "star": 5,
+        "class_": "Specialist",
+        "branch": "Skyranger",
+        "imageUrl": "90px-Tippi_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Vulpisfoglia",
+        "faction": "Siracusa",
+        "star": 6,
+        "class_": "Vanguard",
+        "branch": "Pioneer",
+        "imageUrl": "90px-Vulpisfoglia_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Pinecone",
+        "faction": "Columbia",
+        "star": 4,
+        "class_": "Sniper",
+        "branch": "Spreadshooter",
+        "imageUrl": "90px-Pinecone_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Leonhardt",
+        "faction": "Rim Billiton",
+        "star": 5,
+        "class_": "Caster",
+        "branch": "Splash",
+        "imageUrl": "90px-Leonhardt_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "SilverAsh the Reignfrost",
+        "faction": "Kjerag",
+        "star": 6,
+        "class_": "Vanguard",
+        "branch": "Strategist",
+        "imageUrl": "90px-SilverAsh_the_Reignfrost_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Thorns the Lodestar",
+        "faction": "Iberia",
+        "star": 6,
+        "class_": "Specialist",
+        "branch": "Alchemist",
+        "imageUrl": "90px-Thorns_the_Lodestar_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Nymph",
+        "faction": "Rhodes Island",
+        "star": 6,
+        "class_": "Caster",
+        "branch": "Primal",
+        "imageUrl": "90px-Nymph_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Passenger",
+        "faction": "Sargon",
+        "star": 6,
+        "class_": "Caster",
+        "branch": "Chain",
+        "imageUrl": "90px-Passenger_icon_H0P8.webp",
+        "rank": "VI"
+      },
+      {
+        "name": "Degenbrecher",
+        "faction": "Karlan Trade",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Swordmaster",
+        "imageUrl": "90px-Degenbrecher_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Swift_Alliance.webp"
+  },
+  {
+    "name": "Agile",
+    "desc": "[Agile] Operators and Operators in the 4 adjacent tiles around them gain increased ASPD (affected by no. of stacks)\n<At 40 stacks> Effect range increased to 8 tiles surrounding [Agile] Operators",
+    "operatorsToActivate": 2,
+    "operators": [
+      {
+        "name": "Greyy",
+        "faction": "Bolívar",
+        "star": 4,
+        "class_": "Caster",
+        "branch": "Splash",
+        "imageUrl": "90px-Greyy_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Tippi",
+        "faction": "Columbia",
+        "star": 5,
+        "class_": "Specialist",
+        "branch": "Skyranger",
+        "imageUrl": "90px-Tippi_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Grain Buds",
+        "faction": "Yan",
+        "star": 5,
+        "class_": "Supporter",
+        "branch": "Decel Binder",
+        "imageUrl": "90px-Grain_Buds_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Tin Man",
+        "faction": "Columbia",
+        "star": 5,
+        "class_": "Specialist",
+        "branch": "Alchemist",
+        "imageUrl": "90px-Tin_Man_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Minimalist",
+        "faction": "Sargon",
+        "star": 5,
+        "class_": "Caster",
+        "branch": "Mech-Accord",
+        "imageUrl": "90px-Minimalist_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Archetto",
+        "faction": "Laterano",
+        "star": 6,
+        "class_": "Sniper",
+        "branch": "Marksman",
+        "imageUrl": "90px-Archetto_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Ayerscarpe",
+        "faction": "Rim Billiton",
+        "star": 5,
+        "class_": "Guard",
+        "branch": "Lord",
+        "imageUrl": "90px-Ayerscarpe_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Gnosis",
+        "faction": "Karlan Trade",
+        "star": 6,
+        "class_": "Supporter",
+        "branch": "Hexer",
+        "imageUrl": "90px-Gnosis_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Catherine",
+        "faction": "Victoria",
+        "star": 5,
+        "class_": "Supporter",
+        "branch": "Artificer",
+        "imageUrl": "90px-Catherine_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Ptilopsis",
+        "faction": "Rhine Lab",
+        "star": 5,
+        "class_": "Medic",
+        "branch": "Multi-target",
+        "imageUrl": "90px-Ptilopsis_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Entelechia",
+        "faction": "Rhodes Island",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Reaper",
+        "imageUrl": "90px-Entelechia_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Astgenne the Lightchaser",
+        "faction": "Rhine Lab",
+        "star": 6,
+        "class_": "Supporter",
+        "branch": "Decel Binder",
+        "imageUrl": "90px-Astgenne_the_Lightchaser_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Agile_Alliance.webp"
+  },
+  {
+    "name": "Arcane",
+    "desc": "When [Arcane] Operators deal Arts damage, the target takes increased Arts damage (affected by no. of stacks) for 3 seconds\n<With 3 different Arcane Operators on field> Arcane Operator deal more damage to enemies with less than 50% HP (affected by no. of stacks)",
+    "operatorsToActivate": 2,
+    "operators": [
+      {
+        "name": "Indigo",
+        "faction": "Iberia",
+        "star": 4,
+        "class_": "Caster",
+        "branch": "Mystic",
+        "imageUrl": "90px-Indigo_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Rockrock",
+        "faction": "Victoria",
+        "star": 5,
+        "class_": "Caster",
+        "branch": "Mech-Accord",
+        "imageUrl": "90px-Rockrock_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Lucilla",
+        "faction": "Aegir",
+        "star": 5,
+        "class_": "Supporter",
+        "branch": "Hexer",
+        "imageUrl": "90px-Lucilla_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Aroma",
+        "faction": "Siracusa",
+        "star": 5,
+        "class_": "Caster",
+        "branch": "Blast",
+        "imageUrl": "90px-Aroma_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Dusk",
+        "faction": "Sui",
+        "star": 6,
+        "class_": "Caster",
+        "branch": "Splash",
+        "imageUrl": "90px-Dusk_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Surtr",
+        "faction": "Rhodes Island",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Arts Fighter",
+        "imageUrl": "90px-Surtr_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Pramanix",
+        "faction": "Kjerag",
+        "star": 5,
+        "class_": "Supporter",
+        "branch": "Hexer",
+        "imageUrl": "90px-Pramanix_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Astgenne the Lightchaser",
+        "faction": "Rhine Lab",
+        "star": 6,
+        "class_": "Supporter",
+        "branch": "Decel Binder",
+        "imageUrl": "90px-Astgenne_the_Lightchaser_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Arcane_Alliance.webp"
+  },
+  {
+    "name": "Durable",
+    "desc": "All Operators gain increased HP (affected by no. of stacks)\n<With 3 different [Durable] Operators on the field> Whenever a non-[Durable] Operator takes damage, 40% of that damage is split among all [Durable] Operators on field. [Durable] Operators taking damage inflicts Arts Damage [affected by no. of stacks, triggers up to once every 0.2 seconds] and 40% Fragile for 5 seconds onto their attacker",
+    "operatorsToActivate": 2,
+    "operators": [
+      {
+        "name": "Gummy",
+        "faction": "Ursus Student Self-Governing Group",
+        "star": 4,
+        "class_": "Defender",
+        "branch": "Guardian",
+        "imageUrl": "90px-Gummy_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Matterhorn",
+        "faction": "Karlan Trade",
+        "star": 4,
+        "class_": "Defender",
+        "branch": "Protector",
+        "imageUrl": "90px-Matterhorn_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Ashlock",
+        "faction": "Pinus Sylvestris",
+        "star": 5,
+        "class_": "Defender",
+        "branch": "Fortress",
+        "imageUrl": "90px-Ashlock_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Vetochki",
+        "faction": "Ursus",
+        "star": 5,
+        "class_": "Defender",
+        "branch": "Juggernaut",
+        "imageUrl": "90px-Vetochki_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Bubble",
+        "faction": "Sargon",
+        "star": 4,
+        "class_": "Defender",
+        "branch": "Protector",
+        "imageUrl": "90px-Bubble_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Cuora",
+        "faction": "Columbia",
+        "star": 4,
+        "class_": "Defender",
+        "branch": "Protector",
+        "imageUrl": "90px-Cuora_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Skadi",
+        "faction": "Abyssal Hunters",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Dreadnought",
+        "imageUrl": "90px-Skadi_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Sankta Miksaparato",
+        "faction": "Laterano",
+        "star": 6,
+        "class_": "Defender",
+        "branch": "Sentry Protector",
+        "imageUrl": "90px-Sankta_Miksaparato_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Saria",
+        "faction": "Rhine Lab",
+        "star": 6,
+        "class_": "Defender",
+        "branch": "Guardian",
+        "imageUrl": "90px-Saria_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Yu",
+        "faction": "Sui",
+        "star": 6,
+        "class_": "Defender",
+        "branch": "Primal Protector",
+        "imageUrl": "90px-Yu_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Durable_Alliance.webp"
+  },
+  {
+    "name": "Aid",
+    "desc": "All Operators gain increased DEF (affected by no. of stacks) and reduced Redeployment Time\nWhen Rest Phase ends, +2 stacks to all active Alliances\n<With 3 different [Aid] Operators on field> +4 stacks instead ",
+    "operatorsToActivate": 2,
+    "operators": [
+      {
+        "name": "Podenco",
+        "faction": "Rhodes Island",
+        "star": 4,
+        "class_": "Supporter",
+        "branch": "Decel Binder",
+        "imageUrl": "90px-Podenco_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Vendela",
+        "faction": "Victoria",
+        "star": 5,
+        "class_": "Medic",
+        "branch": "Incantation",
+        "imageUrl": "90px-Vendela_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Perfumer",
+        "faction": "Rhodes Island",
+        "star": 4,
+        "class_": "Medic",
+        "branch": "Multi-target",
+        "imageUrl": "90px-Perfumer_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Kjera",
+        "faction": "Kjerag",
+        "star": 5,
+        "class_": "Caster",
+        "branch": "Mech-Accord",
+        "imageUrl": "90px-Kjera_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Carnelian",
+        "faction": "Leithanien",
+        "star": 6,
+        "class_": "Caster",
+        "branch": "Phalanx",
+        "imageUrl": "90px-Carnelian_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Ptilopsis",
+        "faction": "Rhine Lab",
+        "star": 5,
+        "class_": "Medic",
+        "branch": "Multi-target",
+        "imageUrl": "90px-Ptilopsis_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Eyjafjalla the Hvít Aska",
+        "faction": "Leithanien",
+        "star": 6,
+        "class_": "Medic",
+        "branch": "Wandering",
+        "imageUrl": "90px-Eyjafjalla_the_Hvít_Aska_icon_H0P8.webp",
+        "rank": "VI"
+      },
+      {
+        "name": "Lumen",
+        "faction": "Iberia",
+        "star": 6,
+        "class_": "Medic",
+        "branch": "Therapist",
+        "imageUrl": "90px-Lumen_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Aid_Alliance.webp"
+  },
+  {
+    "name": "Foresight",
+    "desc": "<For every 10 stacks added> gain +2 Funds\n<At 80 stacks (first-time only)> Foresight Operator cost -1 Funds permanently\n<At 150 stacks (first-time only> Above effect changes to: All Dispatch Center Operators cost -1 Funds permanently ([Foresight] Operators on Bench can also count toward activating this Alliance)",
+    "operatorsToActivate": 2,
+    "operators": [
+      {
+        "name": "Silence",
+        "faction": "Rhine Lab",
+        "star": 5,
+        "class_": "Medic",
+        "branch": "Medic",
+        "imageUrl": "90px-Silence_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Pramanix",
+        "faction": "Kjerag",
+        "star": 5,
+        "class_": "Supporter",
+        "branch": "Hexer",
+        "imageUrl": "90px-Pramanix_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Swire",
+        "faction": "Lungmen Guard Department",
+        "star": 5,
+        "class_": "Guard",
+        "branch": "Instructor",
+        "imageUrl": "90px-Swire_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Ines",
+        "faction": "Babel",
+        "star": 6,
+        "class_": "Vanguard",
+        "branch": "Agent",
+        "imageUrl": "90px-Ines_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Bagpipe",
+        "faction": "Victoria",
+        "star": 6,
+        "class_": "Vanguard",
+        "branch": "Charger",
+        "imageUrl": "90px-Bagpipe_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Santalla",
+        "faction": "Sami",
+        "star": 5,
+        "class_": "Caster",
+        "branch": "Splash",
+        "imageUrl": "90px-Santalla_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Executor the Ex Foedere",
+        "faction": "Laterano",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Reaper",
+        "imageUrl": "90px-Executor_the_Ex_Foedere_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Rosmontis",
+        "faction": "Elite Op",
+        "star": 6,
+        "class_": "Sniper",
+        "branch": "Flinger",
+        "imageUrl": "90px-Rosmontis_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Foresight_Alliance.webp"
+  },
+  {
+    "name": "Marvel",
+    "desc": "On Dispatch Center refresh, there is a chance the next refresh will be free (affected by no. of stacks)\n<Every 100 stacks> Gain 20 Funds ([Marvel] Operators on Bench can also count toward activating this Alliance)",
+    "operatorsToActivate": 2,
+    "operators": [
+      {
+        "name": "Kazemaru",
+        "faction": "Higashi",
+        "star": 5,
+        "class_": "Specialist",
+        "branch": "Dollkeeper",
+        "imageUrl": "90px-Kazemaru_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Vigil",
+        "faction": "Siracusa",
+        "star": 6,
+        "class_": "Vanguard",
+        "branch": "Tactician",
+        "imageUrl": "90px-Vigil_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Exusiai",
+        "faction": "Penguin Logistics",
+        "star": 6,
+        "class_": "Sniper",
+        "branch": "Marksman",
+        "imageUrl": "90px-Exusiai_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Warfarin",
+        "faction": "Rhodes Island",
+        "star": 5,
+        "class_": "Medic",
+        "branch": "Medic",
+        "imageUrl": "90px-Warfarin_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Thorns the Lodestar",
+        "faction": "Iberia",
+        "star": 6,
+        "class_": "Specialist",
+        "branch": "Alchemist",
+        "imageUrl": "90px-Thorns_the_Lodestar_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Angelina",
+        "faction": "Siracusa",
+        "star": 6,
+        "class_": "Supporter",
+        "branch": "Decel Binder",
+        "imageUrl": "90px-Angelina_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Record Keeper",
+        "faction": "Yan",
+        "star": 5,
+        "class_": "Medic",
+        "branch": "Medic",
+        "imageUrl": "90px-Record_Keeper_icon_H0P8.webp"
+      },
+      {
+        "name": "Vina Victoria",
+        "faction": "Victoria",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Arts Fighter",
+        "imageUrl": "90px-Vina_Victoria_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Marvel_Alliance.webp"
+  },
+  {
+    "name": "Investor",
+    "desc": "Operators' \"When obtained\" Attributes trigger twice\n<At 100 stacks> \"When obtained\" Attributes trigger 3 times instead ([Investor] Operators on Bench can also count toward activating this Alliance)",
+    "operatorsToActivate": 3,
+    "operators": [
+      {
+        "name": "Tin Man",
+        "faction": "Columbia",
+        "star": 5,
+        "class_": "Specialist",
+        "branch": "Alchemist",
+        "imageUrl": "90px-Tin_Man_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Swire the Elegant Wit",
+        "faction": "Lungmen",
+        "star": 6,
+        "class_": "Specialist",
+        "branch": "Merchant",
+        "imageUrl": "90px-Swire_the_Elegant_Wit_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "SilverAsh the Reignfrost",
+        "faction": "Kjerag",
+        "star": 6,
+        "class_": "Vanguard",
+        "branch": "Strategist",
+        "imageUrl": "90px-SilverAsh_the_Reignfrost_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Mountain",
+        "faction": "Columbia",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Fighter",
+        "imageUrl": "90px-Mountain_icon_H0P8.webp",
+        "rank": "V"
+      }
+    ],
+    "imageUrl": "Investor_Alliance.webp"
+  },
+  {
+    "name": "Raid",
+    "desc": "If a [Raid] Operator's skill is ready with or does not attack for 10 seconds, and has no enemies in their attack range, they will redeploy near a ground enemy, use their skill without losing SP, and gain increased ATK and HP during the skill duration (affected by no. of stacks)\n<At 30 stacks> All Operators gain +50 ASDP",
+    "operatorsToActivate": 2,
+    "operators": [
+      {
+        "name": "Utage",
+        "faction": "Higashi",
+        "star": 4,
+        "class_": "Guard",
+        "branch": "Soloblade",
+        "imageUrl": "90px-Utage_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Humus",
+        "faction": "Rhodes Island",
+        "star": 4,
+        "class_": "Guard",
+        "branch": "Reaper",
+        "imageUrl": "90px-Humus_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Blemishine",
+        "faction": "Kazimierz",
+        "star": 6,
+        "class_": "Defender",
+        "branch": "Guardian",
+        "imageUrl": "90px-Blemishine_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Skadi",
+        "faction": "Abyssal Hunters",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Dreadnought",
+        "imageUrl": "90px-Skadi_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Ines",
+        "faction": "Babel",
+        "star": 6,
+        "class_": "Vanguard",
+        "branch": "Agent",
+        "imageUrl": "90px-Ines_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Texas the Omertosa",
+        "faction": "Penguin Logistics",
+        "star": 6,
+        "class_": "Specialist",
+        "branch": "Executor",
+        "imageUrl": "90px-Texas_the_Omertosa_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Surtr",
+        "faction": "Rhodes Island",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Arts Fighter",
+        "imageUrl": "90px-Surtr_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Nearl the Radiant Knight",
+        "faction": "Kazimierz",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Dreadnought",
+        "imageUrl": "90px-Nearl_the_Radiant_Knight_icon_H0P8.webp",
+        "rank": "VI"
+      },
+      {
+        "name": "Qiubai",
+        "faction": "Yan",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Lord",
+        "imageUrl": "90px-Qiubai_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Raid_Alliance.webp"
+  },
+  {
+    "name": "Resilient",
+    "desc": "When a Ground Operator is defeated, there is a chance they will immediately redeploy (affected by no. of stacks)\n<With 3 different [Resilient] Operators on field> When defeated, Ground Operators grant +5 SP to all Operators on the field",
+    "operatorsToActivate": 2,
+    "operators": [
+      {
+        "name": "Liskarm",
+        "faction": "Blacksteel",
+        "star": 5,
+        "class_": "Defender",
+        "branch": "Sentry Protector",
+        "imageUrl": "90px-Liskarm_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Gravel",
+        "faction": "Kazimierz",
+        "star": 4,
+        "class_": "Specialist",
+        "branch": "Executor",
+        "imageUrl": "90px-Gravel_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Cuora",
+        "faction": "Columbia",
+        "star": 4,
+        "class_": "Defender",
+        "branch": "Protector",
+        "imageUrl": "90px-Cuora_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Bagpipe",
+        "faction": "Victoria",
+        "star": 6,
+        "class_": "Vanguard",
+        "branch": "Charger",
+        "imageUrl": "90px-Bagpipe_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Specter the Unchained",
+        "faction": "Abyssal Hunters",
+        "star": 6,
+        "class_": "Specialist",
+        "branch": "Dollkeeper",
+        "imageUrl": "90px-Specter_the_Unchained_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Entelechia",
+        "faction": "Rhodes Island",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Reaper",
+        "imageUrl": "90px-Entelechia_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Pepe",
+        "faction": "Sargon",
+        "star": 6,
+        "class_": "Guard",
+        "branch": "Earthshaker",
+        "imageUrl": "90px-Pepe_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Resilient_Alliance.webp"
+  },
+  {
+    "name": "Harmony",
+    "desc": "The [Harmony] Alliance grants +1 Operator count to all Core Alliances on field, and [Harmony] Operators also gain effects from these activated Alliances",
+    "operatorsToActivate": 1,
+    "operators": [
+      {
+        "name": "Muelsyse",
+        "faction": "Rhine Lab",
+        "star": 6,
+        "class_": "Vanguard",
+        "branch": "Tactician",
+        "imageUrl": "90px-Muelsyse_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Harmony_Alliance.webp"
+  },
+  {
+    "name": "Assist Operator",
+    "desc": "All Operators take -20% Physical and Arts damage, Assist Operators deal 120% damage; Elite Assist Operators deal 140% more damage",
+    "operatorsToActivate": 2,
+    "operators": [
+      {
+        "name": "Perfumer",
+        "faction": "Rhodes Island",
+        "star": 4,
+        "class_": "Medic",
+        "branch": "Multi-target",
+        "imageUrl": "90px-Perfumer_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Pinecone",
+        "faction": "Columbia",
+        "star": 4,
+        "class_": "Sniper",
+        "branch": "Spreadshooter",
+        "imageUrl": "90px-Pinecone_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Civilight Eterna",
+        "faction": "Rhodes Island",
+        "star": 6,
+        "class_": "Supporter",
+        "branch": "Bard",
+        "imageUrl": "90px-Civilight_Eterna_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Suzuran",
+        "faction": "Siracusa",
+        "star": 6,
+        "class_": "Supporter",
+        "branch": "Decel Binder",
+        "imageUrl": "90px-Suzuran_icon_H0P8.webp",
+        "rank": "V"
+      },
+      {
+        "name": "Rosmontis",
+        "faction": "Elite Op",
+        "star": 6,
+        "class_": "Sniper",
+        "branch": "Flinger",
+        "imageUrl": "90px-Rosmontis_icon_H0P8.webp",
+        "rank": "VI"
+      }
+    ],
+    "imageUrl": "Assist_Operator_Alliance.webp"
+  },
+  {
+    "name": "Solo",
+    "desc": "<With 1 [Solo] Operator on field>\nThe [Solo] Operators gains +60% ATK and HP; and +15 SP on deployment (Effect disabled with 2 or more different [Solo] Operators on field)",
+    "operatorsToActivate": 1,
+    "operators": [
+      {
+        "name": "Texas",
+        "faction": "Penguin Logistics",
+        "star": 5,
+        "class_": "Vanguard",
+        "branch": "Pioneer",
+        "imageUrl": "90px-Texas_icon_H0P8.webp",
+        "rank": "I"
+      },
+      {
+        "name": "Vetochki",
+        "faction": "Ursus",
+        "star": 5,
+        "class_": "Defender",
+        "branch": "Juggernaut",
+        "imageUrl": "90px-Vetochki_icon_H0P8.webp",
+        "rank": "II"
+      },
+      {
+        "name": "Meteor",
+        "faction": "Kazimierz",
+        "star": 4,
+        "class_": "Sniper",
+        "branch": "Marksman",
+        "imageUrl": "90px-Meteor_icon_H0P8.webp",
+        "rank": "III"
+      },
+      {
+        "name": "Mizuki",
+        "faction": "Higashi",
+        "star": 6,
+        "class_": "Specialist",
+        "branch": "Ambusher",
+        "imageUrl": "90px-Mizuki_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Mudrock",
+        "faction": "Rhodes Island",
+        "star": 6,
+        "class_": "Defender",
+        "branch": "Juggernaut",
+        "imageUrl": "90px-Mudrock_icon_H0P8.webp",
+        "rank": "IV"
+      },
+      {
+        "name": "Saria",
+        "faction": "Rhine Lab",
+        "star": 6,
+        "class_": "Defender",
+        "branch": "Guardian",
+        "imageUrl": "90px-Saria_icon_H0P8.webp",
+        "rank": "V"
+      }
+    ],
+    "imageUrl": "Solo_Alliance.webp"
+  }
+]
