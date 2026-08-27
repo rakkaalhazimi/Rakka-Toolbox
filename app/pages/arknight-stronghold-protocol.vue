@@ -105,14 +105,11 @@
   <UContainer>
     
     <!-- Activated Alliances -->
-    <!-- flex flex-wrap gap-2 justify-around -->
+    <h3 class="mt-2 text-left">Active Alliances</h3>
     <div class="
-      overflow-x-scroll no-scrollbar
-      flex gap-x-8
-      mx-auto mt-4 mb-2
-      max-w-md h-[80px]
-      "
-    >
+      overflow-x-scroll no-scrollbar 
+      flex gap-x-8 my-2 mx-auto max-w-md h-[70px]
+    ">
       <AllianceSegments
         v-for="(value, key) in alliancesCount"
         :key="key"
@@ -124,39 +121,46 @@
       />
     </div>
     
+    <USeparator />
+    
     <!-- Choosen Operators -->
-    <div class="grid grid-cols-4 gap-2 mx-auto max-w-md">
-      <div 
-        v-for="(_, index) in maxOperatorDeploy" 
-        :key="index"
-        class="
-          aspect-square 
-          flex justify-center items-center 
-          bg-neutral-500
-        "
-        :class="{'cursor-pointer': selectedOperators[index]}"
-      >
-        <template v-if="selectedOperators[index]">
-          <img 
-            :src="`${operatorDir}/${selectedOperators[index].imageUrl}`"
-            :alt="selectedOperators[index].name"
-            @click="() => handleDeselectOperator(selectedOperators[index]!)"
-          />
-        </template>
+    <div class="my-4">
+      <h3 class="mb-2 text-left">Choosen Operators</h3>
+      <div class="grid grid-cols-4 gap-2 mx-auto mb-4 max-w-md">
+        <div 
+          v-for="(_, index) in maxOperatorDeploy" 
+          :key="index"
+          class="
+            aspect-square 
+            flex justify-center items-center 
+            bg-neutral-500
+          "
+          :class="{'cursor-pointer': selectedOperators[index]}"
+        >
+          <template v-if="selectedOperators[index]">
+            <img 
+              :src="`${operatorDir}/${selectedOperators[index].imageUrl}`"
+              :alt="selectedOperators[index].name"
+              @click="() => handleDeselectOperator(selectedOperators[index]!)"
+            />
+          </template>
+        </div>
       </div>
+      <UButton 
+        variant="outline"
+        color="error"
+        class="block mx-auto cursor-pointer"
+        @click="handleClearOperators"
+      >
+        Clear
+      </UButton>
     </div>
     
-    <UButton 
-      variant="outline"
-      color="error"
-      class="block mx-auto my-2 cursor-pointer"
-      @click="handleClearOperators"
-    >
-      Clear
-    </UButton>
+    <USeparator />
     
     <!-- Alliances -->
-    <ul class="overflow-x-scroll no-scrollbar flex gap-2">
+    <h3 class="mt-4 mb-2 text-left">Alliances</h3>
+    <ul class="overflow-x-scroll no-scrollbar flex gap-2 mb-4">
       <li v-for="item in alliances" class="shrink-0">
         <img
           :key="item.name"
