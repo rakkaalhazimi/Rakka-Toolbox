@@ -189,8 +189,11 @@
           <!-- <p class="whitespace-pre-line">{{ item.desc }}</p> -->
           
           <!-- Operators -->
-          <ul class="flex flex-wrap gap-2">
-            <li v-for="operator in item.operators" class="shrink-0">
+          <ul class="grid grid-cols-4 gap-2">
+            <li 
+              v-for="operator in item.operators" 
+              class="aspect-square flex justify-center items-center"
+            >
               <img
                 :key="operator.name"
                 :alt="operator.name"
