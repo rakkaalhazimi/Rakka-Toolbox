@@ -66,8 +66,13 @@
       }
       return acc;
     }, {} as Record<AllianceEnum, AllianceCount>);
+  
+  // Sort by the most alliance count first
+  const sortedCount = Object.fromEntries(
+    Object.entries(count).sort((a, b) => b[1].count - a[1].count)
+  );
     
-    return count;
+    return sortedCount;
   });
   
   
