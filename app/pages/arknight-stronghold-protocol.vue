@@ -108,7 +108,7 @@
     <h3 class="mt-2 text-left">Active Alliances</h3>
     <div class="
       overflow-x-scroll no-scrollbar 
-      flex gap-x-8 my-2 mx-auto max-w-md h-[70px]
+      flex gap-x-8 my-2 mx-auto max-w-md h-[80px]
     ">
       <AllianceSegments
         v-for="(value, key) in alliancesCount"
