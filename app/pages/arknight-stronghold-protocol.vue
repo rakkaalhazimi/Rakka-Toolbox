@@ -105,28 +105,30 @@
   <UContainer>
     
     <!-- Activated Alliances -->
-    <h3 class="mt-2 text-left">Active Alliances</h3>
-    <div class="
-      overflow-x-scroll no-scrollbar 
-      flex gap-x-4 my-2 mx-auto max-w-md h-[80px]
-    ">
-      <AllianceSegments
-        v-for="(value, key) in alliancesCount"
-        :key="key"
-        :segments="value.requiredToActivate" 
-        :completed="value.count" 
-        :imageUrl="`${allianceDir}/${value.imageUrl}`"
-        :name="key"
-        class="shrink-0"
-      />
+    <div class="mx-auto max-w-md">
+      <h3 class="mt-2 text-left">Active Alliances</h3>
+      <div class="
+        overflow-x-scroll no-scrollbar
+        flex gap-x-4 my-2 mx-auto max-w-md h-[80px]
+      ">
+        <AllianceSegments
+          v-for="(value, key) in alliancesCount"
+          :key="key"
+          :segments="value.requiredToActivate" 
+          :completed="value.count" 
+          :imageUrl="`${allianceDir}/${value.imageUrl}`"
+          :name="key"
+          class="shrink-0"
+        />
+      </div>
     </div>
     
-    <USeparator />
+    <USeparator class="mx-auto max-w-md" />
     
     <!-- Choosen Operators -->
-    <div class="my-4">
+    <div class="my-4 mx-auto max-w-md">
       <h3 class="mb-2 text-left">Choosen Operators</h3>
-      <div class="grid grid-cols-4 gap-2 mx-auto mb-4 max-w-md">
+      <div class="grid grid-cols-4 gap-2 mx-auto mb-4">
         <div 
           v-for="(_, index) in maxOperatorDeploy" 
           :key="index"
@@ -156,65 +158,69 @@
       </UButton>
     </div>
     
-    <USeparator />
+    <USeparator class="mx-auto max-w-md" />
     
     <!-- Alliances -->
-    <h3 class="mt-4 mb-2 text-left">Alliances</h3>
-    <ul class="overflow-x-scroll no-scrollbar flex items-center gap-2 mb-4 h-[80px]">
-      <li 
-        v-for="item in alliances" 
-        class="shrink-0 flex flex-col justify-start items-center h-full"
-      >
-        <img
-          :key="item.name"
-          :alt="item.imageUrl"
-          :src="`${allianceDir}/${item.imageUrl}`"
-          :width="allianceIconSizePx"
-          :height="allianceIconSizePx"
-          class="rounded-full bg-neutral-700 cursor-pointer"
-          :class="{'outline-2 outline-primary/75': item.name === currentAliance}"
-          @click="() => handleChangeAlliance(item.name)"
-        />
-        <p class="w-[60px] text-xs text-center text-wrap">{{ item.name }}</p>
-      </li>
-    </ul>
+    <div class="mx-auto max-w-md">
+      <h3 class="mt-4 mb-2 text-left">Alliances</h3>
+      <ul class="overflow-x-scroll no-scrollbar flex items-center gap-2 mb-4 h-[80px]">
+        <li 
+          v-for="item in alliances" 
+          class="shrink-0 flex flex-col justify-start items-center h-full"
+        >
+          <img
+            :key="item.name"
+            :alt="item.imageUrl"
+            :src="`${allianceDir}/${item.imageUrl}`"
+            :width="allianceIconSizePx"
+            :height="allianceIconSizePx"
+            class="rounded-full bg-neutral-700 cursor-pointer"
+            :class="{'outline-2 outline-primary/75': item.name === currentAliance}"
+            @click="() => handleChangeAlliance(item.name)"
+          />
+          <p class="w-[60px] text-xs text-center text-wrap">{{ item.name }}</p>
+        </li>
+      </ul>
+    </div>
     
     <!-- Alliances Content -->
-    <ul class="flex flex-col gap-y-2">
-      <template v-for="item in alliances" :key="item.name">
-        <li v-show="item.name === currentAliance">
-          <!-- Alliances Summary -->
-          <!-- <h3>{{ item.name }}</h3> -->
-          <UAccordion :items="[{label: item.name, ...item}]">
-            <template #content="{ item }">
-              <p class="text-sm whitespace-pre-line">{{ item.desc }}</p>
-            </template>
-          </UAccordion>
+    <div class="mx-auto max-w-md">
+      <ul class="flex flex-col gap-y-2">
+        <template v-for="item in alliances" :key="item.name">
+          <li v-show="item.name === currentAliance">
+            <!-- Alliances Summary -->
+            <!-- <h3>{{ item.name }}</h3> -->
+            <UAccordion :items="[{label: item.name, ...item}]">
+              <template #content="{ item }">
+                <p class="text-sm whitespace-pre-line">{{ item.desc }}</p>
+              </template>
+            </UAccordion>
+            
+            <!-- <p class="whitespace-pre-line">{{ item.desc }}</p> -->
+            
+            <!-- Operators -->
+            <ul class="grid grid-cols-4 gap-2">
+              <li 
+                v-for="operator in item.operators" 
+                class="aspect-square flex justify-center items-center"
+              >
+                <img
+                  :key="operator.name"
+                  :alt="operator.name"
+                  :src="`${operatorDir}/${operator.imageUrl}`"
+                  :width="operatorIconSizePx"
+                  :height="operatorIconSizePx"
+                  class="bg-blue-400 cursor-pointer"
+                  @click="() => handleChooseOperator(operator)"
+                />
+              </li>
+            </ul>
+            
+          </li>
           
-          <!-- <p class="whitespace-pre-line">{{ item.desc }}</p> -->
-          
-          <!-- Operators -->
-          <ul class="grid grid-cols-4 gap-2">
-            <li 
-              v-for="operator in item.operators" 
-              class="aspect-square flex justify-center items-center"
-            >
-              <img
-                :key="operator.name"
-                :alt="operator.name"
-                :src="`${operatorDir}/${operator.imageUrl}`"
-                :width="operatorIconSizePx"
-                :height="operatorIconSizePx"
-                class="bg-blue-400 cursor-pointer"
-                @click="() => handleChooseOperator(operator)"
-              />
-            </li>
-          </ul>
-          
-        </li>
-        
-      </template>
-    </ul>
+        </template>
+      </ul>
+    </div>
     
   </UContainer>
   
