@@ -1754,7 +1754,7 @@
   {
     "name": "Assist Operator",
     "desc": "All Operators take -20% Physical and Arts damage, Assist Operators deal 120% damage; Elite Assist Operators deal 140% more damage",
-    "operatorsToActivate": 1,
+    "operatorsToActivate": 2,
     "operators": [
       {
         "name": "Perfumer",
