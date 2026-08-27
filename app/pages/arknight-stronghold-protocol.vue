@@ -178,7 +178,10 @@
             :class="{'outline-2 outline-primary/75': item.name === currentAliance}"
             @click="() => handleChangeAlliance(item.name)"
           />
-          <p class="w-[60px] text-xs text-center text-wrap">{{ item.name }}</p>
+          <p 
+            class="w-[60px] text-xs text-center text-wrap"
+            :class="{'text-primary': item.name === currentAliance}"
+          >{{ item.name }}</p>
         </li>
       </ul>
     </div>
