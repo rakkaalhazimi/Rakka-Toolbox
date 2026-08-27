@@ -107,7 +107,7 @@
     <!-- Activated Alliances -->
     <!-- flex flex-wrap gap-2 justify-around -->
     <div class="
-      overflow-x-scroll
+      overflow-x-scroll no-scrollbar
       flex gap-x-8
       mx-auto mt-4 mb-2
       max-w-md h-[80px]
@@ -156,7 +156,7 @@
     </UButton>
     
     <!-- Alliances -->
-    <ul class="overflow-x-scroll flex gap-2">
+    <ul class="overflow-x-scroll no-scrollbar flex gap-2">
       <li v-for="item in alliances" class="shrink-0">
         <img
           :key="item.name"
@@ -173,7 +173,7 @@
     <!-- Alliances Content -->
     <ul class="flex flex-col gap-y-2">
       <template v-for="item in alliances" :key="item.name">
-        <li v-if="item.name === currentAliance">
+        <li v-show="item.name === currentAliance">
           <!-- Alliances Summary -->
           <!-- <h3>{{ item.name }}</h3> -->
           <UAccordion :items="[{label: item.name, ...item}]">
